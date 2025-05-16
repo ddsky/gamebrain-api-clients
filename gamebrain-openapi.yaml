@@ -1,0 +1,495 @@
+openapi: 3.0.3
+info:
+  title: GameBrain API
+  description: GameBrain API
+  version: 1.0.0
+servers:
+  - url: 'https://api.gamebrain.co/v1'
+paths:
+  /games:
+    get:
+      summary: "GET v1/games"
+      operationId: "search"
+      parameters:
+        - name: "query"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "offset"
+          in: "query"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+            default: "0"
+        - name: "limit"
+          in: "query"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+            default: "48"
+        - name: "filters"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+            default: "[]"
+        - name: "sort"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "sort-order"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+            default: "asc"
+        - name: "generate-filter-options"
+          in: "query"
+          required: true
+          schema:
+            type: "boolean"
+            default: "true"
+        - name: "api-key"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResponse"
+  /games/suggestions:
+    get:
+      summary: "GET v1/games/suggestions"
+      operationId: "suggest"
+      parameters:
+        - name: "query"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "limit"
+          in: "query"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+            default: "10"
+        - name: "api-key"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchSuggestionResponse"
+  /games/{id}:
+    get:
+      summary: "GET v1/games/{id}"
+      operationId: "detail"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+        - name: "api-key"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameResponse"
+  /games/{id}/similar:
+    get:
+      summary: "GET v1/games/{id}/similar"
+      operationId: "similar"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+        - name: "limit"
+          in: "query"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+            default: "10"
+        - name: "api-key"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SimilarGamesResponse"
+components:
+  schemas:
+    SearchResponse:
+      type: object
+      properties:
+        sorting:
+          type: object
+          properties:
+            key:
+              type: string
+              nullable: true
+            direction:
+              type: string
+              nullable: true
+        active_filter_options:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              connection:
+                type: string
+              values:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    match:
+                      type: string
+                    value:
+                      type: string
+        query:
+          type: string
+        total_results:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              year:
+                type: number
+              name:
+                type: string
+              genre:
+                type: string
+              image:
+                type: string
+                format: uri
+              link:
+                type: string
+              rating:
+                type: object
+                properties:
+                  mean:
+                    type: number
+                  count:
+                    type: number
+              adult_only:
+                type: boolean
+              screenshots:
+                type: array
+                items:
+                  type: string
+                  format: uri
+              micro_trailer:
+                type: string
+                format: uri
+              gameplay:
+                type: string
+                format: uri
+              short_description:
+                type: string
+        filter_options:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              key:
+                type: string
+              values:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    key:
+                      type: string
+                    count:
+                      type: number
+        sorting_options:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              sort:
+                type: string
+              key:
+                type: string
+    SearchSuggestionResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              year:
+                type: number
+              name:
+                type: string
+              genre:
+                type: string
+              image:
+                type: string
+                format: uri
+              link:
+                type: string
+              rating:
+                type: object
+                properties:
+                  mean:
+                    type: number
+                  count:
+                    type: number
+              adult_only:
+                type: boolean
+    GameResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        image:
+          type: string
+          format: uri
+        gameplay:
+          type: string
+          format: uri
+        link:
+          type: string
+          format: uri
+        x_url:
+          type: string
+          format: uri
+        rating:
+          type: object
+          properties:
+            mean:
+              type: number
+              format: float
+              nullable: true
+            count:
+              type: integer
+            mean_players:
+              type: number
+              format: float
+              nullable: true
+            count_players:
+              type: integer
+            mean_critics:
+              type: number
+              format: float
+              nullable: true
+            count_critics:
+              type: integer
+        description:
+          type: string
+        short_description:
+          type: string
+        release_date:
+          type: string
+          format: date
+        developer:
+          type: string
+        playtime:
+          type: object
+          properties:
+            percentiles:
+              type: array
+              items:
+                type: integer
+            min:
+              type: integer
+            median:
+              type: integer
+            max:
+              type: integer
+            mean:
+              type: number
+              format: float
+            mentions:
+              type: integer
+        platforms:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              name:
+                type: string
+        tags:
+          type: array
+          items:
+            type: string
+        genres:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              name:
+                type: string
+        genre:
+          type: string
+        themes:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              name:
+                type: string
+        adult_only:
+          type: boolean
+        play_modes:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              name:
+                type: string
+        screenshots:
+          type: array
+          items:
+            type: string
+            format: uri
+        videos:
+          type: array
+          items:
+            type: string
+            format: uri
+        offers:
+          type: array
+          items:
+            type: object
+            properties:
+              price:
+                type: object
+                properties:
+                  currency:
+                    type: string
+                  discount_percent:
+                    type: number
+                    format: float
+                  value:
+                    type: number
+                    format: float
+                  initial:
+                    type: number
+                    format: float
+              store_name:
+                type: string
+              platform:
+                type: string
+              title:
+                type: string
+              url:
+                type: string
+                format: uri
+        official_stores:
+          type: array
+          items:
+            type: object
+            properties:
+              source:
+                type: string
+              url:
+                type: string
+                format: uri
+        micro_trailer:
+          type: string
+          format: uri
+    SimilarGamesResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              year:
+                type: number
+              name:
+                type: string
+              genre:
+                type: string
+              image:
+                type: string
+                format: uri
+              link:
+                type: string
+              rating:
+                type: object
+                properties:
+                  mean:
+                    type: number
+                  count:
+                    type: number
+              adult_only:
+                type: boolean
+              screenshots:
+                type: array
+                items:
+                  type: string
+                  format: uri
+              micro_trailer:
+                type: string
+                format: uri
+              gameplay:
+                type: string
+                format: uri
+              short_description:
+                type: string

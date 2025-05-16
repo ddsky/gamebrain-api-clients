@@ -1,0 +1,18 @@
+{application, gamebrain,
+ [{description, "GameBrain API"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {applications,
+    [kernel,
+     stdlib,
+     ssl,
+     hackney,
+     ctx
+    ]},
+  {env, [{host, "api.gamebrain.co"}]},
+  {modules, []},
+
+  {maintainers, []},
+  {licenses, []},
+  {links, []}
+]}.

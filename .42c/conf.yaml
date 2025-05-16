@@ -1,0 +1,3 @@
+apis:
+  gamebrain-openapi.yaml:
+    alias: gamebrain-api

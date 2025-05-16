@@ -1,0 +1,14 @@
+{
+    "artifactId": "co.gamebrain",
+    "artifactUrl": "https://gamebrain.co/api/sdks/",
+    "dateLibrary": "java8",
+    "artifactDescription": "Java Client for the Game Brain API",
+    "developerName": "David Urbansky",
+	"developerEmail": "mail@gamebrain.co",
+	"developerOrganization": "gamebrain.co",
+	"developerOrganizationUrl": "https://gamebrain.co",
+	"licenseName": "Game Brain API License",
+	"licenseUrl": "https://gamebrain.co/api/terms/",
+	"java8": true
+}
+
