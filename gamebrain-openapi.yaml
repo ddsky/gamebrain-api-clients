@@ -1,14 +1,22 @@
-openapi: 3.0.3
+openapi: 3.0.0
 info:
   title: GameBrain API
   description: GameBrain API
+  termsOfService: https://gamebrain.co/api/terms
   version: 1.0.0
+  contact:
+    name: David Urbansky
+    email: mail@gamebrain.co
+security:
+  - apiKey: []
+  - headerApiKey: []
 servers:
   - url: 'https://api.gamebrain.co/v1'
 paths:
   /games:
     get:
-      summary: "GET v1/games"
+      summary: "Search Games"
+      description: "Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination"
       operationId: "search"
       parameters:
         - name: "query"
@@ -16,48 +24,62 @@ paths:
           required: true
           schema:
             type: "string"
+            maxLength: 300
+            pattern: ".*"
+            example: "rpg for PC"
         - name: "offset"
           in: "query"
           required: true
           schema:
             type: "integer"
             format: "int32"
-            default: "0"
+            default: 0
         - name: "limit"
           in: "query"
           required: true
           schema:
             type: "integer"
             format: "int32"
-            default: "48"
+            default: 48
         - name: "filters"
           in: "query"
           required: true
           schema:
             type: "string"
+            maxLength: 3000
+            pattern: ".*"
             default: "[]"
         - name: "sort"
           in: "query"
           required: true
           schema:
             type: "string"
+            maxLength: 300
+            pattern: ".*"
+            example: "computed_rating"
         - name: "sort-order"
           in: "query"
           required: true
           schema:
             type: "string"
             default: "asc"
+            maxLength: 4
+            pattern: "(asc|desc)"
+            example: "asc"
         - name: "generate-filter-options"
           in: "query"
           required: true
           schema:
             type: "boolean"
-            default: "true"
+            default: true
         - name: "api-key"
           in: "query"
           required: true
           schema:
             type: "string"
+            maxLength: 300
+            pattern: ".*"
+            example: "abc123"
       responses:
         "200":
           description: "OK"
@@ -67,7 +89,8 @@ paths:
                 $ref: "#/components/schemas/SearchResponse"
   /games/suggestions:
     get:
-      summary: "GET v1/games/suggestions"
+      summary: "Get Game Suggestions"
+      description: "Get game suggestions based on (partial) search queries. For example, the query 'gt' will return games like GTA."
       operationId: "suggest"
       parameters:
         - name: "query"
@@ -75,18 +98,24 @@ paths:
           required: true
           schema:
             type: "string"
+            maxLength: 300
+            pattern: ".*"
+            example: "gt"
         - name: "limit"
           in: "query"
           required: true
           schema:
             type: "integer"
             format: "int32"
-            default: "10"
+            default: 10
         - name: "api-key"
           in: "query"
           required: true
           schema:
             type: "string"
+            maxLength: 300
+            pattern: ".*"
+            example: "abc123"
       responses:
         "200":
           description: "OK"
@@ -96,7 +125,8 @@ paths:
                 $ref: "#/components/schemas/SearchSuggestionResponse"
   /games/{id}:
     get:
-      summary: "GET v1/games/{id}"
+      summary: "Get Game Details"
+      description: "Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more."
       operationId: "detail"
       parameters:
         - name: "id"
@@ -110,6 +140,9 @@ paths:
           required: true
           schema:
             type: "string"
+            maxLength: 300
+            pattern: ".*"
+            example: "abc123"
       responses:
         "200":
           description: "OK"
@@ -119,7 +152,8 @@ paths:
                 $ref: "#/components/schemas/GameResponse"
   /games/{id}/similar:
     get:
-      summary: "GET v1/games/{id}/similar"
+      summary: "Get Similar Games"
+      description: "Get games that are similar to the given one."
       operationId: "similar"
       parameters:
         - name: "id"
@@ -134,12 +168,15 @@ paths:
           schema:
             type: "integer"
             format: "int32"
-            default: "10"
+            default: 10
         - name: "api-key"
           in: "query"
           required: true
           schema:
             type: "string"
+            maxLength: 300
+            pattern: ".*"
+            example: "abc123"
       responses:
         "200":
           description: "OK"
@@ -148,6 +185,15 @@ paths:
               schema:
                 $ref: "#/components/schemas/SimilarGamesResponse"
 components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: query
+      name: api-key
+    headerApiKey:
+      type: apiKey
+      in: header
+      name: x-api-key
   schemas:
     SearchResponse:
       type: object
@@ -163,6 +209,7 @@ components:
               nullable: true
         active_filter_options:
           type: array
+          maxItems: 100
           items:
             type: object
             properties:
@@ -172,6 +219,7 @@ components:
                 type: string
               values:
                 type: array
+                maxItems: 100
                 items:
                   type: object
                   properties:
@@ -189,6 +237,7 @@ components:
           type: integer
         results:
           type: array
+          maxItems: 100
           items:
             type: object
             properties:
@@ -216,6 +265,7 @@ components:
                 type: boolean
               screenshots:
                 type: array
+                maxItems: 100
                 items:
                   type: string
                   format: uri
@@ -229,6 +279,7 @@ components:
                 type: string
         filter_options:
           type: array
+          maxItems: 100
           items:
             type: object
             properties:
@@ -238,6 +289,7 @@ components:
                 type: string
               values:
                 type: array
+                maxItems: 100
                 items:
                   type: object
                   properties:
@@ -249,6 +301,7 @@ components:
                       type: number
         sorting_options:
           type: array
+          maxItems: 100
           items:
             type: object
             properties:
@@ -263,6 +316,7 @@ components:
       properties:
         results:
           type: array
+          maxItems: 100
           items:
             type: object
             properties:
@@ -342,6 +396,7 @@ components:
           properties:
             percentiles:
               type: array
+              maxItems: 100
               items:
                 type: integer
             min:
@@ -357,6 +412,7 @@ components:
               type: integer
         platforms:
           type: array
+          maxItems: 100
           items:
             type: object
             properties:
@@ -366,10 +422,12 @@ components:
                 type: string
         tags:
           type: array
+          maxItems: 100
           items:
             type: string
         genres:
           type: array
+          maxItems: 100
           items:
             type: object
             properties:
@@ -381,6 +439,7 @@ components:
           type: string
         themes:
           type: array
+          maxItems: 100
           items:
             type: object
             properties:
@@ -392,6 +451,7 @@ components:
           type: boolean
         play_modes:
           type: array
+          maxItems: 100
           items:
             type: object
             properties:
@@ -401,16 +461,19 @@ components:
                 type: string
         screenshots:
           type: array
+          maxItems: 100
           items:
             type: string
             format: uri
         videos:
           type: array
+          maxItems: 100
           items:
             type: string
             format: uri
         offers:
           type: array
+          maxItems: 100
           items:
             type: object
             properties:
@@ -439,6 +502,7 @@ components:
                 format: uri
         official_stores:
           type: array
+          maxItems: 100
           items:
             type: object
             properties:
@@ -455,6 +519,7 @@ components:
       properties:
         results:
           type: array
+          maxItems: 100
           items:
             type: object
             properties:
@@ -482,6 +547,7 @@ components:
                 type: boolean
               screenshots:
                 type: array
+                maxItems: 100
                 items:
                   type: string
                   format: uri
