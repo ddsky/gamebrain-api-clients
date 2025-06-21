@@ -22,6 +22,7 @@ paths:
         - name: "query"
           in: "query"
           required: true
+          description: "The search query, e.g., game name, platform, genre, or any combination."
           schema:
             type: "string"
             maxLength: 300
@@ -30,6 +31,7 @@ paths:
         - name: "offset"
           in: "query"
           required: true
+          description: "The number of results to skip before starting to collect the result set."
           schema:
             type: "integer"
             format: "int32"
@@ -37,6 +39,7 @@ paths:
         - name: "limit"
           in: "query"
           required: true
+          description: "The maximum number of results to return."
           schema:
             type: "integer"
             format: "int32"
@@ -44,6 +47,7 @@ paths:
         - name: "filters"
           in: "query"
           required: true
+          description: "JSON array of filter objects to apply to the search."
           schema:
             type: "string"
             maxLength: 3000
@@ -52,6 +56,7 @@ paths:
         - name: "sort"
           in: "query"
           required: true
+          description: "The field by which to sort the results."
           schema:
             type: "string"
             maxLength: 300
@@ -60,6 +65,7 @@ paths:
         - name: "sort-order"
           in: "query"
           required: true
+          description: "The sort order: 'asc' for ascending or 'desc' for descending."
           schema:
             type: "string"
             default: "asc"
@@ -69,12 +75,14 @@ paths:
         - name: "generate-filter-options"
           in: "query"
           required: true
+          description: "Whether to generate filter options in the response."
           schema:
             type: "boolean"
             default: true
         - name: "api-key"
           in: "query"
           required: true
+          description: "Your API key for authentication."
           schema:
             type: "string"
             maxLength: 300
@@ -96,6 +104,7 @@ paths:
         - name: "query"
           in: "query"
           required: true
+          description: "The partial search query to get suggestions for."
           schema:
             type: "string"
             maxLength: 300
@@ -104,6 +113,7 @@ paths:
         - name: "limit"
           in: "query"
           required: true
+          description: "The maximum number of suggestions to return."
           schema:
             type: "integer"
             format: "int32"
@@ -111,6 +121,7 @@ paths:
         - name: "api-key"
           in: "query"
           required: true
+          description: "Your API key for authentication."
           schema:
             type: "string"
             maxLength: 300
@@ -132,12 +143,14 @@ paths:
         - name: "id"
           in: "path"
           required: true
+          description: "The unique identifier of the game."
           schema:
             type: "integer"
             format: "int32"
         - name: "api-key"
           in: "query"
           required: true
+          description: "Your API key for authentication."
           schema:
             type: "string"
             maxLength: 300
