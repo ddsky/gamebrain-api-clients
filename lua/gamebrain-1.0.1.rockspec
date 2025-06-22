@@ -1,5 +1,5 @@
 package = "gamebrain"
-version = "1.0.0"
+version = "1.0.1"
 source = {
 	url = "https://github.com/ddsky/gamebrain-clients/tree/master/lua/.git"
 }

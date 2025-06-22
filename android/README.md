@@ -28,7 +28,7 @@ Add this dependency to your project's POM:
 <dependency>
     <groupId>co.gamebrain</groupId>
     <artifactId>android-client</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <scope>compile</scope>
 </dependency>
 ```
@@ -38,7 +38,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "co.gamebrain:android-client:1.0.0"
+compile "co.gamebrain:android-client:1.0.1"
 ```
 
 ### Others
@@ -49,7 +49,7 @@ At first generate the JAR by executing:
 
 Then manually install the following JARs:
 
-- target/android-client-1.0.0.jar
+- target/android-client-1.0.1.jar
 - target/lib/*.jar
 
 ## Getting Started
@@ -64,8 +64,8 @@ public class DefaultApiExample {
 
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
-        Integer id = null; // Integer | 
-        String apiKey = null; // String | 
+        Integer id = null; // Integer | The unique identifier of the game.
+        String apiKey = abc123; // String | Your API key for authentication.
         try {
             GameResponse result = apiInstance.detail(id, apiKey);
             System.out.println(result);
@@ -84,10 +84,10 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**detail**](docs/DefaultApi.md#detail) | **GET** /games/{id} | GET v1/games/{id}
-*DefaultApi* | [**search**](docs/DefaultApi.md#search) | **GET** /games | GET v1/games
-*DefaultApi* | [**similar**](docs/DefaultApi.md#similar) | **GET** /games/{id}/similar | GET v1/games/{id}/similar
-*DefaultApi* | [**suggest**](docs/DefaultApi.md#suggest) | **GET** /games/suggestions | GET v1/games/suggestions
+*DefaultApi* | [**detail**](docs/DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details
+*DefaultApi* | [**search**](docs/DefaultApi.md#search) | **GET** /games | Search Games
+*DefaultApi* | [**similar**](docs/DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games
+*DefaultApi* | [**suggest**](docs/DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions
 
 
 ## Documentation for Models
@@ -115,8 +115,21 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Authorization
 
-All endpoints do not require authorization.
 Authentication schemes defined for the API:
+### apiKey
+
+- **Type**: API key
+
+- **API key parameter name**: api-key
+- **Location**: URL query string
+
+### headerApiKey
+
+- **Type**: API key
+
+- **API key parameter name**: x-api-key
+- **Location**: HTTP header
+
 
 ## Recommendation
 
@@ -124,5 +137,5 @@ It's recommended to create an instance of `ApiClient` per thread in a multithrea
 
 ## Author
 
-
+mail@gamebrain.co
 

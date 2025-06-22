@@ -10,13 +10,14 @@ defmodule GameBrainAPI.Api.Default do
   import GameBrainAPI.RequestBuilder
 
   @doc """
-  GET v1/games/{id}
+  Get Game Details
+  Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more.
 
   ### Parameters
 
   - `connection` (GameBrainAPI.Connection): Connection to server
-  - `id` (integer()): 
-  - `api_key` (String.t): 
+  - `id` (integer()): The unique identifier of the game.
+  - `api_key` (String.t): Your API key for authentication.
   - `opts` (keyword): Optional parameters
 
   ### Returns
@@ -41,19 +42,20 @@ defmodule GameBrainAPI.Api.Default do
   end
 
   @doc """
-  GET v1/games
+  Search Games
+  Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
 
   ### Parameters
 
   - `connection` (GameBrainAPI.Connection): Connection to server
-  - `query` (String.t): 
-  - `offset` (integer()): 
-  - `limit` (integer()): 
-  - `filters` (String.t): 
-  - `sort` (String.t): 
-  - `sort_order` (String.t): 
-  - `generate_filter_options` (boolean()): 
-  - `api_key` (String.t): 
+  - `query` (String.t): The search query, e.g., game name, platform, genre, or any combination.
+  - `offset` (integer()): The number of results to skip before starting to collect the result set.
+  - `limit` (integer()): The maximum number of results to return.
+  - `filters` (String.t): JSON array of filter objects to apply to the search.
+  - `sort` (String.t): The field by which to sort the results.
+  - `sort_order` (String.t): The sort order: 'asc' for ascending or 'desc' for descending.
+  - `generate_filter_options` (boolean()): Whether to generate filter options in the response.
+  - `api_key` (String.t): Your API key for authentication.
   - `opts` (keyword): Optional parameters
 
   ### Returns
@@ -85,7 +87,8 @@ defmodule GameBrainAPI.Api.Default do
   end
 
   @doc """
-  GET v1/games/{id}/similar
+  Get Similar Games
+  Get games that are similar to the given one.
 
   ### Parameters
 
@@ -118,14 +121,15 @@ defmodule GameBrainAPI.Api.Default do
   end
 
   @doc """
-  GET v1/games/suggestions
+  Get Game Suggestions
+  Get game suggestions based on (partial) search queries. For example, the query 'gt' will return games like GTA.
 
   ### Parameters
 
   - `connection` (GameBrainAPI.Connection): Connection to server
-  - `query` (String.t): 
-  - `limit` (integer()): 
-  - `api_key` (String.t): 
+  - `query` (String.t): The partial search query to get suggestions for.
+  - `limit` (integer()): The maximum number of suggestions to return.
+  - `api_key` (String.t): Your API key for authentication.
   - `opts` (keyword): Optional parameters
 
   ### Returns

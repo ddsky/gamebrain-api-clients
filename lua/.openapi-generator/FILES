@@ -1,6 +1,6 @@
 .gitignore
 .openapi-generator-ignore
-gamebrain-1.0.0.rockspec
+gamebrain-1.0.1.rockspec
 gamebrain/api/default_api.lua
 gamebrain/model/game_response.lua
 gamebrain/model/game_response_offers_inner.lua

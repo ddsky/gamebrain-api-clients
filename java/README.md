@@ -1,7 +1,7 @@
 # java-client
 
 GameBrain API
-- API version: 1.0.0
+- API version: 1.0.1
   - Generator version: 7.8.0-SNAPSHOT
 
 GameBrain API
@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>co.gamebrain</groupId>
   <artifactId>java-client</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -56,7 +56,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "co.gamebrain:java-client:1.0.0"
+     implementation "co.gamebrain:java-client:1.0.1"
   }
 ```
 
@@ -70,7 +70,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/java-client-1.0.0.jar`
+* `target/java-client-1.0.1.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -83,6 +83,7 @@ Please follow the [installation](#installation) instruction and execute the foll
 import co.gamebrain.client.ApiClient;
 import co.gamebrain.client.ApiException;
 import co.gamebrain.client.Configuration;
+import co.gamebrain.client.auth.*;
 import co.gamebrain.client.models.*;
 import co.gamebrain.DefaultApi;
 
@@ -90,10 +91,22 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.gamebrain.co/v1");
+    
+    // Configure API key authorization: apiKey
+    ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
+    apiKey.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //apiKey.setApiKeyPrefix("Token");
+
+    // Configure API key authorization: headerApiKey
+    ApiKeyAuth headerApiKey = (ApiKeyAuth) defaultClient.getAuthentication("headerApiKey");
+    headerApiKey.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //headerApiKey.setApiKeyPrefix("Token");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    Integer id = 56; // Integer | 
-    String apiKey = "apiKey_example"; // String | 
+    Integer id = 56; // Integer | The unique identifier of the game.
+    String apiKey = "abc123"; // String | Your API key for authentication.
     try {
       GameResponse result = apiInstance.detail(id, apiKey);
       System.out.println(result);
@@ -115,10 +128,10 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**detail**](docs/DefaultApi.md#detail) | **GET** /games/{id} | GET v1/games/{id}
-*DefaultApi* | [**search**](docs/DefaultApi.md#search) | **GET** /games | GET v1/games
-*DefaultApi* | [**similar**](docs/DefaultApi.md#similar) | **GET** /games/{id}/similar | GET v1/games/{id}/similar
-*DefaultApi* | [**suggest**](docs/DefaultApi.md#suggest) | **GET** /games/suggestions | GET v1/games/suggestions
+*DefaultApi* | [**detail**](docs/DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details
+*DefaultApi* | [**search**](docs/DefaultApi.md#search) | **GET** /games | Search Games
+*DefaultApi* | [**similar**](docs/DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games
+*DefaultApi* | [**suggest**](docs/DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions
 
 
 ## Documentation for Models
@@ -147,7 +160,21 @@ Class | Method | HTTP request | Description
 <a id="documentation-for-authorization"></a>
 ## Documentation for Authorization
 
-Endpoints do not require authorization.
+
+Authentication schemes defined for the API:
+<a id="apiKey"></a>
+### apiKey
+
+- **Type**: API key
+- **API key parameter name**: api-key
+- **Location**: URL query string
+
+<a id="headerApiKey"></a>
+### headerApiKey
+
+- **Type**: API key
+- **API key parameter name**: x-api-key
+- **Location**: HTTP header
 
 
 ## Recommendation
@@ -156,5 +183,5 @@ It's recommended to create an instance of `ApiClient` per thread in a multithrea
 
 ## Author
 
-
+mail@gamebrain.co
 

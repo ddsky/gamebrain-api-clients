@@ -8,9 +8,9 @@ description:    .
                 .
                 base path: https://api.gamebrain.co/v1
                 .
-                GameBrain API API version: 1.0.0
+                GameBrain API API version: 1.0.1
                 .
-                OpenAPI version: 3.0.3
+                OpenAPI version: 3.0.0
                 .
                 Generator version: 7.8.0-SNAPSHOT
                 .

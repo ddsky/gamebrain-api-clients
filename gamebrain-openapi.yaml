@@ -3,7 +3,7 @@ info:
   title: GameBrain API
   description: GameBrain API
   termsOfService: https://gamebrain.co/api/terms
-  version: 1.0.0
+  version: 1.0.1
   contact:
     name: David Urbansky
     email: mail@gamebrain.co

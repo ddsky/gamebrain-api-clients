@@ -27,7 +27,8 @@
 
 
 (defn-spec detail-with-http-info any?
-  "GET v1/games/{id}"
+  "Get Game Details
+  Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more."
   [id int?, api-key string?]
   (check-required-params id api-key)
   (call-api "/games/{id}" :get
@@ -37,10 +38,11 @@
              :form-params   {}
              :content-types []
              :accepts       ["application/json"]
-             :auth-names    []}))
+             :auth-names    ["apiKey" "headerApiKey"]}))
 
 (defn-spec detail game-response-spec
-  "GET v1/games/{id}"
+  "Get Game Details
+  Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more."
   [id int?, api-key string?]
   (let [res (:data (detail-with-http-info id api-key))]
     (if (:decode-models *api-context*)
@@ -49,7 +51,8 @@
 
 
 (defn-spec search-with-http-info any?
-  "GET v1/games"
+  "Search Games
+  Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination"
   [query string?, offset int?, limit int?, filters string?, sort string?, sort-order string?, generate-filter-options boolean?, api-key string?]
   (check-required-params query offset limit filters sort sort-order generate-filter-options api-key)
   (call-api "/games" :get
@@ -59,10 +62,11 @@
              :form-params   {}
              :content-types []
              :accepts       ["application/json"]
-             :auth-names    []}))
+             :auth-names    ["apiKey" "headerApiKey"]}))
 
 (defn-spec search search-response-spec
-  "GET v1/games"
+  "Search Games
+  Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination"
   [query string?, offset int?, limit int?, filters string?, sort string?, sort-order string?, generate-filter-options boolean?, api-key string?]
   (let [res (:data (search-with-http-info query offset limit filters sort sort-order generate-filter-options api-key))]
     (if (:decode-models *api-context*)
@@ -71,7 +75,8 @@
 
 
 (defn-spec similar-with-http-info any?
-  "GET v1/games/{id}/similar"
+  "Get Similar Games
+  Get games that are similar to the given one."
   [id int?, limit int?, api-key string?]
   (check-required-params id limit api-key)
   (call-api "/games/{id}/similar" :get
@@ -81,10 +86,11 @@
              :form-params   {}
              :content-types []
              :accepts       ["application/json"]
-             :auth-names    []}))
+             :auth-names    ["apiKey" "headerApiKey"]}))
 
 (defn-spec similar similar-games-response-spec
-  "GET v1/games/{id}/similar"
+  "Get Similar Games
+  Get games that are similar to the given one."
   [id int?, limit int?, api-key string?]
   (let [res (:data (similar-with-http-info id limit api-key))]
     (if (:decode-models *api-context*)
@@ -93,7 +99,8 @@
 
 
 (defn-spec suggest-with-http-info any?
-  "GET v1/games/suggestions"
+  "Get Game Suggestions
+  Get game suggestions based on (partial) search queries. For example, the query 'gt' will return games like GTA."
   [query string?, limit int?, api-key string?]
   (check-required-params query limit api-key)
   (call-api "/games/suggestions" :get
@@ -103,10 +110,11 @@
              :form-params   {}
              :content-types []
              :accepts       ["application/json"]
-             :auth-names    []}))
+             :auth-names    ["apiKey" "headerApiKey"]}))
 
 (defn-spec suggest search-suggestion-response-spec
-  "GET v1/games/suggestions"
+  "Get Game Suggestions
+  Get game suggestions based on (partial) search queries. For example, the query 'gt' will return games like GTA."
   [query string?, limit int?, api-key string?]
   (let [res (:data (suggest-with-http-info query limit api-key))]
     (if (:decode-models *api-context*)

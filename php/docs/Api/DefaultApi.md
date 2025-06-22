@@ -4,10 +4,10 @@ All URIs are relative to https://api.gamebrain.co/v1, except if the operation de
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
-| [**detail()**](DefaultApi.md#detail) | **GET** /games/{id} | GET v1/games/{id} |
-| [**search()**](DefaultApi.md#search) | **GET** /games | GET v1/games |
-| [**similar()**](DefaultApi.md#similar) | **GET** /games/{id}/similar | GET v1/games/{id}/similar |
-| [**suggest()**](DefaultApi.md#suggest) | **GET** /games/suggestions | GET v1/games/suggestions |
+| [**detail()**](DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details |
+| [**search()**](DefaultApi.md#search) | **GET** /games | Search Games |
+| [**similar()**](DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games |
+| [**suggest()**](DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions |
 
 
 ## `detail()`
@@ -16,7 +16,9 @@ All URIs are relative to https://api.gamebrain.co/v1, except if the operation de
 detail($id, $api_key): \OpenAPI\Client\Model\GameResponse
 ```
 
-GET v1/games/{id}
+Get Game Details
+
+Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more.
 
 ### Example
 
@@ -25,14 +27,25 @@ GET v1/games/{id}
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure API key authorization: apiKey
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: headerApiKey
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKey('x-api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('x-api-key', 'Bearer');
+
 
 $apiInstance = new OpenAPI\Client\Api\DefaultApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
-$id = 56; // int
-$api_key = 'api_key_example'; // string
+$id = 56; // int | The unique identifier of the game.
+$api_key = abc123; // string | Your API key for authentication.
 
 try {
     $result = $apiInstance->detail($id, $api_key);
@@ -46,8 +59,8 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **id** | **int**|  | |
-| **api_key** | **string**|  | |
+| **id** | **int**| The unique identifier of the game. | |
+| **api_key** | **string**| Your API key for authentication. | |
 
 ### Return type
 
@@ -55,7 +68,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[apiKey](../../README.md#apiKey), [headerApiKey](../../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -72,7 +85,9 @@ No authorization required
 search($query, $offset, $limit, $filters, $sort, $sort_order, $generate_filter_options, $api_key): \OpenAPI\Client\Model\SearchResponse
 ```
 
-GET v1/games
+Search Games
+
+Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
 
 ### Example
 
@@ -81,20 +96,31 @@ GET v1/games
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure API key authorization: apiKey
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: headerApiKey
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKey('x-api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('x-api-key', 'Bearer');
+
 
 $apiInstance = new OpenAPI\Client\Api\DefaultApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
-$query = 'query_example'; // string
-$offset = 56; // int
-$limit = 56; // int
-$filters = '[]'; // string
-$sort = 'sort_example'; // string
-$sort_order = 'asc'; // string
-$generate_filter_options = true; // bool
-$api_key = 'api_key_example'; // string
+$query = rpg for PC; // string | The search query, e.g., game name, platform, genre, or any combination.
+$offset = 0; // int | The number of results to skip before starting to collect the result set.
+$limit = 48; // int | The maximum number of results to return.
+$filters = '[]'; // string | JSON array of filter objects to apply to the search.
+$sort = computed_rating; // string | The field by which to sort the results.
+$sort_order = asc; // string | The sort order: 'asc' for ascending or 'desc' for descending.
+$generate_filter_options = true; // bool | Whether to generate filter options in the response.
+$api_key = abc123; // string | Your API key for authentication.
 
 try {
     $result = $apiInstance->search($query, $offset, $limit, $filters, $sort, $sort_order, $generate_filter_options, $api_key);
@@ -108,14 +134,14 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **query** | **string**|  | |
-| **offset** | **int**|  | |
-| **limit** | **int**|  | |
-| **filters** | **string**|  | [default to &#39;[]&#39;] |
-| **sort** | **string**|  | |
-| **sort_order** | **string**|  | [default to &#39;asc&#39;] |
-| **generate_filter_options** | **bool**|  | [default to true] |
-| **api_key** | **string**|  | |
+| **query** | **string**| The search query, e.g., game name, platform, genre, or any combination. | |
+| **offset** | **int**| The number of results to skip before starting to collect the result set. | [default to 0] |
+| **limit** | **int**| The maximum number of results to return. | [default to 48] |
+| **filters** | **string**| JSON array of filter objects to apply to the search. | [default to &#39;[]&#39;] |
+| **sort** | **string**| The field by which to sort the results. | |
+| **sort_order** | **string**| The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. | [default to &#39;asc&#39;] |
+| **generate_filter_options** | **bool**| Whether to generate filter options in the response. | [default to true] |
+| **api_key** | **string**| Your API key for authentication. | |
 
 ### Return type
 
@@ -123,7 +149,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[apiKey](../../README.md#apiKey), [headerApiKey](../../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -140,7 +166,9 @@ No authorization required
 similar($id, $limit, $api_key): \OpenAPI\Client\Model\SimilarGamesResponse
 ```
 
-GET v1/games/{id}/similar
+Get Similar Games
+
+Get games that are similar to the given one.
 
 ### Example
 
@@ -149,15 +177,26 @@ GET v1/games/{id}/similar
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure API key authorization: apiKey
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: headerApiKey
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKey('x-api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('x-api-key', 'Bearer');
+
 
 $apiInstance = new OpenAPI\Client\Api\DefaultApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $id = 56; // int
-$limit = 56; // int
-$api_key = 'api_key_example'; // string
+$limit = 10; // int
+$api_key = abc123; // string
 
 try {
     $result = $apiInstance->similar($id, $limit, $api_key);
@@ -172,7 +211,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **id** | **int**|  | |
-| **limit** | **int**|  | |
+| **limit** | **int**|  | [default to 10] |
 | **api_key** | **string**|  | |
 
 ### Return type
@@ -181,7 +220,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[apiKey](../../README.md#apiKey), [headerApiKey](../../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -198,7 +237,9 @@ No authorization required
 suggest($query, $limit, $api_key): \OpenAPI\Client\Model\SearchSuggestionResponse
 ```
 
-GET v1/games/suggestions
+Get Game Suggestions
+
+Get game suggestions based on (partial) search queries. For example, the query 'gt' will return games like GTA.
 
 ### Example
 
@@ -207,15 +248,26 @@ GET v1/games/suggestions
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure API key authorization: apiKey
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: headerApiKey
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKey('x-api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('x-api-key', 'Bearer');
+
 
 $apiInstance = new OpenAPI\Client\Api\DefaultApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
-$query = 'query_example'; // string
-$limit = 56; // int
-$api_key = 'api_key_example'; // string
+$query = gt; // string | The partial search query to get suggestions for.
+$limit = 10; // int | The maximum number of suggestions to return.
+$api_key = abc123; // string | Your API key for authentication.
 
 try {
     $result = $apiInstance->suggest($query, $limit, $api_key);
@@ -229,9 +281,9 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **query** | **string**|  | |
-| **limit** | **int**|  | |
-| **api_key** | **string**|  | |
+| **query** | **string**| The partial search query to get suggestions for. | |
+| **limit** | **int**| The maximum number of suggestions to return. | [default to 10] |
+| **api_key** | **string**| Your API key for authentication. | |
 
 ### Return type
 
@@ -239,7 +291,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[apiKey](../../README.md#apiKey), [headerApiKey](../../README.md#headerApiKey)
 
 ### HTTP request headers
 

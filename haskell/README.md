@@ -2,7 +2,7 @@
 
 The library in `lib` provides auto-generated-from-OpenAPI [http-client](https://www.stackage.org/lts-10.0/package/http-client-0.5.7.1) bindings to the GameBrain API API.
 
-OpenApi Version: 3.0.3
+OpenApi Version: 3.0.0
 
 ## Installation
 

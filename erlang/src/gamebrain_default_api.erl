@@ -7,8 +7,8 @@
 
 -define(BASE_URL, <<"/v1">>).
 
-%% @doc GET v1/games/{id}
-%% 
+%% @doc Get Game Details
+%% Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more.
 -spec detail(ctx:ctx(), integer(), binary()) -> {ok, gamebrain_game_response:gamebrain_game_response(), gamebrain_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), gamebrain_utils:response_info()}.
 detail(Ctx, Id, ApiKey) ->
     detail(Ctx, Id, ApiKey, #{}).
@@ -28,8 +28,8 @@ detail(Ctx, Id, ApiKey, Optional) ->
 
     gamebrain_utils:request(Ctx, Method, Path, QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
 
-%% @doc GET v1/games
-%% 
+%% @doc Search Games
+%% Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
 -spec search(ctx:ctx(), binary(), integer(), integer(), binary(), binary(), binary(), boolean(), binary()) -> {ok, gamebrain_search_response:gamebrain_search_response(), gamebrain_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), gamebrain_utils:response_info()}.
 search(Ctx, Query, Offset, Limit, Filters, Sort, SortOrder, GenerateFilterOptions, ApiKey) ->
     search(Ctx, Query, Offset, Limit, Filters, Sort, SortOrder, GenerateFilterOptions, ApiKey, #{}).
@@ -49,8 +49,8 @@ search(Ctx, Query, Offset, Limit, Filters, Sort, SortOrder, GenerateFilterOption
 
     gamebrain_utils:request(Ctx, Method, Path, QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
 
-%% @doc GET v1/games/{id}/similar
-%% 
+%% @doc Get Similar Games
+%% Get games that are similar to the given one.
 -spec similar(ctx:ctx(), integer(), integer(), binary()) -> {ok, gamebrain_similar_games_response:gamebrain_similar_games_response(), gamebrain_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), gamebrain_utils:response_info()}.
 similar(Ctx, Id, Limit, ApiKey) ->
     similar(Ctx, Id, Limit, ApiKey, #{}).
@@ -70,8 +70,8 @@ similar(Ctx, Id, Limit, ApiKey, Optional) ->
 
     gamebrain_utils:request(Ctx, Method, Path, QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
 
-%% @doc GET v1/games/suggestions
-%% 
+%% @doc Get Game Suggestions
+%% Get game suggestions based on (partial) search queries. For example, the query 'gt' will return games like GTA.
 -spec suggest(ctx:ctx(), binary(), integer(), binary()) -> {ok, gamebrain_search_suggestion_response:gamebrain_search_suggestion_response(), gamebrain_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), gamebrain_utils:response_info()}.
 suggest(Ctx, Query, Limit, ApiKey) ->
     suggest(Ctx, Query, Limit, ApiKey, #{}).

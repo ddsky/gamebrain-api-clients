@@ -86,6 +86,28 @@ export class Configuration {
         else {
             this.credentials = {};
         }
+
+        // init default apiKey credential
+        if (!this.credentials['apiKey']) {
+            this.credentials['apiKey'] = () => {
+                if (this.apiKeys === null || this.apiKeys === undefined) {
+                    return undefined;
+                } else {
+                    return this.apiKeys['apiKey'] || this.apiKeys['api-key'];
+                }
+            };
+        }
+
+        // init default headerApiKey credential
+        if (!this.credentials['headerApiKey']) {
+            this.credentials['headerApiKey'] = () => {
+                if (this.apiKeys === null || this.apiKeys === undefined) {
+                    return undefined;
+                } else {
+                    return this.apiKeys['headerApiKey'] || this.apiKeys['x-api-key'];
+                }
+            };
+        }
     }
 
     /**

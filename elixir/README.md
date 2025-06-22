@@ -18,7 +18,7 @@ your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:gamebrain, "~> 1.0.0"}]
+  [{:gamebrain, "~> 1.0.1"}]
 end
 ```
 

@@ -4,10 +4,10 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**detail**](DefaultApi.md#detail) | **GET** /games/{id} | GET v1/games/{id}
-[**search**](DefaultApi.md#search) | **GET** /games | GET v1/games
-[**similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | GET v1/games/{id}/similar
-[**suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | GET v1/games/suggestions
+[**detail**](DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details
+[**search**](DefaultApi.md#search) | **GET** /games | Search Games
+[**similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games
+[**suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions
 
 
 
@@ -15,16 +15,29 @@ Method | HTTP request | Description
 
 > GameResponse detail(id, apiKey)
 
-GET v1/games/{id}
+Get Game Details
+
+Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more.
 
 ### Example
 
 ```javascript
 import GamebrainJs from 'gamebrain-js';
+let defaultClient = GamebrainJs.ApiClient.instance;
+// Configure API key authorization: apiKey
+let apiKey = defaultClient.authentications['apiKey'];
+apiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.apiKeyPrefix = 'Token';
+// Configure API key authorization: headerApiKey
+let headerApiKey = defaultClient.authentications['headerApiKey'];
+headerApiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//headerApiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new GamebrainJs.DefaultApi();
-let id = 56; // Number | 
-let apiKey = "apiKey_example"; // String | 
+let id = 56; // Number | The unique identifier of the game.
+let apiKey = "abc123"; // String | Your API key for authentication.
 apiInstance.detail(id, apiKey, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -39,8 +52,8 @@ apiInstance.detail(id, apiKey, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **Number**|  | 
- **apiKey** | **String**|  | 
+ **id** | **Number**| The unique identifier of the game. | 
+ **apiKey** | **String**| Your API key for authentication. | 
 
 ### Return type
 
@@ -48,7 +61,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -60,22 +73,35 @@ No authorization required
 
 > SearchResponse search(query, offset, limit, filters, sort, sortOrder, generateFilterOptions, apiKey)
 
-GET v1/games
+Search Games
+
+Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
 
 ### Example
 
 ```javascript
 import GamebrainJs from 'gamebrain-js';
+let defaultClient = GamebrainJs.ApiClient.instance;
+// Configure API key authorization: apiKey
+let apiKey = defaultClient.authentications['apiKey'];
+apiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.apiKeyPrefix = 'Token';
+// Configure API key authorization: headerApiKey
+let headerApiKey = defaultClient.authentications['headerApiKey'];
+headerApiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//headerApiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new GamebrainJs.DefaultApi();
-let query = "query_example"; // String | 
-let offset = 56; // Number | 
-let limit = 56; // Number | 
-let filters = "'[]'"; // String | 
-let sort = "sort_example"; // String | 
-let sortOrder = "'asc'"; // String | 
-let generateFilterOptions = true; // Boolean | 
-let apiKey = "apiKey_example"; // String | 
+let query = "rpg for PC"; // String | The search query, e.g., game name, platform, genre, or any combination.
+let offset = 0; // Number | The number of results to skip before starting to collect the result set.
+let limit = 48; // Number | The maximum number of results to return.
+let filters = "'[]'"; // String | JSON array of filter objects to apply to the search.
+let sort = "computed_rating"; // String | The field by which to sort the results.
+let sortOrder = "asc"; // String | The sort order: 'asc' for ascending or 'desc' for descending.
+let generateFilterOptions = true; // Boolean | Whether to generate filter options in the response.
+let apiKey = "abc123"; // String | Your API key for authentication.
 apiInstance.search(query, offset, limit, filters, sort, sortOrder, generateFilterOptions, apiKey, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -90,14 +116,14 @@ apiInstance.search(query, offset, limit, filters, sort, sortOrder, generateFilte
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | **String**|  | 
- **offset** | **Number**|  | 
- **limit** | **Number**|  | 
- **filters** | **String**|  | [default to &#39;[]&#39;]
- **sort** | **String**|  | 
- **sortOrder** | **String**|  | [default to &#39;asc&#39;]
- **generateFilterOptions** | **Boolean**|  | [default to true]
- **apiKey** | **String**|  | 
+ **query** | **String**| The search query, e.g., game name, platform, genre, or any combination. | 
+ **offset** | **Number**| The number of results to skip before starting to collect the result set. | [default to 0]
+ **limit** | **Number**| The maximum number of results to return. | [default to 48]
+ **filters** | **String**| JSON array of filter objects to apply to the search. | [default to &#39;[]&#39;]
+ **sort** | **String**| The field by which to sort the results. | 
+ **sortOrder** | **String**| The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. | [default to &#39;asc&#39;]
+ **generateFilterOptions** | **Boolean**| Whether to generate filter options in the response. | [default to true]
+ **apiKey** | **String**| Your API key for authentication. | 
 
 ### Return type
 
@@ -105,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -117,17 +143,30 @@ No authorization required
 
 > SimilarGamesResponse similar(id, limit, apiKey)
 
-GET v1/games/{id}/similar
+Get Similar Games
+
+Get games that are similar to the given one.
 
 ### Example
 
 ```javascript
 import GamebrainJs from 'gamebrain-js';
+let defaultClient = GamebrainJs.ApiClient.instance;
+// Configure API key authorization: apiKey
+let apiKey = defaultClient.authentications['apiKey'];
+apiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.apiKeyPrefix = 'Token';
+// Configure API key authorization: headerApiKey
+let headerApiKey = defaultClient.authentications['headerApiKey'];
+headerApiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//headerApiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new GamebrainJs.DefaultApi();
 let id = 56; // Number | 
-let limit = 56; // Number | 
-let apiKey = "apiKey_example"; // String | 
+let limit = 10; // Number | 
+let apiKey = "abc123"; // String | 
 apiInstance.similar(id, limit, apiKey, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -143,7 +182,7 @@ apiInstance.similar(id, limit, apiKey, (error, data, response) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **Number**|  | 
- **limit** | **Number**|  | 
+ **limit** | **Number**|  | [default to 10]
  **apiKey** | **String**|  | 
 
 ### Return type
@@ -152,7 +191,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -164,17 +203,30 @@ No authorization required
 
 > SearchSuggestionResponse suggest(query, limit, apiKey)
 
-GET v1/games/suggestions
+Get Game Suggestions
+
+Get game suggestions based on (partial) search queries. For example, the query &#39;gt&#39; will return games like GTA.
 
 ### Example
 
 ```javascript
 import GamebrainJs from 'gamebrain-js';
+let defaultClient = GamebrainJs.ApiClient.instance;
+// Configure API key authorization: apiKey
+let apiKey = defaultClient.authentications['apiKey'];
+apiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.apiKeyPrefix = 'Token';
+// Configure API key authorization: headerApiKey
+let headerApiKey = defaultClient.authentications['headerApiKey'];
+headerApiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//headerApiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new GamebrainJs.DefaultApi();
-let query = "query_example"; // String | 
-let limit = 56; // Number | 
-let apiKey = "apiKey_example"; // String | 
+let query = "gt"; // String | The partial search query to get suggestions for.
+let limit = 10; // Number | The maximum number of suggestions to return.
+let apiKey = "abc123"; // String | Your API key for authentication.
 apiInstance.suggest(query, limit, apiKey, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -189,9 +241,9 @@ apiInstance.suggest(query, limit, apiKey, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | **String**|  | 
- **limit** | **Number**|  | 
- **apiKey** | **String**|  | 
+ **query** | **String**| The partial search query to get suggestions for. | 
+ **limit** | **Number**| The maximum number of suggestions to return. | [default to 10]
+ **apiKey** | **String**| Your API key for authentication. | 
 
 ### Return type
 
@@ -199,7 +251,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 

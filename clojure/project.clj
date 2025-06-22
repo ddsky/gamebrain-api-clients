@@ -1,4 +1,4 @@
-(defproject game-brain-api "1.0.0"
+(defproject game-brain-api "1.0.1"
   :description "GameBrain API"
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [metosin/spec-tools "0.7.0"]

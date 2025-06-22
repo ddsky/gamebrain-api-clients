@@ -49,10 +49,10 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
     }
 
     /**
-     * GET v1/games/{id}
-     * 
-     * @param id 
-     * @param apiKey 
+     * Get Game Details
+     * Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more.
+     * @param id The unique identifier of the game.
+     * @param apiKey Your API key for authentication.
      * @return GameResponse
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -81,10 +81,10 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
     }
 
     /**
-     * GET v1/games/{id}
-     * 
-     * @param id 
-     * @param apiKey 
+     * Get Game Details
+     * Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more.
+     * @param id The unique identifier of the game.
+     * @param apiKey Your API key for authentication.
      * @return ApiResponse<GameResponse?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -102,8 +102,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
     /**
      * To obtain the request config of the operation detail
      *
-     * @param id 
-     * @param apiKey 
+     * @param id The unique identifier of the game.
+     * @param apiKey Your API key for authentication.
      * @return RequestConfig
      */
     fun detailRequestConfig(id: kotlin.Int, apiKey: kotlin.String) : RequestConfig<Unit> {
@@ -120,22 +120,22 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
             path = "/games/{id}".replace("{"+"id"+"}", encodeURIComponent(id.toString())),
             query = localVariableQuery,
             headers = localVariableHeaders,
-            requiresAuthentication = false,
+            requiresAuthentication = true,
             body = localVariableBody
         )
     }
 
     /**
-     * GET v1/games
-     * 
-     * @param query 
-     * @param offset 
-     * @param limit 
-     * @param filters  (default to "[]")
-     * @param sort 
-     * @param sortOrder  (default to "asc")
-     * @param generateFilterOptions  (default to true)
-     * @param apiKey 
+     * Search Games
+     * Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
+     * @param query The search query, e.g., game name, platform, genre, or any combination.
+     * @param offset The number of results to skip before starting to collect the result set. (default to 0)
+     * @param limit The maximum number of results to return. (default to 48)
+     * @param filters JSON array of filter objects to apply to the search. (default to "[]")
+     * @param sort The field by which to sort the results.
+     * @param sortOrder The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. (default to "asc")
+     * @param generateFilterOptions Whether to generate filter options in the response. (default to true)
+     * @param apiKey Your API key for authentication.
      * @return SearchResponse
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -145,7 +145,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun search(query: kotlin.String, offset: kotlin.Int, limit: kotlin.Int, filters: kotlin.String = "[]", sort: kotlin.String, sortOrder: kotlin.String = "asc", generateFilterOptions: kotlin.Boolean = true, apiKey: kotlin.String) : SearchResponse {
+    fun search(query: kotlin.String, offset: kotlin.Int = 0, limit: kotlin.Int = 48, filters: kotlin.String = "[]", sort: kotlin.String, sortOrder: kotlin.String = "asc", generateFilterOptions: kotlin.Boolean = true, apiKey: kotlin.String) : SearchResponse {
         val localVarResponse = searchWithHttpInfo(query = query, offset = offset, limit = limit, filters = filters, sort = sort, sortOrder = sortOrder, generateFilterOptions = generateFilterOptions, apiKey = apiKey)
 
         return when (localVarResponse.responseType) {
@@ -164,16 +164,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
     }
 
     /**
-     * GET v1/games
-     * 
-     * @param query 
-     * @param offset 
-     * @param limit 
-     * @param filters  (default to "[]")
-     * @param sort 
-     * @param sortOrder  (default to "asc")
-     * @param generateFilterOptions  (default to true)
-     * @param apiKey 
+     * Search Games
+     * Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
+     * @param query The search query, e.g., game name, platform, genre, or any combination.
+     * @param offset The number of results to skip before starting to collect the result set. (default to 0)
+     * @param limit The maximum number of results to return. (default to 48)
+     * @param filters JSON array of filter objects to apply to the search. (default to "[]")
+     * @param sort The field by which to sort the results.
+     * @param sortOrder The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. (default to "asc")
+     * @param generateFilterOptions Whether to generate filter options in the response. (default to true)
+     * @param apiKey Your API key for authentication.
      * @return ApiResponse<SearchResponse?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -191,14 +191,14 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
     /**
      * To obtain the request config of the operation search
      *
-     * @param query 
-     * @param offset 
-     * @param limit 
-     * @param filters  (default to "[]")
-     * @param sort 
-     * @param sortOrder  (default to "asc")
-     * @param generateFilterOptions  (default to true)
-     * @param apiKey 
+     * @param query The search query, e.g., game name, platform, genre, or any combination.
+     * @param offset The number of results to skip before starting to collect the result set. (default to 0)
+     * @param limit The maximum number of results to return. (default to 48)
+     * @param filters JSON array of filter objects to apply to the search. (default to "[]")
+     * @param sort The field by which to sort the results.
+     * @param sortOrder The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. (default to "asc")
+     * @param generateFilterOptions Whether to generate filter options in the response. (default to true)
+     * @param apiKey Your API key for authentication.
      * @return RequestConfig
      */
     fun searchRequestConfig(query: kotlin.String, offset: kotlin.Int, limit: kotlin.Int, filters: kotlin.String, sort: kotlin.String, sortOrder: kotlin.String, generateFilterOptions: kotlin.Boolean, apiKey: kotlin.String) : RequestConfig<Unit> {
@@ -222,16 +222,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
             path = "/games",
             query = localVariableQuery,
             headers = localVariableHeaders,
-            requiresAuthentication = false,
+            requiresAuthentication = true,
             body = localVariableBody
         )
     }
 
     /**
-     * GET v1/games/{id}/similar
-     * 
+     * Get Similar Games
+     * Get games that are similar to the given one.
      * @param id 
-     * @param limit 
+     * @param limit  (default to 10)
      * @param apiKey 
      * @return SimilarGamesResponse
      * @throws IllegalStateException If the request is not correctly configured
@@ -242,7 +242,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun similar(id: kotlin.Int, limit: kotlin.Int, apiKey: kotlin.String) : SimilarGamesResponse {
+    fun similar(id: kotlin.Int, limit: kotlin.Int = 10, apiKey: kotlin.String) : SimilarGamesResponse {
         val localVarResponse = similarWithHttpInfo(id = id, limit = limit, apiKey = apiKey)
 
         return when (localVarResponse.responseType) {
@@ -261,10 +261,10 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
     }
 
     /**
-     * GET v1/games/{id}/similar
-     * 
+     * Get Similar Games
+     * Get games that are similar to the given one.
      * @param id 
-     * @param limit 
+     * @param limit  (default to 10)
      * @param apiKey 
      * @return ApiResponse<SimilarGamesResponse?>
      * @throws IllegalStateException If the request is not correctly configured
@@ -284,7 +284,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      * To obtain the request config of the operation similar
      *
      * @param id 
-     * @param limit 
+     * @param limit  (default to 10)
      * @param apiKey 
      * @return RequestConfig
      */
@@ -303,17 +303,17 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
             path = "/games/{id}/similar".replace("{"+"id"+"}", encodeURIComponent(id.toString())),
             query = localVariableQuery,
             headers = localVariableHeaders,
-            requiresAuthentication = false,
+            requiresAuthentication = true,
             body = localVariableBody
         )
     }
 
     /**
-     * GET v1/games/suggestions
-     * 
-     * @param query 
-     * @param limit 
-     * @param apiKey 
+     * Get Game Suggestions
+     * Get game suggestions based on (partial) search queries. For example, the query &#39;gt&#39; will return games like GTA.
+     * @param query The partial search query to get suggestions for.
+     * @param limit The maximum number of suggestions to return. (default to 10)
+     * @param apiKey Your API key for authentication.
      * @return SearchSuggestionResponse
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -323,7 +323,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun suggest(query: kotlin.String, limit: kotlin.Int, apiKey: kotlin.String) : SearchSuggestionResponse {
+    fun suggest(query: kotlin.String, limit: kotlin.Int = 10, apiKey: kotlin.String) : SearchSuggestionResponse {
         val localVarResponse = suggestWithHttpInfo(query = query, limit = limit, apiKey = apiKey)
 
         return when (localVarResponse.responseType) {
@@ -342,11 +342,11 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
     }
 
     /**
-     * GET v1/games/suggestions
-     * 
-     * @param query 
-     * @param limit 
-     * @param apiKey 
+     * Get Game Suggestions
+     * Get game suggestions based on (partial) search queries. For example, the query &#39;gt&#39; will return games like GTA.
+     * @param query The partial search query to get suggestions for.
+     * @param limit The maximum number of suggestions to return. (default to 10)
+     * @param apiKey Your API key for authentication.
      * @return ApiResponse<SearchSuggestionResponse?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -364,9 +364,9 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
     /**
      * To obtain the request config of the operation suggest
      *
-     * @param query 
-     * @param limit 
-     * @param apiKey 
+     * @param query The partial search query to get suggestions for.
+     * @param limit The maximum number of suggestions to return. (default to 10)
+     * @param apiKey Your API key for authentication.
      * @return RequestConfig
      */
     fun suggestRequestConfig(query: kotlin.String, limit: kotlin.Int, apiKey: kotlin.String) : RequestConfig<Unit> {
@@ -385,7 +385,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
             path = "/games/suggestions",
             query = localVariableQuery,
             headers = localVariableHeaders,
-            requiresAuthentication = false,
+            requiresAuthentication = true,
             body = localVariableBody
         )
     }

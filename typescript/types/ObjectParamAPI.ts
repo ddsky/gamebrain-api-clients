@@ -26,13 +26,13 @@ import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/De
 
 export interface DefaultApiDetailRequest {
     /**
-     * 
+     * The unique identifier of the game.
      * @type number
      * @memberof DefaultApidetail
      */
     id: number
     /**
-     * 
+     * Your API key for authentication.
      * @type string
      * @memberof DefaultApidetail
      */
@@ -41,49 +41,49 @@ export interface DefaultApiDetailRequest {
 
 export interface DefaultApiSearchRequest {
     /**
-     * 
+     * The search query, e.g., game name, platform, genre, or any combination.
      * @type string
      * @memberof DefaultApisearch
      */
     query: string
     /**
-     * 
+     * The number of results to skip before starting to collect the result set.
      * @type number
      * @memberof DefaultApisearch
      */
     offset: number
     /**
-     * 
+     * The maximum number of results to return.
      * @type number
      * @memberof DefaultApisearch
      */
     limit: number
     /**
-     * 
+     * JSON array of filter objects to apply to the search.
      * @type string
      * @memberof DefaultApisearch
      */
     filters: string
     /**
-     * 
+     * The field by which to sort the results.
      * @type string
      * @memberof DefaultApisearch
      */
     sort: string
     /**
-     * 
+     * The sort order: \&#39;asc\&#39; for ascending or \&#39;desc\&#39; for descending.
      * @type string
      * @memberof DefaultApisearch
      */
     sortOrder: string
     /**
-     * 
+     * Whether to generate filter options in the response.
      * @type boolean
      * @memberof DefaultApisearch
      */
     generateFilterOptions: boolean
     /**
-     * 
+     * Your API key for authentication.
      * @type string
      * @memberof DefaultApisearch
      */
@@ -113,19 +113,19 @@ export interface DefaultApiSimilarRequest {
 
 export interface DefaultApiSuggestRequest {
     /**
-     * 
+     * The partial search query to get suggestions for.
      * @type string
      * @memberof DefaultApisuggest
      */
     query: string
     /**
-     * 
+     * The maximum number of suggestions to return.
      * @type number
      * @memberof DefaultApisuggest
      */
     limit: number
     /**
-     * 
+     * Your API key for authentication.
      * @type string
      * @memberof DefaultApisuggest
      */
@@ -140,7 +140,8 @@ export class ObjectDefaultApi {
     }
 
     /**
-     * GET v1/games/{id}
+     * Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more.
+     * Get Game Details
      * @param param the request object
      */
     public detailWithHttpInfo(param: DefaultApiDetailRequest, options?: Configuration): Promise<HttpInfo<GameResponse>> {
@@ -148,7 +149,8 @@ export class ObjectDefaultApi {
     }
 
     /**
-     * GET v1/games/{id}
+     * Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more.
+     * Get Game Details
      * @param param the request object
      */
     public detail(param: DefaultApiDetailRequest, options?: Configuration): Promise<GameResponse> {
@@ -156,7 +158,8 @@ export class ObjectDefaultApi {
     }
 
     /**
-     * GET v1/games
+     * Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
+     * Search Games
      * @param param the request object
      */
     public searchWithHttpInfo(param: DefaultApiSearchRequest, options?: Configuration): Promise<HttpInfo<SearchResponse>> {
@@ -164,7 +167,8 @@ export class ObjectDefaultApi {
     }
 
     /**
-     * GET v1/games
+     * Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
+     * Search Games
      * @param param the request object
      */
     public search(param: DefaultApiSearchRequest, options?: Configuration): Promise<SearchResponse> {
@@ -172,7 +176,8 @@ export class ObjectDefaultApi {
     }
 
     /**
-     * GET v1/games/{id}/similar
+     * Get games that are similar to the given one.
+     * Get Similar Games
      * @param param the request object
      */
     public similarWithHttpInfo(param: DefaultApiSimilarRequest, options?: Configuration): Promise<HttpInfo<SimilarGamesResponse>> {
@@ -180,7 +185,8 @@ export class ObjectDefaultApi {
     }
 
     /**
-     * GET v1/games/{id}/similar
+     * Get games that are similar to the given one.
+     * Get Similar Games
      * @param param the request object
      */
     public similar(param: DefaultApiSimilarRequest, options?: Configuration): Promise<SimilarGamesResponse> {
@@ -188,7 +194,8 @@ export class ObjectDefaultApi {
     }
 
     /**
-     * GET v1/games/suggestions
+     * Get game suggestions based on (partial) search queries. For example, the query \'gt\' will return games like GTA.
+     * Get Game Suggestions
      * @param param the request object
      */
     public suggestWithHttpInfo(param: DefaultApiSuggestRequest, options?: Configuration): Promise<HttpInfo<SearchSuggestionResponse>> {
@@ -196,7 +203,8 @@ export class ObjectDefaultApi {
     }
 
     /**
-     * GET v1/games/suggestions
+     * Get game suggestions based on (partial) search queries. For example, the query \'gt\' will return games like GTA.
+     * Get Game Suggestions
      * @param param the request object
      */
     public suggest(param: DefaultApiSuggestRequest, options?: Configuration): Promise<SearchSuggestionResponse> {

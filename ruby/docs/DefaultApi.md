@@ -4,30 +4,44 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
-| [**detail**](DefaultApi.md#detail) | **GET** /games/{id} | GET v1/games/{id} |
-| [**search**](DefaultApi.md#search) | **GET** /games | GET v1/games |
-| [**similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | GET v1/games/{id}/similar |
-| [**suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | GET v1/games/suggestions |
+| [**detail**](DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details |
+| [**search**](DefaultApi.md#search) | **GET** /games | Search Games |
+| [**similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games |
+| [**suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions |
 
 
 ## detail
 
 > <GameResponse> detail(id, api_key)
 
-GET v1/games/{id}
+Get Game Details
+
+Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more.
 
 ### Examples
 
 ```ruby
 require 'time'
 require 'openapi_client'
+# setup authorization
+OpenapiClient.configure do |config|
+  # Configure API key authorization: apiKey
+  config.api_key['apiKey'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['apiKey'] = 'Bearer'
+
+  # Configure API key authorization: headerApiKey
+  config.api_key['headerApiKey'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['headerApiKey'] = 'Bearer'
+end
 
 api_instance = OpenapiClient::DefaultApi.new
-id = 56 # Integer | 
-api_key = 'api_key_example' # String | 
+id = 56 # Integer | The unique identifier of the game.
+api_key = 'abc123' # String | Your API key for authentication.
 
 begin
-  # GET v1/games/{id}
+  # Get Game Details
   result = api_instance.detail(id, api_key)
   p result
 rescue OpenapiClient::ApiError => e
@@ -43,7 +57,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # GET v1/games/{id}
+  # Get Game Details
   data, status_code, headers = api_instance.detail_with_http_info(id, api_key)
   p status_code # => 2xx
   p headers # => { ... }
@@ -57,8 +71,8 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **id** | **Integer** |  |  |
-| **api_key** | **String** |  |  |
+| **id** | **Integer** | The unique identifier of the game. |  |
+| **api_key** | **String** | Your API key for authentication. |  |
 
 ### Return type
 
@@ -66,7 +80,7 @@ end
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -78,26 +92,40 @@ No authorization required
 
 > <SearchResponse> search(query, offset, limit, filters, sort, sort_order, generate_filter_options, api_key)
 
-GET v1/games
+Search Games
+
+Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
 
 ### Examples
 
 ```ruby
 require 'time'
 require 'openapi_client'
+# setup authorization
+OpenapiClient.configure do |config|
+  # Configure API key authorization: apiKey
+  config.api_key['apiKey'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['apiKey'] = 'Bearer'
+
+  # Configure API key authorization: headerApiKey
+  config.api_key['headerApiKey'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['headerApiKey'] = 'Bearer'
+end
 
 api_instance = OpenapiClient::DefaultApi.new
-query = 'query_example' # String | 
-offset = 56 # Integer | 
-limit = 56 # Integer | 
-filters = 'filters_example' # String | 
-sort = 'sort_example' # String | 
-sort_order = 'sort_order_example' # String | 
-generate_filter_options = true # Boolean | 
-api_key = 'api_key_example' # String | 
+query = 'rpg for PC' # String | The search query, e.g., game name, platform, genre, or any combination.
+offset = 56 # Integer | The number of results to skip before starting to collect the result set.
+limit = 56 # Integer | The maximum number of results to return.
+filters = 'filters_example' # String | JSON array of filter objects to apply to the search.
+sort = 'computed_rating' # String | The field by which to sort the results.
+sort_order = 'asc' # String | The sort order: 'asc' for ascending or 'desc' for descending.
+generate_filter_options = true # Boolean | Whether to generate filter options in the response.
+api_key = 'abc123' # String | Your API key for authentication.
 
 begin
-  # GET v1/games
+  # Search Games
   result = api_instance.search(query, offset, limit, filters, sort, sort_order, generate_filter_options, api_key)
   p result
 rescue OpenapiClient::ApiError => e
@@ -113,7 +141,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # GET v1/games
+  # Search Games
   data, status_code, headers = api_instance.search_with_http_info(query, offset, limit, filters, sort, sort_order, generate_filter_options, api_key)
   p status_code # => 2xx
   p headers # => { ... }
@@ -127,14 +155,14 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **query** | **String** |  |  |
-| **offset** | **Integer** |  |  |
-| **limit** | **Integer** |  |  |
-| **filters** | **String** |  | [default to &#39;[]&#39;] |
-| **sort** | **String** |  |  |
-| **sort_order** | **String** |  | [default to &#39;asc&#39;] |
-| **generate_filter_options** | **Boolean** |  | [default to true] |
-| **api_key** | **String** |  |  |
+| **query** | **String** | The search query, e.g., game name, platform, genre, or any combination. |  |
+| **offset** | **Integer** | The number of results to skip before starting to collect the result set. | [default to 0] |
+| **limit** | **Integer** | The maximum number of results to return. | [default to 48] |
+| **filters** | **String** | JSON array of filter objects to apply to the search. | [default to &#39;[]&#39;] |
+| **sort** | **String** | The field by which to sort the results. |  |
+| **sort_order** | **String** | The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. | [default to &#39;asc&#39;] |
+| **generate_filter_options** | **Boolean** | Whether to generate filter options in the response. | [default to true] |
+| **api_key** | **String** | Your API key for authentication. |  |
 
 ### Return type
 
@@ -142,7 +170,7 @@ end
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -154,21 +182,35 @@ No authorization required
 
 > <SimilarGamesResponse> similar(id, limit, api_key)
 
-GET v1/games/{id}/similar
+Get Similar Games
+
+Get games that are similar to the given one.
 
 ### Examples
 
 ```ruby
 require 'time'
 require 'openapi_client'
+# setup authorization
+OpenapiClient.configure do |config|
+  # Configure API key authorization: apiKey
+  config.api_key['apiKey'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['apiKey'] = 'Bearer'
+
+  # Configure API key authorization: headerApiKey
+  config.api_key['headerApiKey'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['headerApiKey'] = 'Bearer'
+end
 
 api_instance = OpenapiClient::DefaultApi.new
 id = 56 # Integer | 
 limit = 56 # Integer | 
-api_key = 'api_key_example' # String | 
+api_key = 'abc123' # String | 
 
 begin
-  # GET v1/games/{id}/similar
+  # Get Similar Games
   result = api_instance.similar(id, limit, api_key)
   p result
 rescue OpenapiClient::ApiError => e
@@ -184,7 +226,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # GET v1/games/{id}/similar
+  # Get Similar Games
   data, status_code, headers = api_instance.similar_with_http_info(id, limit, api_key)
   p status_code # => 2xx
   p headers # => { ... }
@@ -199,7 +241,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **Integer** |  |  |
-| **limit** | **Integer** |  |  |
+| **limit** | **Integer** |  | [default to 10] |
 | **api_key** | **String** |  |  |
 
 ### Return type
@@ -208,7 +250,7 @@ end
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -220,21 +262,35 @@ No authorization required
 
 > <SearchSuggestionResponse> suggest(query, limit, api_key)
 
-GET v1/games/suggestions
+Get Game Suggestions
+
+Get game suggestions based on (partial) search queries. For example, the query 'gt' will return games like GTA.
 
 ### Examples
 
 ```ruby
 require 'time'
 require 'openapi_client'
+# setup authorization
+OpenapiClient.configure do |config|
+  # Configure API key authorization: apiKey
+  config.api_key['apiKey'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['apiKey'] = 'Bearer'
+
+  # Configure API key authorization: headerApiKey
+  config.api_key['headerApiKey'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['headerApiKey'] = 'Bearer'
+end
 
 api_instance = OpenapiClient::DefaultApi.new
-query = 'query_example' # String | 
-limit = 56 # Integer | 
-api_key = 'api_key_example' # String | 
+query = 'gt' # String | The partial search query to get suggestions for.
+limit = 56 # Integer | The maximum number of suggestions to return.
+api_key = 'abc123' # String | Your API key for authentication.
 
 begin
-  # GET v1/games/suggestions
+  # Get Game Suggestions
   result = api_instance.suggest(query, limit, api_key)
   p result
 rescue OpenapiClient::ApiError => e
@@ -250,7 +306,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # GET v1/games/suggestions
+  # Get Game Suggestions
   data, status_code, headers = api_instance.suggest_with_http_info(query, limit, api_key)
   p status_code # => 2xx
   p headers # => { ... }
@@ -264,9 +320,9 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **query** | **String** |  |  |
-| **limit** | **Integer** |  |  |
-| **api_key** | **String** |  |  |
+| **query** | **String** | The partial search query to get suggestions for. |  |
+| **limit** | **Integer** | The maximum number of suggestions to return. | [default to 10] |
+| **api_key** | **String** | Your API key for authentication. |  |
 
 ### Return type
 
@@ -274,7 +330,7 @@ end
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 

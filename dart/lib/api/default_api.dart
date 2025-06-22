@@ -16,15 +16,19 @@ class DefaultApi {
 
   final ApiClient apiClient;
 
-  /// GET v1/games/{id}
+  /// Get Game Details
+  ///
+  /// Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [int] id (required):
+  ///   The unique identifier of the game.
   ///
   /// * [String] apiKey (required):
+  ///   Your API key for authentication.
   Future<Response> detailWithHttpInfo(int id, String apiKey,) async {
     // ignore: prefer_const_declarations
     final path = r'/games/{id}'
@@ -53,13 +57,17 @@ class DefaultApi {
     );
   }
 
-  /// GET v1/games/{id}
+  /// Get Game Details
+  ///
+  /// Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more.
   ///
   /// Parameters:
   ///
   /// * [int] id (required):
+  ///   The unique identifier of the game.
   ///
   /// * [String] apiKey (required):
+  ///   Your API key for authentication.
   Future<GameResponse?> detail(int id, String apiKey,) async {
     final response = await detailWithHttpInfo(id, apiKey,);
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -75,27 +83,37 @@ class DefaultApi {
     return null;
   }
 
-  /// GET v1/games
+  /// Search Games
+  ///
+  /// Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] query (required):
+  ///   The search query, e.g., game name, platform, genre, or any combination.
   ///
   /// * [int] offset (required):
+  ///   The number of results to skip before starting to collect the result set.
   ///
   /// * [int] limit (required):
+  ///   The maximum number of results to return.
   ///
   /// * [String] filters (required):
+  ///   JSON array of filter objects to apply to the search.
   ///
   /// * [String] sort (required):
+  ///   The field by which to sort the results.
   ///
   /// * [String] sortOrder (required):
+  ///   The sort order: 'asc' for ascending or 'desc' for descending.
   ///
   /// * [bool] generateFilterOptions (required):
+  ///   Whether to generate filter options in the response.
   ///
   /// * [String] apiKey (required):
+  ///   Your API key for authentication.
   Future<Response> searchWithHttpInfo(String query, int offset, int limit, String filters, String sort, String sortOrder, bool generateFilterOptions, String apiKey,) async {
     // ignore: prefer_const_declarations
     final path = r'/games';
@@ -130,25 +148,35 @@ class DefaultApi {
     );
   }
 
-  /// GET v1/games
+  /// Search Games
+  ///
+  /// Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
   ///
   /// Parameters:
   ///
   /// * [String] query (required):
+  ///   The search query, e.g., game name, platform, genre, or any combination.
   ///
   /// * [int] offset (required):
+  ///   The number of results to skip before starting to collect the result set.
   ///
   /// * [int] limit (required):
+  ///   The maximum number of results to return.
   ///
   /// * [String] filters (required):
+  ///   JSON array of filter objects to apply to the search.
   ///
   /// * [String] sort (required):
+  ///   The field by which to sort the results.
   ///
   /// * [String] sortOrder (required):
+  ///   The sort order: 'asc' for ascending or 'desc' for descending.
   ///
   /// * [bool] generateFilterOptions (required):
+  ///   Whether to generate filter options in the response.
   ///
   /// * [String] apiKey (required):
+  ///   Your API key for authentication.
   Future<SearchResponse?> search(String query, int offset, int limit, String filters, String sort, String sortOrder, bool generateFilterOptions, String apiKey,) async {
     final response = await searchWithHttpInfo(query, offset, limit, filters, sort, sortOrder, generateFilterOptions, apiKey,);
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -164,7 +192,9 @@ class DefaultApi {
     return null;
   }
 
-  /// GET v1/games/{id}/similar
+  /// Get Similar Games
+  ///
+  /// Get games that are similar to the given one.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -204,7 +234,9 @@ class DefaultApi {
     );
   }
 
-  /// GET v1/games/{id}/similar
+  /// Get Similar Games
+  ///
+  /// Get games that are similar to the given one.
   ///
   /// Parameters:
   ///
@@ -228,17 +260,22 @@ class DefaultApi {
     return null;
   }
 
-  /// GET v1/games/suggestions
+  /// Get Game Suggestions
+  ///
+  /// Get game suggestions based on (partial) search queries. For example, the query 'gt' will return games like GTA.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] query (required):
+  ///   The partial search query to get suggestions for.
   ///
   /// * [int] limit (required):
+  ///   The maximum number of suggestions to return.
   ///
   /// * [String] apiKey (required):
+  ///   Your API key for authentication.
   Future<Response> suggestWithHttpInfo(String query, int limit, String apiKey,) async {
     // ignore: prefer_const_declarations
     final path = r'/games/suggestions';
@@ -268,15 +305,20 @@ class DefaultApi {
     );
   }
 
-  /// GET v1/games/suggestions
+  /// Get Game Suggestions
+  ///
+  /// Get game suggestions based on (partial) search queries. For example, the query 'gt' will return games like GTA.
   ///
   /// Parameters:
   ///
   /// * [String] query (required):
+  ///   The partial search query to get suggestions for.
   ///
   /// * [int] limit (required):
+  ///   The maximum number of suggestions to return.
   ///
   /// * [String] apiKey (required):
+  ///   Your API key for authentication.
   Future<SearchSuggestionResponse?> suggest(String query, int limit, String apiKey,) async {
     final response = await suggestWithHttpInfo(query, limit, apiKey,);
     if (response.statusCode >= HttpStatus.badRequest) {

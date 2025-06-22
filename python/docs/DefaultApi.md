@@ -4,19 +4,23 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**detail**](DefaultApi.md#detail) | **GET** /games/{id} | GET v1/games/{id}
-[**search**](DefaultApi.md#search) | **GET** /games | GET v1/games
-[**similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | GET v1/games/{id}/similar
-[**suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | GET v1/games/suggestions
+[**detail**](DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details
+[**search**](DefaultApi.md#search) | **GET** /games | Search Games
+[**similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games
+[**suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions
 
 
 # **detail**
 > GameResponse detail(id, api_key)
 
-GET v1/games/{id}
+Get Game Details
+
+Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more.
 
 ### Example
 
+* Api Key Authentication (apiKey):
+* Api Key Authentication (headerApiKey):
 
 ```python
 import gamebrain
@@ -30,16 +34,32 @@ configuration = gamebrain.Configuration(
     host = "https://api.gamebrain.co/v1"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKey
+configuration.api_key['apiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKey'] = 'Bearer'
+
+# Configure API key authorization: headerApiKey
+configuration.api_key['headerApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['headerApiKey'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with gamebrain.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = gamebrain.DefaultApi(api_client)
-    id = 56 # int | 
-    api_key = 'api_key_example' # str | 
+    id = 56 # int | The unique identifier of the game.
+    api_key = 'abc123' # str | Your API key for authentication.
 
     try:
-        # GET v1/games/{id}
+        # Get Game Details
         api_response = api_instance.detail(id, api_key)
         print("The response of DefaultApi->detail:\n")
         pprint(api_response)
@@ -54,8 +74,8 @@ with gamebrain.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **int**|  | 
- **api_key** | **str**|  | 
+ **id** | **int**| The unique identifier of the game. | 
+ **api_key** | **str**| Your API key for authentication. | 
 
 ### Return type
 
@@ -63,7 +83,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -81,10 +101,14 @@ No authorization required
 # **search**
 > SearchResponse search(query, offset, limit, filters, sort, sort_order, generate_filter_options, api_key)
 
-GET v1/games
+Search Games
+
+Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
 
 ### Example
 
+* Api Key Authentication (apiKey):
+* Api Key Authentication (headerApiKey):
 
 ```python
 import gamebrain
@@ -98,22 +122,38 @@ configuration = gamebrain.Configuration(
     host = "https://api.gamebrain.co/v1"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKey
+configuration.api_key['apiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKey'] = 'Bearer'
+
+# Configure API key authorization: headerApiKey
+configuration.api_key['headerApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['headerApiKey'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with gamebrain.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = gamebrain.DefaultApi(api_client)
-    query = 'query_example' # str | 
-    offset = 56 # int | 
-    limit = 56 # int | 
-    filters = '[]' # str |  (default to '[]')
-    sort = 'sort_example' # str | 
-    sort_order = 'asc' # str |  (default to 'asc')
-    generate_filter_options = True # bool |  (default to True)
-    api_key = 'api_key_example' # str | 
+    query = 'rpg for PC' # str | The search query, e.g., game name, platform, genre, or any combination.
+    offset = 0 # int | The number of results to skip before starting to collect the result set. (default to 0)
+    limit = 48 # int | The maximum number of results to return. (default to 48)
+    filters = '[]' # str | JSON array of filter objects to apply to the search. (default to '[]')
+    sort = 'computed_rating' # str | The field by which to sort the results.
+    sort_order = 'asc' # str | The sort order: 'asc' for ascending or 'desc' for descending. (default to 'asc')
+    generate_filter_options = True # bool | Whether to generate filter options in the response. (default to True)
+    api_key = 'abc123' # str | Your API key for authentication.
 
     try:
-        # GET v1/games
+        # Search Games
         api_response = api_instance.search(query, offset, limit, filters, sort, sort_order, generate_filter_options, api_key)
         print("The response of DefaultApi->search:\n")
         pprint(api_response)
@@ -128,14 +168,14 @@ with gamebrain.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | **str**|  | 
- **offset** | **int**|  | 
- **limit** | **int**|  | 
- **filters** | **str**|  | [default to &#39;[]&#39;]
- **sort** | **str**|  | 
- **sort_order** | **str**|  | [default to &#39;asc&#39;]
- **generate_filter_options** | **bool**|  | [default to True]
- **api_key** | **str**|  | 
+ **query** | **str**| The search query, e.g., game name, platform, genre, or any combination. | 
+ **offset** | **int**| The number of results to skip before starting to collect the result set. | [default to 0]
+ **limit** | **int**| The maximum number of results to return. | [default to 48]
+ **filters** | **str**| JSON array of filter objects to apply to the search. | [default to &#39;[]&#39;]
+ **sort** | **str**| The field by which to sort the results. | 
+ **sort_order** | **str**| The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. | [default to &#39;asc&#39;]
+ **generate_filter_options** | **bool**| Whether to generate filter options in the response. | [default to True]
+ **api_key** | **str**| Your API key for authentication. | 
 
 ### Return type
 
@@ -143,7 +183,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -161,10 +201,14 @@ No authorization required
 # **similar**
 > SimilarGamesResponse similar(id, limit, api_key)
 
-GET v1/games/{id}/similar
+Get Similar Games
+
+Get games that are similar to the given one.
 
 ### Example
 
+* Api Key Authentication (apiKey):
+* Api Key Authentication (headerApiKey):
 
 ```python
 import gamebrain
@@ -178,17 +222,33 @@ configuration = gamebrain.Configuration(
     host = "https://api.gamebrain.co/v1"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKey
+configuration.api_key['apiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKey'] = 'Bearer'
+
+# Configure API key authorization: headerApiKey
+configuration.api_key['headerApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['headerApiKey'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with gamebrain.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = gamebrain.DefaultApi(api_client)
     id = 56 # int | 
-    limit = 56 # int | 
-    api_key = 'api_key_example' # str | 
+    limit = 10 # int |  (default to 10)
+    api_key = 'abc123' # str | 
 
     try:
-        # GET v1/games/{id}/similar
+        # Get Similar Games
         api_response = api_instance.similar(id, limit, api_key)
         print("The response of DefaultApi->similar:\n")
         pprint(api_response)
@@ -204,7 +264,7 @@ with gamebrain.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**|  | 
- **limit** | **int**|  | 
+ **limit** | **int**|  | [default to 10]
  **api_key** | **str**|  | 
 
 ### Return type
@@ -213,7 +273,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -231,10 +291,14 @@ No authorization required
 # **suggest**
 > SearchSuggestionResponse suggest(query, limit, api_key)
 
-GET v1/games/suggestions
+Get Game Suggestions
+
+Get game suggestions based on (partial) search queries. For example, the query 'gt' will return games like GTA.
 
 ### Example
 
+* Api Key Authentication (apiKey):
+* Api Key Authentication (headerApiKey):
 
 ```python
 import gamebrain
@@ -248,17 +312,33 @@ configuration = gamebrain.Configuration(
     host = "https://api.gamebrain.co/v1"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKey
+configuration.api_key['apiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKey'] = 'Bearer'
+
+# Configure API key authorization: headerApiKey
+configuration.api_key['headerApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['headerApiKey'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with gamebrain.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = gamebrain.DefaultApi(api_client)
-    query = 'query_example' # str | 
-    limit = 56 # int | 
-    api_key = 'api_key_example' # str | 
+    query = 'gt' # str | The partial search query to get suggestions for.
+    limit = 10 # int | The maximum number of suggestions to return. (default to 10)
+    api_key = 'abc123' # str | Your API key for authentication.
 
     try:
-        # GET v1/games/suggestions
+        # Get Game Suggestions
         api_response = api_instance.suggest(query, limit, api_key)
         print("The response of DefaultApi->suggest:\n")
         pprint(api_response)
@@ -273,9 +353,9 @@ with gamebrain.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | **str**|  | 
- **limit** | **int**|  | 
- **api_key** | **str**|  | 
+ **query** | **str**| The partial search query to get suggestions for. | 
+ **limit** | **int**| The maximum number of suggestions to return. | [default to 10]
+ **api_key** | **str**| Your API key for authentication. | 
 
 ### Return type
 
@@ -283,7 +363,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 

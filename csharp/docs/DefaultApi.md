@@ -4,16 +4,18 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 
 | Method | HTTP request | Description |
 |--------|--------------|-------------|
-| [**Detail**](DefaultApi.md#detail) | **GET** /games/{id} | GET v1/games/{id} |
-| [**Search**](DefaultApi.md#search) | **GET** /games | GET v1/games |
-| [**Similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | GET v1/games/{id}/similar |
-| [**Suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | GET v1/games/suggestions |
+| [**Detail**](DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details |
+| [**Search**](DefaultApi.md#search) | **GET** /games | Search Games |
+| [**Similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games |
+| [**Suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions |
 
 <a id="detail"></a>
 # **Detail**
 > GameResponse Detail (int id, string apiKey)
 
-GET v1/games/{id}
+Get Game Details
+
+Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more.
 
 ### Example
 ```csharp
@@ -31,13 +33,22 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://api.gamebrain.co/v1";
+            // Configure API key authorization: apiKey
+            config.AddApiKey("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // config.AddApiKeyPrefix("api-key", "Bearer");
+            // Configure API key authorization: headerApiKey
+            config.AddApiKey("x-api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // config.AddApiKeyPrefix("x-api-key", "Bearer");
+
             var apiInstance = new DefaultApi(config);
-            var id = 56;  // int | 
-            var apiKey = "apiKey_example";  // string | 
+            var id = 56;  // int | The unique identifier of the game.
+            var apiKey = abc123;  // string | Your API key for authentication.
 
             try
             {
-                // GET v1/games/{id}
+                // Get Game Details
                 GameResponse result = apiInstance.Detail(id, apiKey);
                 Debug.WriteLine(result);
             }
@@ -58,7 +69,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // GET v1/games/{id}
+    // Get Game Details
     ApiResponse<GameResponse> response = apiInstance.DetailWithHttpInfo(id, apiKey);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -76,8 +87,8 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **id** | **int** |  |  |
-| **apiKey** | **string** |  |  |
+| **id** | **int** | The unique identifier of the game. |  |
+| **apiKey** | **string** | Your API key for authentication. |  |
 
 ### Return type
 
@@ -85,7 +96,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -104,7 +115,9 @@ No authorization required
 # **Search**
 > SearchResponse Search (string query, int offset, int limit, string filters, string sort, string sortOrder, bool generateFilterOptions, string apiKey)
 
-GET v1/games
+Search Games
+
+Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
 
 ### Example
 ```csharp
@@ -122,19 +135,28 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://api.gamebrain.co/v1";
+            // Configure API key authorization: apiKey
+            config.AddApiKey("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // config.AddApiKeyPrefix("api-key", "Bearer");
+            // Configure API key authorization: headerApiKey
+            config.AddApiKey("x-api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // config.AddApiKeyPrefix("x-api-key", "Bearer");
+
             var apiInstance = new DefaultApi(config);
-            var query = "query_example";  // string | 
-            var offset = 56;  // int | 
-            var limit = 56;  // int | 
-            var filters = "\"[]\"";  // string |  (default to "[]")
-            var sort = "sort_example";  // string | 
-            var sortOrder = "\"asc\"";  // string |  (default to "asc")
-            var generateFilterOptions = true;  // bool |  (default to true)
-            var apiKey = "apiKey_example";  // string | 
+            var query = rpg for PC;  // string | The search query, e.g., game name, platform, genre, or any combination.
+            var offset = 0;  // int | The number of results to skip before starting to collect the result set. (default to 0)
+            var limit = 48;  // int | The maximum number of results to return. (default to 48)
+            var filters = "\"[]\"";  // string | JSON array of filter objects to apply to the search. (default to "[]")
+            var sort = computed_rating;  // string | The field by which to sort the results.
+            var sortOrder = asc;  // string | The sort order: 'asc' for ascending or 'desc' for descending. (default to "asc")
+            var generateFilterOptions = true;  // bool | Whether to generate filter options in the response. (default to true)
+            var apiKey = abc123;  // string | Your API key for authentication.
 
             try
             {
-                // GET v1/games
+                // Search Games
                 SearchResponse result = apiInstance.Search(query, offset, limit, filters, sort, sortOrder, generateFilterOptions, apiKey);
                 Debug.WriteLine(result);
             }
@@ -155,7 +177,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // GET v1/games
+    // Search Games
     ApiResponse<SearchResponse> response = apiInstance.SearchWithHttpInfo(query, offset, limit, filters, sort, sortOrder, generateFilterOptions, apiKey);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -173,14 +195,14 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **query** | **string** |  |  |
-| **offset** | **int** |  |  |
-| **limit** | **int** |  |  |
-| **filters** | **string** |  | [default to &quot;[]&quot;] |
-| **sort** | **string** |  |  |
-| **sortOrder** | **string** |  | [default to &quot;asc&quot;] |
-| **generateFilterOptions** | **bool** |  | [default to true] |
-| **apiKey** | **string** |  |  |
+| **query** | **string** | The search query, e.g., game name, platform, genre, or any combination. |  |
+| **offset** | **int** | The number of results to skip before starting to collect the result set. | [default to 0] |
+| **limit** | **int** | The maximum number of results to return. | [default to 48] |
+| **filters** | **string** | JSON array of filter objects to apply to the search. | [default to &quot;[]&quot;] |
+| **sort** | **string** | The field by which to sort the results. |  |
+| **sortOrder** | **string** | The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. | [default to &quot;asc&quot;] |
+| **generateFilterOptions** | **bool** | Whether to generate filter options in the response. | [default to true] |
+| **apiKey** | **string** | Your API key for authentication. |  |
 
 ### Return type
 
@@ -188,7 +210,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -207,7 +229,9 @@ No authorization required
 # **Similar**
 > SimilarGamesResponse Similar (int id, int limit, string apiKey)
 
-GET v1/games/{id}/similar
+Get Similar Games
+
+Get games that are similar to the given one.
 
 ### Example
 ```csharp
@@ -225,14 +249,23 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://api.gamebrain.co/v1";
+            // Configure API key authorization: apiKey
+            config.AddApiKey("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // config.AddApiKeyPrefix("api-key", "Bearer");
+            // Configure API key authorization: headerApiKey
+            config.AddApiKey("x-api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // config.AddApiKeyPrefix("x-api-key", "Bearer");
+
             var apiInstance = new DefaultApi(config);
             var id = 56;  // int | 
-            var limit = 56;  // int | 
-            var apiKey = "apiKey_example";  // string | 
+            var limit = 10;  // int |  (default to 10)
+            var apiKey = abc123;  // string | 
 
             try
             {
-                // GET v1/games/{id}/similar
+                // Get Similar Games
                 SimilarGamesResponse result = apiInstance.Similar(id, limit, apiKey);
                 Debug.WriteLine(result);
             }
@@ -253,7 +286,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // GET v1/games/{id}/similar
+    // Get Similar Games
     ApiResponse<SimilarGamesResponse> response = apiInstance.SimilarWithHttpInfo(id, limit, apiKey);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -272,7 +305,7 @@ catch (ApiException e)
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **id** | **int** |  |  |
-| **limit** | **int** |  |  |
+| **limit** | **int** |  | [default to 10] |
 | **apiKey** | **string** |  |  |
 
 ### Return type
@@ -281,7 +314,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -300,7 +333,9 @@ No authorization required
 # **Suggest**
 > SearchSuggestionResponse Suggest (string query, int limit, string apiKey)
 
-GET v1/games/suggestions
+Get Game Suggestions
+
+Get game suggestions based on (partial) search queries. For example, the query 'gt' will return games like GTA.
 
 ### Example
 ```csharp
@@ -318,14 +353,23 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://api.gamebrain.co/v1";
+            // Configure API key authorization: apiKey
+            config.AddApiKey("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // config.AddApiKeyPrefix("api-key", "Bearer");
+            // Configure API key authorization: headerApiKey
+            config.AddApiKey("x-api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // config.AddApiKeyPrefix("x-api-key", "Bearer");
+
             var apiInstance = new DefaultApi(config);
-            var query = "query_example";  // string | 
-            var limit = 56;  // int | 
-            var apiKey = "apiKey_example";  // string | 
+            var query = gt;  // string | The partial search query to get suggestions for.
+            var limit = 10;  // int | The maximum number of suggestions to return. (default to 10)
+            var apiKey = abc123;  // string | Your API key for authentication.
 
             try
             {
-                // GET v1/games/suggestions
+                // Get Game Suggestions
                 SearchSuggestionResponse result = apiInstance.Suggest(query, limit, apiKey);
                 Debug.WriteLine(result);
             }
@@ -346,7 +390,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // GET v1/games/suggestions
+    // Get Game Suggestions
     ApiResponse<SearchSuggestionResponse> response = apiInstance.SuggestWithHttpInfo(query, limit, apiKey);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -364,9 +408,9 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **query** | **string** |  |  |
-| **limit** | **int** |  |  |
-| **apiKey** | **string** |  |  |
+| **query** | **string** | The partial search query to get suggestions for. |  |
+| **limit** | **int** | The maximum number of suggestions to return. | [default to 10] |
+| **apiKey** | **string** | Your API key for authentication. |  |
 
 ### Return type
 
@@ -374,7 +418,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 

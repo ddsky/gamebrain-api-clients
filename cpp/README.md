@@ -4,7 +4,7 @@
 
 GameBrain API
 
-- API version: 1.0.0
+- API version: 1.0.1
 - Generator version: 7.8.0-SNAPSHOT
 
 GameBrain API
@@ -59,16 +59,11 @@ QString Example::create(){
 void Example::exampleFunction1(){
      OAIDefaultApi apiInstance;
      
-      QEventLoop loop;
-      connect(&apiInstance, &OAIDefaultApi::detailSignal, [&]() {
-          loop.quit();
-      });
-      connect(&apiInstance, &OAIDefaultApi::detailSignalE, [&](QNetworkReply::NetworkError, QString error_str) {
-          qDebug() << "Error happened while issuing request : " << error_str;
-          loop.quit();
-      });
+      // Configure API key authorization: apiKey
+      apiInstance.setApiKey("YOUR API KEY NAME","YOUR API KEY");
 
-      qint32 id = create(); // qint32 | 
+      // Configure API key authorization: headerApiKey
+      apiInstance.setApiKey("YOUR API KEY NAME","YOUR API KEY");
 
       QEventLoop loop;
       connect(&apiInstance, &OAIDefaultApi::detailSignal, [&]() {
@@ -79,7 +74,18 @@ void Example::exampleFunction1(){
           loop.quit();
       });
 
-      QString api_key = create(); // QString | 
+      qint32 id = create(); // qint32 | The unique identifier of the game.
+
+      QEventLoop loop;
+      connect(&apiInstance, &OAIDefaultApi::detailSignal, [&]() {
+          loop.quit();
+      });
+      connect(&apiInstance, &OAIDefaultApi::detailSignalE, [&](QNetworkReply::NetworkError, QString error_str) {
+          qDebug() << "Error happened while issuing request : " << error_str;
+          loop.quit();
+      });
+
+      QString api_key = create(); // QString | Your API key for authentication.
       apiInstance.detail(idapi_key);
       QTimer::singleShot(5000, &loop, &QEventLoop::quit);
       loop.exec();
@@ -140,12 +146,25 @@ servers:
 
 ## Documentation for Authorization
 
-All endpoints do not require authorization.
 Authentication schemes defined for the API:
+### apiKey
+
+
+- **Type**: API key
+- **API key parameter name**: api-key
+- **Location**: URL query string
+
+### headerApiKey
+
+
+- **Type**: API key
+- **API key parameter name**: x-api-key
+- **Location**: HTTP header
+
 
 ## Author
 
-
+mail@gamebrain.co
 
 
 ## License

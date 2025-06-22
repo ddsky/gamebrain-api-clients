@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "gamebrain"
-version = "1.0.0"
+version = "1.0.1"
 description = "GameBrain API"
-authors = ["OpenAPI Generator Community <team@openapitools.org>"]
+authors = ["David Urbansky <mail@gamebrain.co>"]
 license = "NoLicense"
 readme = "README.md"
 repository = "https://github.com/ddsky/gamebrain-clients/tree/master/python/"

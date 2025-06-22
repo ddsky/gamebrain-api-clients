@@ -9,24 +9,34 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**detail**](DefaultApi.md#detail) | **GET** /games/{id} | GET v1/games/{id}
-[**search**](DefaultApi.md#search) | **GET** /games | GET v1/games
-[**similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | GET v1/games/{id}/similar
-[**suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | GET v1/games/suggestions
+[**detail**](DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details
+[**search**](DefaultApi.md#search) | **GET** /games | Search Games
+[**similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games
+[**suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions
 
 
 # **detail**
 > GameResponse detail(id, apiKey)
 
-GET v1/games/{id}
+Get Game Details
+
+Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more.
 
 ### Example
 ```dart
 import 'package:openapi/api.dart';
+// TODO Configure API key authorization: apiKey
+//defaultApiClient.getAuthentication<ApiKeyAuth>('apiKey').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('apiKey').apiKeyPrefix = 'Bearer';
+// TODO Configure API key authorization: headerApiKey
+//defaultApiClient.getAuthentication<ApiKeyAuth>('headerApiKey').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('headerApiKey').apiKeyPrefix = 'Bearer';
 
 final api_instance = DefaultApi();
-final id = 56; // int | 
-final apiKey = apiKey_example; // String | 
+final id = 56; // int | The unique identifier of the game.
+final apiKey = abc123; // String | Your API key for authentication.
 
 try {
     final result = api_instance.detail(id, apiKey);
@@ -40,8 +50,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **int**|  | 
- **apiKey** | **String**|  | 
+ **id** | **int**| The unique identifier of the game. | 
+ **apiKey** | **String**| Your API key for authentication. | 
 
 ### Return type
 
@@ -49,7 +59,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -61,21 +71,31 @@ No authorization required
 # **search**
 > SearchResponse search(query, offset, limit, filters, sort, sortOrder, generateFilterOptions, apiKey)
 
-GET v1/games
+Search Games
+
+Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
 
 ### Example
 ```dart
 import 'package:openapi/api.dart';
+// TODO Configure API key authorization: apiKey
+//defaultApiClient.getAuthentication<ApiKeyAuth>('apiKey').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('apiKey').apiKeyPrefix = 'Bearer';
+// TODO Configure API key authorization: headerApiKey
+//defaultApiClient.getAuthentication<ApiKeyAuth>('headerApiKey').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('headerApiKey').apiKeyPrefix = 'Bearer';
 
 final api_instance = DefaultApi();
-final query = query_example; // String | 
-final offset = 56; // int | 
-final limit = 56; // int | 
-final filters = filters_example; // String | 
-final sort = sort_example; // String | 
-final sortOrder = sortOrder_example; // String | 
-final generateFilterOptions = true; // bool | 
-final apiKey = apiKey_example; // String | 
+final query = rpg for PC; // String | The search query, e.g., game name, platform, genre, or any combination.
+final offset = 56; // int | The number of results to skip before starting to collect the result set.
+final limit = 56; // int | The maximum number of results to return.
+final filters = filters_example; // String | JSON array of filter objects to apply to the search.
+final sort = computed_rating; // String | The field by which to sort the results.
+final sortOrder = asc; // String | The sort order: 'asc' for ascending or 'desc' for descending.
+final generateFilterOptions = true; // bool | Whether to generate filter options in the response.
+final apiKey = abc123; // String | Your API key for authentication.
 
 try {
     final result = api_instance.search(query, offset, limit, filters, sort, sortOrder, generateFilterOptions, apiKey);
@@ -89,14 +109,14 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | **String**|  | 
- **offset** | **int**|  | 
- **limit** | **int**|  | 
- **filters** | **String**|  | [default to '[]']
- **sort** | **String**|  | 
- **sortOrder** | **String**|  | [default to 'asc']
- **generateFilterOptions** | **bool**|  | [default to true]
- **apiKey** | **String**|  | 
+ **query** | **String**| The search query, e.g., game name, platform, genre, or any combination. | 
+ **offset** | **int**| The number of results to skip before starting to collect the result set. | [default to 0]
+ **limit** | **int**| The maximum number of results to return. | [default to 48]
+ **filters** | **String**| JSON array of filter objects to apply to the search. | [default to '[]']
+ **sort** | **String**| The field by which to sort the results. | 
+ **sortOrder** | **String**| The sort order: 'asc' for ascending or 'desc' for descending. | [default to 'asc']
+ **generateFilterOptions** | **bool**| Whether to generate filter options in the response. | [default to true]
+ **apiKey** | **String**| Your API key for authentication. | 
 
 ### Return type
 
@@ -104,7 +124,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -116,16 +136,26 @@ No authorization required
 # **similar**
 > SimilarGamesResponse similar(id, limit, apiKey)
 
-GET v1/games/{id}/similar
+Get Similar Games
+
+Get games that are similar to the given one.
 
 ### Example
 ```dart
 import 'package:openapi/api.dart';
+// TODO Configure API key authorization: apiKey
+//defaultApiClient.getAuthentication<ApiKeyAuth>('apiKey').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('apiKey').apiKeyPrefix = 'Bearer';
+// TODO Configure API key authorization: headerApiKey
+//defaultApiClient.getAuthentication<ApiKeyAuth>('headerApiKey').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('headerApiKey').apiKeyPrefix = 'Bearer';
 
 final api_instance = DefaultApi();
 final id = 56; // int | 
 final limit = 56; // int | 
-final apiKey = apiKey_example; // String | 
+final apiKey = abc123; // String | 
 
 try {
     final result = api_instance.similar(id, limit, apiKey);
@@ -140,7 +170,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**|  | 
- **limit** | **int**|  | 
+ **limit** | **int**|  | [default to 10]
  **apiKey** | **String**|  | 
 
 ### Return type
@@ -149,7 +179,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -161,16 +191,26 @@ No authorization required
 # **suggest**
 > SearchSuggestionResponse suggest(query, limit, apiKey)
 
-GET v1/games/suggestions
+Get Game Suggestions
+
+Get game suggestions based on (partial) search queries. For example, the query 'gt' will return games like GTA.
 
 ### Example
 ```dart
 import 'package:openapi/api.dart';
+// TODO Configure API key authorization: apiKey
+//defaultApiClient.getAuthentication<ApiKeyAuth>('apiKey').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('apiKey').apiKeyPrefix = 'Bearer';
+// TODO Configure API key authorization: headerApiKey
+//defaultApiClient.getAuthentication<ApiKeyAuth>('headerApiKey').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('headerApiKey').apiKeyPrefix = 'Bearer';
 
 final api_instance = DefaultApi();
-final query = query_example; // String | 
-final limit = 56; // int | 
-final apiKey = apiKey_example; // String | 
+final query = gt; // String | The partial search query to get suggestions for.
+final limit = 56; // int | The maximum number of suggestions to return.
+final apiKey = abc123; // String | Your API key for authentication.
 
 try {
     final result = api_instance.suggest(query, limit, apiKey);
@@ -184,9 +224,9 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | **String**|  | 
- **limit** | **int**|  | 
- **apiKey** | **String**|  | 
+ **query** | **String**| The partial search query to get suggestions for. | 
+ **limit** | **int**| The maximum number of suggestions to return. | [default to 10]
+ **apiKey** | **String**| Your API key for authentication. | 
 
 ### Return type
 
@@ -194,7 +234,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 

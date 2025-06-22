@@ -35,9 +35,10 @@ export class PromiseDefaultApi {
     }
 
     /**
-     * GET v1/games/{id}
-     * @param id 
-     * @param apiKey 
+     * Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more.
+     * Get Game Details
+     * @param id The unique identifier of the game.
+     * @param apiKey Your API key for authentication.
      */
     public detailWithHttpInfo(id: number, apiKey: string, _options?: Configuration): Promise<HttpInfo<GameResponse>> {
         const result = this.api.detailWithHttpInfo(id, apiKey, _options);
@@ -45,9 +46,10 @@ export class PromiseDefaultApi {
     }
 
     /**
-     * GET v1/games/{id}
-     * @param id 
-     * @param apiKey 
+     * Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more.
+     * Get Game Details
+     * @param id The unique identifier of the game.
+     * @param apiKey Your API key for authentication.
      */
     public detail(id: number, apiKey: string, _options?: Configuration): Promise<GameResponse> {
         const result = this.api.detail(id, apiKey, _options);
@@ -55,15 +57,16 @@ export class PromiseDefaultApi {
     }
 
     /**
-     * GET v1/games
-     * @param query 
-     * @param offset 
-     * @param limit 
-     * @param filters 
-     * @param sort 
-     * @param sortOrder 
-     * @param generateFilterOptions 
-     * @param apiKey 
+     * Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
+     * Search Games
+     * @param query The search query, e.g., game name, platform, genre, or any combination.
+     * @param offset The number of results to skip before starting to collect the result set.
+     * @param limit The maximum number of results to return.
+     * @param filters JSON array of filter objects to apply to the search.
+     * @param sort The field by which to sort the results.
+     * @param sortOrder The sort order: \&#39;asc\&#39; for ascending or \&#39;desc\&#39; for descending.
+     * @param generateFilterOptions Whether to generate filter options in the response.
+     * @param apiKey Your API key for authentication.
      */
     public searchWithHttpInfo(query: string, offset: number, limit: number, filters: string, sort: string, sortOrder: string, generateFilterOptions: boolean, apiKey: string, _options?: Configuration): Promise<HttpInfo<SearchResponse>> {
         const result = this.api.searchWithHttpInfo(query, offset, limit, filters, sort, sortOrder, generateFilterOptions, apiKey, _options);
@@ -71,15 +74,16 @@ export class PromiseDefaultApi {
     }
 
     /**
-     * GET v1/games
-     * @param query 
-     * @param offset 
-     * @param limit 
-     * @param filters 
-     * @param sort 
-     * @param sortOrder 
-     * @param generateFilterOptions 
-     * @param apiKey 
+     * Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
+     * Search Games
+     * @param query The search query, e.g., game name, platform, genre, or any combination.
+     * @param offset The number of results to skip before starting to collect the result set.
+     * @param limit The maximum number of results to return.
+     * @param filters JSON array of filter objects to apply to the search.
+     * @param sort The field by which to sort the results.
+     * @param sortOrder The sort order: \&#39;asc\&#39; for ascending or \&#39;desc\&#39; for descending.
+     * @param generateFilterOptions Whether to generate filter options in the response.
+     * @param apiKey Your API key for authentication.
      */
     public search(query: string, offset: number, limit: number, filters: string, sort: string, sortOrder: string, generateFilterOptions: boolean, apiKey: string, _options?: Configuration): Promise<SearchResponse> {
         const result = this.api.search(query, offset, limit, filters, sort, sortOrder, generateFilterOptions, apiKey, _options);
@@ -87,7 +91,8 @@ export class PromiseDefaultApi {
     }
 
     /**
-     * GET v1/games/{id}/similar
+     * Get games that are similar to the given one.
+     * Get Similar Games
      * @param id 
      * @param limit 
      * @param apiKey 
@@ -98,7 +103,8 @@ export class PromiseDefaultApi {
     }
 
     /**
-     * GET v1/games/{id}/similar
+     * Get games that are similar to the given one.
+     * Get Similar Games
      * @param id 
      * @param limit 
      * @param apiKey 
@@ -109,10 +115,11 @@ export class PromiseDefaultApi {
     }
 
     /**
-     * GET v1/games/suggestions
-     * @param query 
-     * @param limit 
-     * @param apiKey 
+     * Get game suggestions based on (partial) search queries. For example, the query \'gt\' will return games like GTA.
+     * Get Game Suggestions
+     * @param query The partial search query to get suggestions for.
+     * @param limit The maximum number of suggestions to return.
+     * @param apiKey Your API key for authentication.
      */
     public suggestWithHttpInfo(query: string, limit: number, apiKey: string, _options?: Configuration): Promise<HttpInfo<SearchSuggestionResponse>> {
         const result = this.api.suggestWithHttpInfo(query, limit, apiKey, _options);
@@ -120,10 +127,11 @@ export class PromiseDefaultApi {
     }
 
     /**
-     * GET v1/games/suggestions
-     * @param query 
-     * @param limit 
-     * @param apiKey 
+     * Get game suggestions based on (partial) search queries. For example, the query \'gt\' will return games like GTA.
+     * Get Game Suggestions
+     * @param query The partial search query to get suggestions for.
+     * @param limit The maximum number of suggestions to return.
+     * @param apiKey Your API key for authentication.
      */
     public suggest(query: string, limit: number, apiKey: string, _options?: Configuration): Promise<SearchSuggestionResponse> {
         const result = this.api.suggest(query, limit, apiKey, _options);

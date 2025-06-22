@@ -58,7 +58,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'co.gamebrain'
             artifactId = 'android-client'
-            version = '1.0.0'
+            version = '1.0.1'
 
             afterEvaluate {
                 from components.release

@@ -4,25 +4,27 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**detail**](DefaultApi.md#detail) | **GET** /games/{id} | GET v1/games/{id}
-[**search**](DefaultApi.md#search) | **GET** /games | GET v1/games
-[**similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | GET v1/games/{id}/similar
-[**suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | GET v1/games/suggestions
+[**detail**](DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details
+[**search**](DefaultApi.md#search) | **GET** /games | Search Games
+[**similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games
+[**suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions
 
 
 
 ## detail
 
 > models::GameResponse detail(id, api_key)
-GET v1/games/{id}
+Get Game Details
+
+Get all the details about a game given its id. Details include screenshots, ratings, release dates, videos, description, tags, and much more.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**id** | **i32** |  | [required] |
-**api_key** | **String** |  | [required] |
+**id** | **i32** | The unique identifier of the game. | [required] |
+**api_key** | **String** | Your API key for authentication. | [required] |
 
 ### Return type
 
@@ -30,7 +32,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -43,21 +45,23 @@ No authorization required
 ## search
 
 > models::SearchResponse search(query, offset, limit, filters, sort, sort_order, generate_filter_options, api_key)
-GET v1/games
+Search Games
+
+Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**query** | **String** |  | [required] |
-**offset** | **i32** |  | [required] |
-**limit** | **i32** |  | [required] |
-**filters** | **String** |  | [required] |[default to []]
-**sort** | **String** |  | [required] |
-**sort_order** | **String** |  | [required] |[default to asc]
-**generate_filter_options** | **bool** |  | [required] |[default to true]
-**api_key** | **String** |  | [required] |
+**query** | **String** | The search query, e.g., game name, platform, genre, or any combination. | [required] |
+**offset** | **i32** | The number of results to skip before starting to collect the result set. | [required] |[default to 0]
+**limit** | **i32** | The maximum number of results to return. | [required] |[default to 48]
+**filters** | **String** | JSON array of filter objects to apply to the search. | [required] |[default to []]
+**sort** | **String** | The field by which to sort the results. | [required] |
+**sort_order** | **String** | The sort order: 'asc' for ascending or 'desc' for descending. | [required] |[default to asc]
+**generate_filter_options** | **bool** | Whether to generate filter options in the response. | [required] |[default to true]
+**api_key** | **String** | Your API key for authentication. | [required] |
 
 ### Return type
 
@@ -65,7 +69,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -78,7 +82,9 @@ No authorization required
 ## similar
 
 > models::SimilarGamesResponse similar(id, limit, api_key)
-GET v1/games/{id}/similar
+Get Similar Games
+
+Get games that are similar to the given one.
 
 ### Parameters
 
@@ -86,7 +92,7 @@ GET v1/games/{id}/similar
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **i32** |  | [required] |
-**limit** | **i32** |  | [required] |
+**limit** | **i32** |  | [required] |[default to 10]
 **api_key** | **String** |  | [required] |
 
 ### Return type
@@ -95,7 +101,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 
@@ -108,16 +114,18 @@ No authorization required
 ## suggest
 
 > models::SearchSuggestionResponse suggest(query, limit, api_key)
-GET v1/games/suggestions
+Get Game Suggestions
+
+Get game suggestions based on (partial) search queries. For example, the query 'gt' will return games like GTA.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**query** | **String** |  | [required] |
-**limit** | **i32** |  | [required] |
-**api_key** | **String** |  | [required] |
+**query** | **String** | The partial search query to get suggestions for. | [required] |
+**limit** | **i32** | The maximum number of suggestions to return. | [required] |[default to 10]
+**api_key** | **String** | Your API key for authentication. | [required] |
 
 ### Return type
 
@@ -125,7 +133,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-No authorization required
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
 
 ### HTTP request headers
 

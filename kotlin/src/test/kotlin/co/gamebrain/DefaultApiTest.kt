@@ -32,8 +32,8 @@ class DefaultApiTest : ShouldSpec() {
         // to test detail
         should("test detail") {
             // uncomment below to test detail
-            //val id : kotlin.Int = 56 // kotlin.Int | 
-            //val apiKey : kotlin.String = apiKey_example // kotlin.String | 
+            //val id : kotlin.Int = 56 // kotlin.Int | The unique identifier of the game.
+            //val apiKey : kotlin.String = abc123 // kotlin.String | Your API key for authentication.
             //val result : GameResponse = apiInstance.detail(id, apiKey)
             //result shouldBe ("TODO")
         }
@@ -41,14 +41,14 @@ class DefaultApiTest : ShouldSpec() {
         // to test search
         should("test search") {
             // uncomment below to test search
-            //val query : kotlin.String = query_example // kotlin.String | 
-            //val offset : kotlin.Int = 56 // kotlin.Int | 
-            //val limit : kotlin.Int = 56 // kotlin.Int | 
-            //val filters : kotlin.String = filters_example // kotlin.String | 
-            //val sort : kotlin.String = sort_example // kotlin.String | 
-            //val sortOrder : kotlin.String = sortOrder_example // kotlin.String | 
-            //val generateFilterOptions : kotlin.Boolean = true // kotlin.Boolean | 
-            //val apiKey : kotlin.String = apiKey_example // kotlin.String | 
+            //val query : kotlin.String = rpg for PC // kotlin.String | The search query, e.g., game name, platform, genre, or any combination.
+            //val offset : kotlin.Int = 56 // kotlin.Int | The number of results to skip before starting to collect the result set.
+            //val limit : kotlin.Int = 56 // kotlin.Int | The maximum number of results to return.
+            //val filters : kotlin.String = filters_example // kotlin.String | JSON array of filter objects to apply to the search.
+            //val sort : kotlin.String = computed_rating // kotlin.String | The field by which to sort the results.
+            //val sortOrder : kotlin.String = asc // kotlin.String | The sort order: 'asc' for ascending or 'desc' for descending.
+            //val generateFilterOptions : kotlin.Boolean = true // kotlin.Boolean | Whether to generate filter options in the response.
+            //val apiKey : kotlin.String = abc123 // kotlin.String | Your API key for authentication.
             //val result : SearchResponse = apiInstance.search(query, offset, limit, filters, sort, sortOrder, generateFilterOptions, apiKey)
             //result shouldBe ("TODO")
         }
@@ -58,7 +58,7 @@ class DefaultApiTest : ShouldSpec() {
             // uncomment below to test similar
             //val id : kotlin.Int = 56 // kotlin.Int | 
             //val limit : kotlin.Int = 56 // kotlin.Int | 
-            //val apiKey : kotlin.String = apiKey_example // kotlin.String | 
+            //val apiKey : kotlin.String = abc123 // kotlin.String | 
             //val result : SimilarGamesResponse = apiInstance.similar(id, limit, apiKey)
             //result shouldBe ("TODO")
         }
@@ -66,9 +66,9 @@ class DefaultApiTest : ShouldSpec() {
         // to test suggest
         should("test suggest") {
             // uncomment below to test suggest
-            //val query : kotlin.String = query_example // kotlin.String | 
-            //val limit : kotlin.Int = 56 // kotlin.Int | 
-            //val apiKey : kotlin.String = apiKey_example // kotlin.String | 
+            //val query : kotlin.String = gt // kotlin.String | The partial search query to get suggestions for.
+            //val limit : kotlin.Int = 56 // kotlin.Int | The maximum number of suggestions to return.
+            //val apiKey : kotlin.String = abc123 // kotlin.String | Your API key for authentication.
             //val result : SearchSuggestionResponse = apiInstance.suggest(query, limit, apiKey)
             //result shouldBe ("TODO")
         }
