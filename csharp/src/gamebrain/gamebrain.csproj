@@ -12,7 +12,7 @@
     <Description>A library generated from a OpenAPI doc</Description>
     <Copyright>No Copyright</Copyright>
     <RootNamespace>gamebrain</RootNamespace>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\gamebrain.xml</DocumentationFile>
     <RepositoryUrl>https://github.com/ddsky/gamebrain-clients/tree/master/csharp/.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

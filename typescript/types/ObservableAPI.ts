@@ -2,6 +2,8 @@ import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/htt
 import { Configuration} from '../configuration'
 import { Observable, of, from } from '../rxjsStub';
 import {mergeMap, map} from  '../rxjsStub';
+import { GameNewsItem } from '../models/GameNewsItem';
+import { GameNewsResponse } from '../models/GameNewsResponse';
 import { GameResponse } from '../models/GameResponse';
 import { GameResponseOffersInner } from '../models/GameResponseOffersInner';
 import { GameResponseOffersInnerPrice } from '../models/GameResponseOffersInnerPrice';
@@ -74,13 +76,52 @@ export class ObservableDefaultApi {
     }
 
     /**
+     * Get news related to the given game.
+     * Get Game News
+     * @param id 
+     * @param offset 
+     * @param limit 
+     * @param apiKey 
+     */
+    public newsWithHttpInfo(id: number, offset: number, limit: number, apiKey: string, _options?: Configuration): Observable<HttpInfo<GameNewsResponse>> {
+        const requestContextPromise = this.requestFactory.news(id, offset, limit, apiKey, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.newsWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get news related to the given game.
+     * Get Game News
+     * @param id 
+     * @param offset 
+     * @param limit 
+     * @param apiKey 
+     */
+    public news(id: number, offset: number, limit: number, apiKey: string, _options?: Configuration): Observable<GameNewsResponse> {
+        return this.newsWithHttpInfo(id, offset, limit, apiKey, _options).pipe(map((apiResponse: HttpInfo<GameNewsResponse>) => apiResponse.data));
+    }
+
+    /**
      * Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
      * Search Games
      * @param query The search query, e.g., game name, platform, genre, or any combination.
-     * @param offset The number of results to skip before starting to collect the result set.
-     * @param limit The maximum number of results to return.
+     * @param offset The number of results to skip before starting to collect the result set. Between 0 and 1000.
+     * @param limit The maximum number of results to return between 1 and 10.
      * @param filters JSON array of filter objects to apply to the search.
-     * @param sort The field by which to sort the results.
+     * @param sort The field by which to sort the results, either computed_rating, price, or release_date
      * @param sortOrder The sort order: \&#39;asc\&#39; for ascending or \&#39;desc\&#39; for descending.
      * @param generateFilterOptions Whether to generate filter options in the response.
      * @param apiKey Your API key for authentication.
@@ -108,10 +149,10 @@ export class ObservableDefaultApi {
      * Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
      * Search Games
      * @param query The search query, e.g., game name, platform, genre, or any combination.
-     * @param offset The number of results to skip before starting to collect the result set.
-     * @param limit The maximum number of results to return.
+     * @param offset The number of results to skip before starting to collect the result set. Between 0 and 1000.
+     * @param limit The maximum number of results to return between 1 and 10.
      * @param filters JSON array of filter objects to apply to the search.
-     * @param sort The field by which to sort the results.
+     * @param sort The field by which to sort the results, either computed_rating, price, or release_date
      * @param sortOrder The sort order: \&#39;asc\&#39; for ascending or \&#39;desc\&#39; for descending.
      * @param generateFilterOptions Whether to generate filter options in the response.
      * @param apiKey Your API key for authentication.

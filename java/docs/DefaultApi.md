@@ -5,6 +5,7 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**detail**](DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details |
+| [**news**](DefaultApi.md#news) | **GET** /games/{id}/news | Get Game News |
 | [**search**](DefaultApi.md#search) | **GET** /games | Search Games |
 | [**similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games |
 | [**suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions |
@@ -87,6 +88,87 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
 
+<a id="news"></a>
+# **news**
+> GameNewsResponse news(id, offset, limit, apiKey)
+
+Get Game News
+
+Get news related to the given game.
+
+### Example
+```java
+// Import classes:
+import co.gamebrain.client.ApiClient;
+import co.gamebrain.client.ApiException;
+import co.gamebrain.client.Configuration;
+import co.gamebrain.client.auth.*;
+import co.gamebrain.client.models.*;
+import co.gamebrain.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.gamebrain.co/v1");
+    
+    // Configure API key authorization: apiKey
+    ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
+    apiKey.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //apiKey.setApiKeyPrefix("Token");
+
+    // Configure API key authorization: headerApiKey
+    ApiKeyAuth headerApiKey = (ApiKeyAuth) defaultClient.getAuthentication("headerApiKey");
+    headerApiKey.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //headerApiKey.setApiKeyPrefix("Token");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Integer id = 56; // Integer | 
+    Integer offset = 0; // Integer | 
+    Integer limit = 10; // Integer | 
+    String apiKey = "abc123"; // String | 
+    try {
+      GameNewsResponse result = apiInstance.news(id, offset, limit, apiKey);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#news");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **Integer**|  | |
+| **offset** | **Integer**|  | [default to 0] |
+| **limit** | **Integer**|  | [default to 10] |
+| **apiKey** | **String**|  | |
+
+### Return type
+
+[**GameNewsResponse**](GameNewsResponse.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+
 <a id="search"></a>
 # **search**
 > SearchResponse search(query, offset, limit, filters, sort, sortOrder, generateFilterOptions, apiKey)
@@ -124,10 +206,10 @@ public class Example {
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     String query = "rpg for PC"; // String | The search query, e.g., game name, platform, genre, or any combination.
-    Integer offset = 0; // Integer | The number of results to skip before starting to collect the result set.
-    Integer limit = 48; // Integer | The maximum number of results to return.
+    Integer offset = 0; // Integer | The number of results to skip before starting to collect the result set. Between 0 and 1000.
+    Integer limit = 10; // Integer | The maximum number of results to return between 1 and 10.
     String filters = "[]"; // String | JSON array of filter objects to apply to the search.
-    String sort = "computed_rating"; // String | The field by which to sort the results.
+    String sort = "computed_rating"; // String | The field by which to sort the results, either computed_rating, price, or release_date
     String sortOrder = "asc"; // String | The sort order: 'asc' for ascending or 'desc' for descending.
     Boolean generateFilterOptions = true; // Boolean | Whether to generate filter options in the response.
     String apiKey = "abc123"; // String | Your API key for authentication.
@@ -150,10 +232,10 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **query** | **String**| The search query, e.g., game name, platform, genre, or any combination. | |
-| **offset** | **Integer**| The number of results to skip before starting to collect the result set. | [default to 0] |
-| **limit** | **Integer**| The maximum number of results to return. | [default to 48] |
+| **offset** | **Integer**| The number of results to skip before starting to collect the result set. Between 0 and 1000. | [default to 0] |
+| **limit** | **Integer**| The maximum number of results to return between 1 and 10. | [default to 10] |
 | **filters** | **String**| JSON array of filter objects to apply to the search. | [default to []] |
-| **sort** | **String**| The field by which to sort the results. | |
+| **sort** | **String**| The field by which to sort the results, either computed_rating, price, or release_date | |
 | **sortOrder** | **String**| The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. | [default to asc] |
 | **generateFilterOptions** | **Boolean**| Whether to generate filter options in the response. | [default to true] |
 | **apiKey** | **String**| Your API key for authentication. | |

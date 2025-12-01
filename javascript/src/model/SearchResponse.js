@@ -21,7 +21,7 @@ import SearchResponseSortingOptionsInner from './SearchResponseSortingOptionsInn
 /**
  * The SearchResponse model module.
  * @module model/SearchResponse
- * @version 1.0.1
+ * @version 1.0.2
  */
 class SearchResponse {
     /**

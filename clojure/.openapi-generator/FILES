@@ -4,6 +4,8 @@ git_push.sh
 project.clj
 src/game_brain_api/api/default.clj
 src/game_brain_api/core.clj
+src/game_brain_api/specs/game_news_item.clj
+src/game_brain_api/specs/game_news_response.clj
 src/game_brain_api/specs/game_response.clj
 src/game_brain_api/specs/game_response_offers_inner.clj
 src/game_brain_api/specs/game_response_offers_inner_price.clj

@@ -38,6 +38,8 @@ void OAIDefaultApi::initializeServerConfigs() {
     QMap<QString, OAIServerVariable>()));
     _serverConfigs.insert("detail", defaultConf);
     _serverIndices.insert("detail", 0);
+    _serverConfigs.insert("news", defaultConf);
+    _serverIndices.insert("news", 0);
     _serverConfigs.insert("search", defaultConf);
     _serverIndices.insert("search", 0);
     _serverConfigs.insert("similar", defaultConf);
@@ -333,6 +335,153 @@ void OAIDefaultApi::detailCallback(OAIHttpRequestWorker *worker) {
 
         Q_EMIT detailSignalError(output, error_type, error_str);
         Q_EMIT detailSignalErrorFull(worker, error_type, error_str);
+    }
+}
+
+void OAIDefaultApi::news(const qint32 &id, const qint32 &offset, const qint32 &limit, const QString &api_key) {
+    QString fullPath = QString(_serverConfigs["news"][_serverIndices.value("news")].URL()+"/games/{id}/news");
+    
+    if (_apiKeys.contains("apiKey")) {
+        if (fullPath.indexOf("?") > 0)
+            fullPath.append("&");
+        else
+            fullPath.append("?");
+        fullPath.append("apiKey=").append(_apiKeys.find("apiKey").value());
+    }
+    
+    if (_apiKeys.contains("headerApiKey")) {
+        addHeaders("headerApiKey",_apiKeys.find("headerApiKey").value());
+    }
+    
+    
+    {
+        QString idPathParam("{");
+        idPathParam.append("id").append("}");
+        QString pathPrefix, pathSuffix, pathDelimiter;
+        QString pathStyle = "simple";
+        if (pathStyle == "")
+            pathStyle = "simple";
+        pathPrefix = getParamStylePrefix(pathStyle);
+        pathSuffix = getParamStyleSuffix(pathStyle);
+        pathDelimiter = getParamStyleDelimiter(pathStyle, "id", false);
+        QString paramString = (pathStyle == "matrix") ? pathPrefix+"id"+pathSuffix : pathPrefix;
+        fullPath.replace(idPathParam, paramString+QUrl::toPercentEncoding(::OpenAPI::toStringValue(id)));
+    }
+    QString queryPrefix, querySuffix, queryDelimiter, queryStyle;
+    
+    {
+        queryStyle = "form";
+        if (queryStyle == "")
+            queryStyle = "form";
+        queryPrefix = getParamStylePrefix(queryStyle);
+        querySuffix = getParamStyleSuffix(queryStyle);
+        queryDelimiter = getParamStyleDelimiter(queryStyle, "offset", true);
+        if (fullPath.indexOf("?") > 0)
+            fullPath.append(queryPrefix);
+        else
+            fullPath.append("?");
+
+        fullPath.append(QUrl::toPercentEncoding("offset")).append(querySuffix).append(QUrl::toPercentEncoding(offset));
+    }
+    
+    {
+        queryStyle = "form";
+        if (queryStyle == "")
+            queryStyle = "form";
+        queryPrefix = getParamStylePrefix(queryStyle);
+        querySuffix = getParamStyleSuffix(queryStyle);
+        queryDelimiter = getParamStyleDelimiter(queryStyle, "limit", true);
+        if (fullPath.indexOf("?") > 0)
+            fullPath.append(queryPrefix);
+        else
+            fullPath.append("?");
+
+        fullPath.append(QUrl::toPercentEncoding("limit")).append(querySuffix).append(QUrl::toPercentEncoding(limit));
+    }
+    
+    {
+        queryStyle = "form";
+        if (queryStyle == "")
+            queryStyle = "form";
+        queryPrefix = getParamStylePrefix(queryStyle);
+        querySuffix = getParamStyleSuffix(queryStyle);
+        queryDelimiter = getParamStyleDelimiter(queryStyle, "api-key", true);
+        if (fullPath.indexOf("?") > 0)
+            fullPath.append(queryPrefix);
+        else
+            fullPath.append("?");
+
+        fullPath.append(QUrl::toPercentEncoding("api-key")).append(querySuffix).append(QUrl::toPercentEncoding(api_key));
+    }
+    OAIHttpRequestWorker *worker = new OAIHttpRequestWorker(this, _manager);
+    worker->setTimeOut(_timeOut);
+    worker->setWorkingDirectory(_workingDirectory);
+    OAIHttpRequestInput input(fullPath, "GET");
+
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+    for (auto keyValueIt = _defaultHeaders.keyValueBegin(); keyValueIt != _defaultHeaders.keyValueEnd(); keyValueIt++) {
+        input.headers.insert(keyValueIt->first, keyValueIt->second);
+    }
+#else
+    for (auto key : _defaultHeaders.keys()) {
+        input.headers.insert(key, _defaultHeaders[key]);
+    }
+#endif
+
+    connect(worker, &OAIHttpRequestWorker::on_execution_finished, this, &OAIDefaultApi::newsCallback);
+    connect(this, &OAIDefaultApi::abortRequestsSignal, worker, &QObject::deleteLater);
+    connect(worker, &QObject::destroyed, this, [this]() {
+        if (findChildren<OAIHttpRequestWorker*>().count() == 0) {
+            Q_EMIT allPendingRequestsCompleted();
+        }
+    });
+
+    worker->execute(&input);
+}
+
+void OAIDefaultApi::newsCallback(OAIHttpRequestWorker *worker) {
+    QString error_str = worker->error_str;
+    QNetworkReply::NetworkError error_type = worker->error_type;
+
+    if (worker->error_type != QNetworkReply::NoError) {
+        error_str = QString("%1, %2").arg(worker->error_str, QString(worker->response));
+    }
+    OAIGameNewsResponse output(QString(worker->response));
+    worker->deleteLater();
+
+    if (worker->error_type == QNetworkReply::NoError) {
+        Q_EMIT newsSignal(output);
+        Q_EMIT newsSignalFull(worker, output);
+    } else {
+
+#if defined(_MSC_VER)
+// For MSVC
+#pragma warning(push)
+#pragma warning(disable : 4996)
+#elif defined(__clang__)
+// For Clang
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#elif defined(__GNUC__)
+// For GCC
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
+
+        Q_EMIT newsSignalE(output, error_type, error_str);
+        Q_EMIT newsSignalEFull(worker, error_type, error_str);
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#elif defined(__clang__)
+#pragma clang diagnostic pop
+#elif defined(__GNUC__)
+#pragma GCC diagnostic pop
+#endif
+
+        Q_EMIT newsSignalError(output, error_type, error_str);
+        Q_EMIT newsSignalErrorFull(worker, error_type, error_str);
     }
 }
 

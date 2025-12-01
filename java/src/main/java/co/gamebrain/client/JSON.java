@@ -93,6 +93,8 @@ public class JSON {
         gsonBuilder.registerTypeAdapter(OffsetDateTime.class, offsetDateTimeTypeAdapter);
         gsonBuilder.registerTypeAdapter(LocalDate.class, localDateTypeAdapter);
         gsonBuilder.registerTypeAdapter(byte[].class, byteArrayAdapter);
+        gsonBuilder.registerTypeAdapterFactory(new co.gamebrain.client.model.GameNewsItem.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new co.gamebrain.client.model.GameNewsResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new co.gamebrain.client.model.GameResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new co.gamebrain.client.model.GameResponseOffersInner.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new co.gamebrain.client.model.GameResponseOffersInnerPrice.CustomTypeAdapterFactory());

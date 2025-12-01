@@ -10,6 +10,7 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**detail**](DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details
+[**news**](DefaultApi.md#news) | **GET** /games/{id}/news | Get Game News
 [**search**](DefaultApi.md#search) | **GET** /games | Search Games
 [**similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games
 [**suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions
@@ -72,6 +73,67 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **news**
+> GameNewsResponse news(id => $id, offset => $offset, limit => $limit, api_key => $api_key)
+
+Get Game News
+
+Get news related to the given game.
+
+### Example
+```perl
+use Data::Dumper;
+use WWW::OpenAPIClient::DefaultApi;
+my $api_instance = WWW::OpenAPIClient::DefaultApi->new(
+
+    # Configure API key authorization: apiKey
+    api_key => {'api-key' => 'YOUR_API_KEY'},
+    # uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+    #api_key_prefix => {'api-key' => 'Bearer'},
+    # Configure API key authorization: headerApiKey
+    api_key => {'x-api-key' => 'YOUR_API_KEY'},
+    # uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+    #api_key_prefix => {'x-api-key' => 'Bearer'},
+);
+
+my $id = 56; # int | 
+my $offset = 0; # int | 
+my $limit = 10; # int | 
+my $api_key = abc123; # string | 
+
+eval {
+    my $result = $api_instance->news(id => $id, offset => $offset, limit => $limit, api_key => $api_key);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->news: $@\n";
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **offset** | **int**|  | [default to 0]
+ **limit** | **int**|  | [default to 10]
+ **api_key** | **string**|  | 
+
+### Return type
+
+[**GameNewsResponse**](GameNewsResponse.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **search**
 > SearchResponse search(query => $query, offset => $offset, limit => $limit, filters => $filters, sort => $sort, sort_order => $sort_order, generate_filter_options => $generate_filter_options, api_key => $api_key)
 
@@ -96,10 +158,10 @@ my $api_instance = WWW::OpenAPIClient::DefaultApi->new(
 );
 
 my $query = rpg for PC; # string | The search query, e.g., game name, platform, genre, or any combination.
-my $offset = 0; # int | The number of results to skip before starting to collect the result set.
-my $limit = 48; # int | The maximum number of results to return.
-my $filters = '[]'; # string | JSON array of filter objects to apply to the search.
-my $sort = computed_rating; # string | The field by which to sort the results.
+my $offset = 0; # int | The number of results to skip before starting to collect the result set. Between 0 and 1000.
+my $limit = 10; # int | The maximum number of results to return between 1 and 10.
+my $filters = [{"key":"platform","values":[{"value":"pc"}],"connection":"OR"},{"key":"genre","values":[{"value":"action"}]}]; # string | JSON array of filter objects to apply to the search.
+my $sort = computed_rating; # string | The field by which to sort the results, either computed_rating, price, or release_date
 my $sort_order = asc; # string | The sort order: 'asc' for ascending or 'desc' for descending.
 my $generate_filter_options = true; # boolean | Whether to generate filter options in the response.
 my $api_key = abc123; # string | Your API key for authentication.
@@ -118,10 +180,10 @@ if ($@) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query** | **string**| The search query, e.g., game name, platform, genre, or any combination. | 
- **offset** | **int**| The number of results to skip before starting to collect the result set. | [default to 0]
- **limit** | **int**| The maximum number of results to return. | [default to 48]
+ **offset** | **int**| The number of results to skip before starting to collect the result set. Between 0 and 1000. | [default to 0]
+ **limit** | **int**| The maximum number of results to return between 1 and 10. | [default to 10]
  **filters** | **string**| JSON array of filter objects to apply to the search. | [default to &#39;[]&#39;]
- **sort** | **string**| The field by which to sort the results. | 
+ **sort** | **string**| The field by which to sort the results, either computed_rating, price, or release_date | 
  **sort_order** | **string**| The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. | [default to &#39;asc&#39;]
  **generate_filter_options** | **boolean**| Whether to generate filter options in the response. | [default to true]
  **api_key** | **string**| Your API key for authentication. | 

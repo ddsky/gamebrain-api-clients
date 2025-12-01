@@ -4,6 +4,8 @@ README.md
 api/openapi.yaml
 appveyor.yml
 docs/DefaultApi.md
+docs/GameNewsItem.md
+docs/GameNewsResponse.md
 docs/GameResponse.md
 docs/GameResponseOffersInner.md
 docs/GameResponseOffersInnerPrice.md
@@ -26,6 +28,8 @@ docs/SimilarGamesResponse.md
 gamebrain.sln
 git_push.sh
 src/gamebrain.Test/Api/DefaultApiTests.cs
+src/gamebrain.Test/Model/GameNewsItemTests.cs
+src/gamebrain.Test/Model/GameNewsResponseTests.cs
 src/gamebrain.Test/Model/GameResponseOffersInnerPriceTests.cs
 src/gamebrain.Test/Model/GameResponseOffersInnerTests.cs
 src/gamebrain.Test/Model/GameResponseOfficialStoresInnerTests.cs
@@ -64,6 +68,8 @@ src/gamebrain/Client/OpenAPIDateConverter.cs
 src/gamebrain/Client/RequestOptions.cs
 src/gamebrain/Client/RetryConfiguration.cs
 src/gamebrain/Model/AbstractOpenAPISchema.cs
+src/gamebrain/Model/GameNewsItem.cs
+src/gamebrain/Model/GameNewsResponse.cs
 src/gamebrain/Model/GameResponse.cs
 src/gamebrain/Model/GameResponseOffersInner.cs
 src/gamebrain/Model/GameResponseOffersInnerPrice.cs

@@ -8,6 +8,8 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
+model/gameNewsItem.ts
+model/gameNewsResponse.ts
 model/gameResponse.ts
 model/gameResponseOffersInner.ts
 model/gameResponseOffersInnerPrice.ts

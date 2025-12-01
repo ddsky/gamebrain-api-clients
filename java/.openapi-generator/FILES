@@ -7,6 +7,8 @@ api/openapi.yaml
 build.gradle
 build.sbt
 docs/DefaultApi.md
+docs/GameNewsItem.md
+docs/GameNewsResponse.md
 docs/GameResponse.md
 docs/GameResponseOffersInner.md
 docs/GameResponseOffersInnerPrice.md
@@ -54,6 +56,8 @@ src/main/java/co/gamebrain/client/auth/Authentication.java
 src/main/java/co/gamebrain/client/auth/HttpBasicAuth.java
 src/main/java/co/gamebrain/client/auth/HttpBearerAuth.java
 src/main/java/co/gamebrain/client/model/AbstractOpenApiSchema.java
+src/main/java/co/gamebrain/client/model/GameNewsItem.java
+src/main/java/co/gamebrain/client/model/GameNewsResponse.java
 src/main/java/co/gamebrain/client/model/GameResponse.java
 src/main/java/co/gamebrain/client/model/GameResponseOffersInner.java
 src/main/java/co/gamebrain/client/model/GameResponseOffersInnerPrice.java
@@ -74,6 +78,8 @@ src/main/java/co/gamebrain/client/model/SearchSuggestionResponse.java
 src/main/java/co/gamebrain/client/model/SearchSuggestionResponseResultsInner.java
 src/main/java/co/gamebrain/client/model/SimilarGamesResponse.java
 src/test/java/co/gamebrain/DefaultApiTest.java
+src/test/java/co/gamebrain/client/model/GameNewsItemTest.java
+src/test/java/co/gamebrain/client/model/GameNewsResponseTest.java
 src/test/java/co/gamebrain/client/model/GameResponseOffersInnerPriceTest.java
 src/test/java/co/gamebrain/client/model/GameResponseOffersInnerTest.java
 src/test/java/co/gamebrain/client/model/GameResponseOfficialStoresInnerTest.java

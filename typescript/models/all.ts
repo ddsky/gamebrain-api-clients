@@ -1,3 +1,5 @@
+export * from '../models/GameNewsItem'
+export * from '../models/GameNewsResponse'
 export * from '../models/GameResponse'
 export * from '../models/GameResponseOffersInner'
 export * from '../models/GameResponseOffersInnerPrice'

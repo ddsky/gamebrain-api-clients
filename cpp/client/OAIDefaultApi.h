@@ -18,6 +18,7 @@
 #include "OAIServerConfiguration.h"
 #include "OAIOauth.h"
 
+#include "OAIGameNewsResponse.h"
 #include "OAIGameResponse.h"
 #include "OAISearchResponse.h"
 #include "OAISearchSuggestionResponse.h"
@@ -65,6 +66,14 @@ public:
     * @param[in]  api_key QString [required]
     */
     void detail(const qint32 &id, const QString &api_key);
+
+    /**
+    * @param[in]  id qint32 [required]
+    * @param[in]  offset qint32 [required]
+    * @param[in]  limit qint32 [required]
+    * @param[in]  api_key QString [required]
+    */
+    void news(const qint32 &id, const qint32 &offset, const qint32 &limit, const QString &api_key);
 
     /**
     * @param[in]  query QString [required]
@@ -116,6 +125,7 @@ private:
     int _OauthMethod = 0;
 
     void detailCallback(OAIHttpRequestWorker *worker);
+    void newsCallback(OAIHttpRequestWorker *worker);
     void searchCallback(OAIHttpRequestWorker *worker);
     void similarCallback(OAIHttpRequestWorker *worker);
     void suggestCallback(OAIHttpRequestWorker *worker);
@@ -123,11 +133,13 @@ private:
 Q_SIGNALS:
 
     void detailSignal(OAIGameResponse summary);
+    void newsSignal(OAIGameNewsResponse summary);
     void searchSignal(OAISearchResponse summary);
     void similarSignal(OAISimilarGamesResponse summary);
     void suggestSignal(OAISearchSuggestionResponse summary);
 
     void detailSignalFull(OAIHttpRequestWorker *worker, OAIGameResponse summary);
+    void newsSignalFull(OAIHttpRequestWorker *worker, OAIGameNewsResponse summary);
     void searchSignalFull(OAIHttpRequestWorker *worker, OAISearchResponse summary);
     void similarSignalFull(OAIHttpRequestWorker *worker, OAISimilarGamesResponse summary);
     void suggestSignalFull(OAIHttpRequestWorker *worker, OAISearchSuggestionResponse summary);
@@ -135,6 +147,9 @@ Q_SIGNALS:
     Q_DECL_DEPRECATED_X("Use detailSignalError() instead")
     void detailSignalE(OAIGameResponse summary, QNetworkReply::NetworkError error_type, QString error_str);
     void detailSignalError(OAIGameResponse summary, QNetworkReply::NetworkError error_type, const QString &error_str);
+    Q_DECL_DEPRECATED_X("Use newsSignalError() instead")
+    void newsSignalE(OAIGameNewsResponse summary, QNetworkReply::NetworkError error_type, QString error_str);
+    void newsSignalError(OAIGameNewsResponse summary, QNetworkReply::NetworkError error_type, const QString &error_str);
     Q_DECL_DEPRECATED_X("Use searchSignalError() instead")
     void searchSignalE(OAISearchResponse summary, QNetworkReply::NetworkError error_type, QString error_str);
     void searchSignalError(OAISearchResponse summary, QNetworkReply::NetworkError error_type, const QString &error_str);
@@ -148,6 +163,9 @@ Q_SIGNALS:
     Q_DECL_DEPRECATED_X("Use detailSignalErrorFull() instead")
     void detailSignalEFull(OAIHttpRequestWorker *worker, QNetworkReply::NetworkError error_type, QString error_str);
     void detailSignalErrorFull(OAIHttpRequestWorker *worker, QNetworkReply::NetworkError error_type, const QString &error_str);
+    Q_DECL_DEPRECATED_X("Use newsSignalErrorFull() instead")
+    void newsSignalEFull(OAIHttpRequestWorker *worker, QNetworkReply::NetworkError error_type, QString error_str);
+    void newsSignalErrorFull(OAIHttpRequestWorker *worker, QNetworkReply::NetworkError error_type, const QString &error_str);
     Q_DECL_DEPRECATED_X("Use searchSignalErrorFull() instead")
     void searchSignalEFull(OAIHttpRequestWorker *worker, QNetworkReply::NetworkError error_type, QString error_str);
     void searchSignalErrorFull(OAIHttpRequestWorker *worker, QNetworkReply::NetworkError error_type, const QString &error_str);

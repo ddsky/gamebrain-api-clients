@@ -15,6 +15,8 @@
 
 
 # import models into model package
+from gamebrain.models.game_news_item import GameNewsItem
+from gamebrain.models.game_news_response import GameNewsResponse
 from gamebrain.models.game_response import GameResponse
 from gamebrain.models.game_response_offers_inner import GameResponseOffersInner
 from gamebrain.models.game_response_offers_inner_price import GameResponseOffersInnerPrice

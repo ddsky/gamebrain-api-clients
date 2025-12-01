@@ -132,15 +132,130 @@ sub detail {
 }
 
 #
+# news
+#
+# Get Game News
+#
+# @param int $id  (required)
+# @param int $offset  (required)
+# @param int $limit  (required)
+# @param string $api_key  (required)
+{
+    my $params = {
+    'id' => {
+        data_type => 'int',
+        description => '',
+        required => '1',
+    },
+    'offset' => {
+        data_type => 'int',
+        description => '',
+        required => '1',
+    },
+    'limit' => {
+        data_type => 'int',
+        description => '',
+        required => '1',
+    },
+    'api_key' => {
+        data_type => 'string',
+        description => '',
+        required => '1',
+    },
+    };
+    __PACKAGE__->method_documentation->{ 'news' } = {
+        summary => 'Get Game News',
+        params => $params,
+        returns => 'GameNewsResponse',
+        };
+}
+# @return GameNewsResponse
+#
+sub news {
+    my ($self, %args) = @_;
+
+    # verify the required parameter 'id' is set
+    unless (exists $args{'id'}) {
+      croak("Missing the required parameter 'id' when calling news");
+    }
+
+    # verify the required parameter 'offset' is set
+    unless (exists $args{'offset'}) {
+      croak("Missing the required parameter 'offset' when calling news");
+    }
+
+    # verify the required parameter 'limit' is set
+    unless (exists $args{'limit'}) {
+      croak("Missing the required parameter 'limit' when calling news");
+    }
+
+    # verify the required parameter 'api_key' is set
+    unless (exists $args{'api_key'}) {
+      croak("Missing the required parameter 'api_key' when calling news");
+    }
+
+    # parse inputs
+    my $_resource_path = '/games/{id}/news';
+
+    my $_method = 'GET';
+    my $query_params = {};
+    my $header_params = {};
+    my $form_params = {};
+
+    # 'Accept' and 'Content-Type' header
+    my $_header_accept = $self->{api_client}->select_header_accept('application/json');
+    if ($_header_accept) {
+        $header_params->{'Accept'} = $_header_accept;
+    }
+    $header_params->{'Content-Type'} = $self->{api_client}->select_header_content_type();
+
+    # query params
+    if ( exists $args{'offset'}) {
+        $query_params->{'offset'} = $self->{api_client}->to_query_value($args{'offset'});
+    }
+
+    # query params
+    if ( exists $args{'limit'}) {
+        $query_params->{'limit'} = $self->{api_client}->to_query_value($args{'limit'});
+    }
+
+    # query params
+    if ( exists $args{'api_key'}) {
+        $query_params->{'api-key'} = $self->{api_client}->to_query_value($args{'api_key'});
+    }
+
+    # path params
+    if ( exists $args{'id'}) {
+        my $_base_variable = "{" . "id" . "}";
+        my $_base_value = $self->{api_client}->to_path_value($args{'id'});
+        $_resource_path =~ s/$_base_variable/$_base_value/g;
+    }
+
+    my $_body_data;
+    # authentication setting, if any
+    my $auth_settings = [qw(apiKey headerApiKey )];
+
+    # make the API Call
+    my $response = $self->{api_client}->call_api($_resource_path, $_method,
+                                           $query_params, $form_params,
+                                           $header_params, $_body_data, $auth_settings);
+    if (!$response) {
+        return;
+    }
+    my $_response_object = $self->{api_client}->deserialize('GameNewsResponse', $response);
+    return $_response_object;
+}
+
+#
 # search
 #
 # Search Games
 #
 # @param string $query The search query, e.g., game name, platform, genre, or any combination. (required)
-# @param int $offset The number of results to skip before starting to collect the result set. (required)
-# @param int $limit The maximum number of results to return. (required)
+# @param int $offset The number of results to skip before starting to collect the result set. Between 0 and 1000. (required)
+# @param int $limit The maximum number of results to return between 1 and 10. (required)
 # @param string $filters JSON array of filter objects to apply to the search. (required)
-# @param string $sort The field by which to sort the results. (required)
+# @param string $sort The field by which to sort the results, either computed_rating, price, or release_date (required)
 # @param string $sort_order The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. (required)
 # @param boolean $generate_filter_options Whether to generate filter options in the response. (required)
 # @param string $api_key Your API key for authentication. (required)
@@ -153,12 +268,12 @@ sub detail {
     },
     'offset' => {
         data_type => 'int',
-        description => 'The number of results to skip before starting to collect the result set.',
+        description => 'The number of results to skip before starting to collect the result set. Between 0 and 1000.',
         required => '1',
     },
     'limit' => {
         data_type => 'int',
-        description => 'The maximum number of results to return.',
+        description => 'The maximum number of results to return between 1 and 10.',
         required => '1',
     },
     'filters' => {
@@ -168,7 +283,7 @@ sub detail {
     },
     'sort' => {
         data_type => 'string',
-        description => 'The field by which to sort the results.',
+        description => 'The field by which to sort the results, either computed_rating, price, or release_date',
         required => '1',
     },
     'sort_order' => {

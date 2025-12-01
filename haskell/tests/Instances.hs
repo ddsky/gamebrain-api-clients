@@ -113,6 +113,26 @@ arbitraryReducedMaybeValue n = do
 
 -- * Models
 
+instance Arbitrary GameNewsItem where
+  arbitrary = sized genGameNewsItem
+
+genGameNewsItem :: Int -> Gen GameNewsItem
+genGameNewsItem n =
+  GameNewsItem
+    <$> arbitrary -- gameNewsItemTitle :: Text
+    <*> arbitrary -- gameNewsItemUrl :: Text
+    <*> arbitrary -- gameNewsItemSource :: Text
+    <*> arbitraryReducedMaybe n -- gameNewsItemImage :: Maybe Text
+    <*> arbitraryReduced n -- gameNewsItemPublished :: Date
+  
+instance Arbitrary GameNewsResponse where
+  arbitrary = sized genGameNewsResponse
+
+genGameNewsResponse :: Int -> Gen GameNewsResponse
+genGameNewsResponse n =
+  GameNewsResponse
+    <$> arbitraryReduced n -- gameNewsResponseNews :: [GameNewsItem]
+  
 instance Arbitrary GameResponse where
   arbitrary = sized genGameResponse
 

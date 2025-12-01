@@ -5,6 +5,7 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
 | [**detail**](DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details |
+| [**news**](DefaultApi.md#news) | **GET** /games/{id}/news | Get Game News |
 | [**search**](DefaultApi.md#search) | **GET** /games | Search Games |
 | [**similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games |
 | [**suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions |
@@ -88,6 +89,88 @@ end
 - **Accept**: application/json
 
 
+## news
+
+> <GameNewsResponse> news(id, offset, limit, api_key)
+
+Get Game News
+
+Get news related to the given game.
+
+### Examples
+
+```ruby
+require 'time'
+require 'openapi_client'
+# setup authorization
+OpenapiClient.configure do |config|
+  # Configure API key authorization: apiKey
+  config.api_key['apiKey'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['apiKey'] = 'Bearer'
+
+  # Configure API key authorization: headerApiKey
+  config.api_key['headerApiKey'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['headerApiKey'] = 'Bearer'
+end
+
+api_instance = OpenapiClient::DefaultApi.new
+id = 56 # Integer | 
+offset = 56 # Integer | 
+limit = 56 # Integer | 
+api_key = 'abc123' # String | 
+
+begin
+  # Get Game News
+  result = api_instance.news(id, offset, limit, api_key)
+  p result
+rescue OpenapiClient::ApiError => e
+  puts "Error when calling DefaultApi->news: #{e}"
+end
+```
+
+#### Using the news_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GameNewsResponse>, Integer, Hash)> news_with_http_info(id, offset, limit, api_key)
+
+```ruby
+begin
+  # Get Game News
+  data, status_code, headers = api_instance.news_with_http_info(id, offset, limit, api_key)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GameNewsResponse>
+rescue OpenapiClient::ApiError => e
+  puts "Error when calling DefaultApi->news_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **Integer** |  |  |
+| **offset** | **Integer** |  | [default to 0] |
+| **limit** | **Integer** |  | [default to 10] |
+| **api_key** | **String** |  |  |
+
+### Return type
+
+[**GameNewsResponse**](GameNewsResponse.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## search
 
 > <SearchResponse> search(query, offset, limit, filters, sort, sort_order, generate_filter_options, api_key)
@@ -116,10 +199,10 @@ end
 
 api_instance = OpenapiClient::DefaultApi.new
 query = 'rpg for PC' # String | The search query, e.g., game name, platform, genre, or any combination.
-offset = 56 # Integer | The number of results to skip before starting to collect the result set.
-limit = 56 # Integer | The maximum number of results to return.
-filters = 'filters_example' # String | JSON array of filter objects to apply to the search.
-sort = 'computed_rating' # String | The field by which to sort the results.
+offset = 56 # Integer | The number of results to skip before starting to collect the result set. Between 0 and 1000.
+limit = 56 # Integer | The maximum number of results to return between 1 and 10.
+filters = '[{"key":"platform","values":[{"value":"pc"}],"connection":"OR"},{"key":"genre","values":[{"value":"action"}]}]' # String | JSON array of filter objects to apply to the search.
+sort = 'computed_rating' # String | The field by which to sort the results, either computed_rating, price, or release_date
 sort_order = 'asc' # String | The sort order: 'asc' for ascending or 'desc' for descending.
 generate_filter_options = true # Boolean | Whether to generate filter options in the response.
 api_key = 'abc123' # String | Your API key for authentication.
@@ -156,10 +239,10 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **query** | **String** | The search query, e.g., game name, platform, genre, or any combination. |  |
-| **offset** | **Integer** | The number of results to skip before starting to collect the result set. | [default to 0] |
-| **limit** | **Integer** | The maximum number of results to return. | [default to 48] |
+| **offset** | **Integer** | The number of results to skip before starting to collect the result set. Between 0 and 1000. | [default to 0] |
+| **limit** | **Integer** | The maximum number of results to return between 1 and 10. | [default to 10] |
 | **filters** | **String** | JSON array of filter objects to apply to the search. | [default to &#39;[]&#39;] |
-| **sort** | **String** | The field by which to sort the results. |  |
+| **sort** | **String** | The field by which to sort the results, either computed_rating, price, or release_date |  |
 | **sort_order** | **String** | The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. | [default to &#39;asc&#39;] |
 | **generate_filter_options** | **Boolean** | Whether to generate filter options in the response. | [default to true] |
 | **api_key** | **String** | Your API key for authentication. |  |

@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The SearchResponseSortingOptionsInner model module.
  * @module model/SearchResponseSortingOptionsInner
- * @version 1.0.1
+ * @version 1.0.2
  */
 class SearchResponseSortingOptionsInner {
     /**

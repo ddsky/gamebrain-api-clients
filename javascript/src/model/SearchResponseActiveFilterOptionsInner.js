@@ -17,7 +17,7 @@ import SearchResponseActiveFilterOptionsInnerValuesInner from './SearchResponseA
 /**
  * The SearchResponseActiveFilterOptionsInner model module.
  * @module model/SearchResponseActiveFilterOptionsInner
- * @version 1.0.1
+ * @version 1.0.2
  */
 class SearchResponseActiveFilterOptionsInner {
     /**

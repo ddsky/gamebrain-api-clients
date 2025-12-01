@@ -21,7 +21,7 @@ import GameResponseRating from './GameResponseRating';
 /**
  * The GameResponse model module.
  * @module model/GameResponse
- * @version 1.0.1
+ * @version 1.0.2
  */
 class GameResponse {
     /**

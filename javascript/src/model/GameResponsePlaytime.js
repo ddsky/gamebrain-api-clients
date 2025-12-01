@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The GameResponsePlaytime model module.
  * @module model/GameResponsePlaytime
- * @version 1.0.1
+ * @version 1.0.2
  */
 class GameResponsePlaytime {
     /**

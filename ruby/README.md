@@ -91,6 +91,7 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *OpenapiClient::DefaultApi* | [**detail**](docs/DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details
+*OpenapiClient::DefaultApi* | [**news**](docs/DefaultApi.md#news) | **GET** /games/{id}/news | Get Game News
 *OpenapiClient::DefaultApi* | [**search**](docs/DefaultApi.md#search) | **GET** /games | Search Games
 *OpenapiClient::DefaultApi* | [**similar**](docs/DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games
 *OpenapiClient::DefaultApi* | [**suggest**](docs/DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions
@@ -98,6 +99,8 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
+ - [OpenapiClient::GameNewsItem](docs/GameNewsItem.md)
+ - [OpenapiClient::GameNewsResponse](docs/GameNewsResponse.md)
  - [OpenapiClient::GameResponse](docs/GameResponse.md)
  - [OpenapiClient::GameResponseOffersInner](docs/GameResponseOffersInner.md)
  - [OpenapiClient::GameResponseOffersInnerPrice](docs/GameResponseOffersInnerPrice.md)

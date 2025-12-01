@@ -37,6 +37,44 @@ import GameBrain.Model
 import GameBrain.Core
 
 
+-- * GameNewsItem
+
+-- | 'gameNewsItemTitle' Lens
+gameNewsItemTitleL :: Lens_' GameNewsItem (Text)
+gameNewsItemTitleL f GameNewsItem{..} = (\gameNewsItemTitle -> GameNewsItem { gameNewsItemTitle, ..} ) <$> f gameNewsItemTitle
+{-# INLINE gameNewsItemTitleL #-}
+
+-- | 'gameNewsItemUrl' Lens
+gameNewsItemUrlL :: Lens_' GameNewsItem (Text)
+gameNewsItemUrlL f GameNewsItem{..} = (\gameNewsItemUrl -> GameNewsItem { gameNewsItemUrl, ..} ) <$> f gameNewsItemUrl
+{-# INLINE gameNewsItemUrlL #-}
+
+-- | 'gameNewsItemSource' Lens
+gameNewsItemSourceL :: Lens_' GameNewsItem (Text)
+gameNewsItemSourceL f GameNewsItem{..} = (\gameNewsItemSource -> GameNewsItem { gameNewsItemSource, ..} ) <$> f gameNewsItemSource
+{-# INLINE gameNewsItemSourceL #-}
+
+-- | 'gameNewsItemImage' Lens
+gameNewsItemImageL :: Lens_' GameNewsItem (Maybe Text)
+gameNewsItemImageL f GameNewsItem{..} = (\gameNewsItemImage -> GameNewsItem { gameNewsItemImage, ..} ) <$> f gameNewsItemImage
+{-# INLINE gameNewsItemImageL #-}
+
+-- | 'gameNewsItemPublished' Lens
+gameNewsItemPublishedL :: Lens_' GameNewsItem (Date)
+gameNewsItemPublishedL f GameNewsItem{..} = (\gameNewsItemPublished -> GameNewsItem { gameNewsItemPublished, ..} ) <$> f gameNewsItemPublished
+{-# INLINE gameNewsItemPublishedL #-}
+
+
+
+-- * GameNewsResponse
+
+-- | 'gameNewsResponseNews' Lens
+gameNewsResponseNewsL :: Lens_' GameNewsResponse ([GameNewsItem])
+gameNewsResponseNewsL f GameNewsResponse{..} = (\gameNewsResponseNews -> GameNewsResponse { gameNewsResponseNews, ..} ) <$> f gameNewsResponseNews
+{-# INLINE gameNewsResponseNewsL #-}
+
+
+
 -- * GameResponse
 
 -- | 'gameResponseId' Lens

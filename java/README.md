@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>co.gamebrain</groupId>
   <artifactId>java-client</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -56,7 +56,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "co.gamebrain:java-client:1.0.1"
+     implementation "co.gamebrain:java-client:1.0.2"
   }
 ```
 
@@ -70,7 +70,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/java-client-1.0.1.jar`
+* `target/java-client-1.0.2.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -129,6 +129,7 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**detail**](docs/DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details
+*DefaultApi* | [**news**](docs/DefaultApi.md#news) | **GET** /games/{id}/news | Get Game News
 *DefaultApi* | [**search**](docs/DefaultApi.md#search) | **GET** /games | Search Games
 *DefaultApi* | [**similar**](docs/DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games
 *DefaultApi* | [**suggest**](docs/DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions
@@ -136,6 +137,8 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
+ - [GameNewsItem](docs/GameNewsItem.md)
+ - [GameNewsResponse](docs/GameNewsResponse.md)
  - [GameResponse](docs/GameResponse.md)
  - [GameResponseOffersInner](docs/GameResponseOffersInner.md)
  - [GameResponseOffersInnerPrice](docs/GameResponseOffersInnerPrice.md)

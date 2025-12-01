@@ -5,6 +5,7 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**detail**](DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details
+[**news**](DefaultApi.md#news) | **GET** /games/{id}/news | Get Game News
 [**search**](DefaultApi.md#search) | **GET** /games | Search Games
 [**similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games
 [**suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions
@@ -98,6 +99,98 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **news**
+> GameNewsResponse news(id, offset, limit, api_key)
+
+Get Game News
+
+Get news related to the given game.
+
+### Example
+
+* Api Key Authentication (apiKey):
+* Api Key Authentication (headerApiKey):
+
+```python
+import gamebrain
+from gamebrain.models.game_news_response import GameNewsResponse
+from gamebrain.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.gamebrain.co/v1
+# See configuration.py for a list of all supported configuration parameters.
+configuration = gamebrain.Configuration(
+    host = "https://api.gamebrain.co/v1"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKey
+configuration.api_key['apiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKey'] = 'Bearer'
+
+# Configure API key authorization: headerApiKey
+configuration.api_key['headerApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['headerApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with gamebrain.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = gamebrain.DefaultApi(api_client)
+    id = 56 # int | 
+    offset = 0 # int |  (default to 0)
+    limit = 10 # int |  (default to 10)
+    api_key = 'abc123' # str | 
+
+    try:
+        # Get Game News
+        api_response = api_instance.news(id, offset, limit, api_key)
+        print("The response of DefaultApi->news:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling DefaultApi->news: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **offset** | **int**|  | [default to 0]
+ **limit** | **int**|  | [default to 10]
+ **api_key** | **str**|  | 
+
+### Return type
+
+[**GameNewsResponse**](GameNewsResponse.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **search**
 > SearchResponse search(query, offset, limit, filters, sort, sort_order, generate_filter_options, api_key)
 
@@ -144,10 +237,10 @@ with gamebrain.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = gamebrain.DefaultApi(api_client)
     query = 'rpg for PC' # str | The search query, e.g., game name, platform, genre, or any combination.
-    offset = 0 # int | The number of results to skip before starting to collect the result set. (default to 0)
-    limit = 48 # int | The maximum number of results to return. (default to 48)
+    offset = 0 # int | The number of results to skip before starting to collect the result set. Between 0 and 1000. (default to 0)
+    limit = 10 # int | The maximum number of results to return between 1 and 10. (default to 10)
     filters = '[]' # str | JSON array of filter objects to apply to the search. (default to '[]')
-    sort = 'computed_rating' # str | The field by which to sort the results.
+    sort = 'computed_rating' # str | The field by which to sort the results, either computed_rating, price, or release_date
     sort_order = 'asc' # str | The sort order: 'asc' for ascending or 'desc' for descending. (default to 'asc')
     generate_filter_options = True # bool | Whether to generate filter options in the response. (default to True)
     api_key = 'abc123' # str | Your API key for authentication.
@@ -169,10 +262,10 @@ with gamebrain.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query** | **str**| The search query, e.g., game name, platform, genre, or any combination. | 
- **offset** | **int**| The number of results to skip before starting to collect the result set. | [default to 0]
- **limit** | **int**| The maximum number of results to return. | [default to 48]
+ **offset** | **int**| The number of results to skip before starting to collect the result set. Between 0 and 1000. | [default to 0]
+ **limit** | **int**| The maximum number of results to return between 1 and 10. | [default to 10]
  **filters** | **str**| JSON array of filter objects to apply to the search. | [default to &#39;[]&#39;]
- **sort** | **str**| The field by which to sort the results. | 
+ **sort** | **str**| The field by which to sort the results, either computed_rating, price, or release_date | 
  **sort_order** | **str**| The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. | [default to &#39;asc&#39;]
  **generate_filter_options** | **bool**| Whether to generate filter options in the response. | [default to True]
  **api_key** | **str**| Your API key for authentication. | 

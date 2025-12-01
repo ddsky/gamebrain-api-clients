@@ -14,6 +14,7 @@
 package co.gamebrain;
 
 import co.gamebrain.client.ApiException;
+import co.gamebrain.client.model.GameNewsResponse;
 import co.gamebrain.client.model.GameResponse;
 import co.gamebrain.client.model.SearchResponse;
 import co.gamebrain.client.model.SearchSuggestionResponse;
@@ -46,6 +47,23 @@ public class DefaultApiTest {
         Integer id = null;
         String apiKey = null;
         GameResponse response = api.detail(id, apiKey);
+        // TODO: test validations
+    }
+
+    /**
+     * Get Game News
+     *
+     * Get news related to the given game.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void newsTest() throws ApiException {
+        Integer id = null;
+        Integer offset = null;
+        Integer limit = null;
+        String apiKey = null;
+        GameNewsResponse response = api.news(id, offset, limit, apiKey);
         // TODO: test validations
     }
 

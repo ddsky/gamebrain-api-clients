@@ -36,6 +36,20 @@ func Test_gamebrain_DefaultAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test DefaultAPIService News", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var id int32
+
+		resp, httpRes, err := apiClient.DefaultAPI.News(context.Background(), id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test DefaultAPIService Search", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

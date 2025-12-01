@@ -5,6 +5,7 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**detail**](DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details
+[**news**](DefaultApi.md#news) | **GET** /games/{id}/news | Get Game News
 [**search**](DefaultApi.md#search) | **GET** /games | Search Games
 [**similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games
 [**suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions
@@ -59,6 +60,58 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## news
+
+> GameNewsResponse news(id, offset, limit, apiKey)
+
+Get Game News
+
+Get news related to the given game.
+
+### Example
+
+```java
+// Import classes:
+//import co.gamebrain.DefaultApi;
+
+DefaultApi apiInstance = new DefaultApi();
+Integer id = null; // Integer | 
+Integer offset = 0; // Integer | 
+Integer limit = 10; // Integer | 
+String apiKey = abc123; // String | 
+try {
+    GameNewsResponse result = apiInstance.news(id, offset, limit, apiKey);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#news");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **Integer**|  | [default to null]
+ **offset** | **Integer**|  | [default to 0]
+ **limit** | **Integer**|  | [default to 10]
+ **apiKey** | **String**|  | [default to null]
+
+### Return type
+
+[**GameNewsResponse**](GameNewsResponse.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## search
 
 > SearchResponse search(query, offset, limit, filters, sort, sortOrder, generateFilterOptions, apiKey)
@@ -75,10 +128,10 @@ Search hundreds of thousands of video games from over 70 platforms. The query ca
 
 DefaultApi apiInstance = new DefaultApi();
 String query = rpg for PC; // String | The search query, e.g., game name, platform, genre, or any combination.
-Integer offset = 0; // Integer | The number of results to skip before starting to collect the result set.
-Integer limit = 48; // Integer | The maximum number of results to return.
-String filters = []; // String | JSON array of filter objects to apply to the search.
-String sort = computed_rating; // String | The field by which to sort the results.
+Integer offset = 0; // Integer | The number of results to skip before starting to collect the result set. Between 0 and 1000.
+Integer limit = 10; // Integer | The maximum number of results to return between 1 and 10.
+String filters = [{"key":"platform","values":[{"value":"pc"}],"connection":"OR"},{"key":"genre","values":[{"value":"action"}]}]; // String | JSON array of filter objects to apply to the search.
+String sort = computed_rating; // String | The field by which to sort the results, either computed_rating, price, or release_date
 String sortOrder = asc; // String | The sort order: 'asc' for ascending or 'desc' for descending.
 Boolean generateFilterOptions = true; // Boolean | Whether to generate filter options in the response.
 String apiKey = abc123; // String | Your API key for authentication.
@@ -97,10 +150,10 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query** | **String**| The search query, e.g., game name, platform, genre, or any combination. | [default to null]
- **offset** | **Integer**| The number of results to skip before starting to collect the result set. | [default to 0]
- **limit** | **Integer**| The maximum number of results to return. | [default to 48]
+ **offset** | **Integer**| The number of results to skip before starting to collect the result set. Between 0 and 1000. | [default to 0]
+ **limit** | **Integer**| The maximum number of results to return between 1 and 10. | [default to 10]
  **filters** | **String**| JSON array of filter objects to apply to the search. | [default to []]
- **sort** | **String**| The field by which to sort the results. | [default to null]
+ **sort** | **String**| The field by which to sort the results, either computed_rating, price, or release_date | [default to null]
  **sortOrder** | **String**| The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. | [default to asc]
  **generateFilterOptions** | **Boolean**| Whether to generate filter options in the response. | [default to true]
  **apiKey** | **String**| Your API key for authentication. | [default to null]

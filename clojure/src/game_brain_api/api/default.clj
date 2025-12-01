@@ -7,6 +7,8 @@
             [game-brain-api.specs.search-response-active-filter-options-inner :refer :all]
             [game-brain-api.specs.game-response :refer :all]
             [game-brain-api.specs.game-response-official-stores-inner :refer :all]
+            [game-brain-api.specs.game-news-response :refer :all]
+            [game-brain-api.specs.game-news-item :refer :all]
             [game-brain-api.specs.search-suggestion-response :refer :all]
             [game-brain-api.specs.similar-games-response :refer :all]
             [game-brain-api.specs.search-response-filter-options-inner :refer :all]
@@ -47,6 +49,30 @@
   (let [res (:data (detail-with-http-info id api-key))]
     (if (:decode-models *api-context*)
        (st/decode game-response-spec res st/string-transformer)
+       res)))
+
+
+(defn-spec news-with-http-info any?
+  "Get Game News
+  Get news related to the given game."
+  [id int?, offset int?, limit int?, api-key string?]
+  (check-required-params id offset limit api-key)
+  (call-api "/games/{id}/news" :get
+            {:path-params   {"id" id }
+             :header-params {}
+             :query-params  {"offset" offset "limit" limit "api-key" api-key }
+             :form-params   {}
+             :content-types []
+             :accepts       ["application/json"]
+             :auth-names    ["apiKey" "headerApiKey"]}))
+
+(defn-spec news game-news-response-spec
+  "Get Game News
+  Get news related to the given game."
+  [id int?, offset int?, limit int?, api-key string?]
+  (let [res (:data (news-with-http-info id offset limit api-key))]
+    (if (:decode-models *api-context*)
+       (st/decode game-news-response-spec res st/string-transformer)
        res)))
 
 

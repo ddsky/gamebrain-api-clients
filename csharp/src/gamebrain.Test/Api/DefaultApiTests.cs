@@ -69,6 +69,21 @@ namespace gamebrain.Test.Api
         }
 
         /// <summary>
+        /// Test News
+        /// </summary>
+        [Fact]
+        public void NewsTest()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //int id = null;
+            //int offset = null;
+            //int limit = null;
+            //string apiKey = null;
+            //var response = instance.News(id, offset, limit, apiKey);
+            //Assert.IsType<GameNewsResponse>(response);
+        }
+
+        /// <summary>
         /// Test Search
         /// </summary>
         [Fact]

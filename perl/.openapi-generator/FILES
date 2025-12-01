@@ -5,6 +5,8 @@ README.md
 bin/autodoc
 cpanfile
 docs/DefaultApi.md
+docs/GameNewsItem.md
+docs/GameNewsResponse.md
 docs/GameResponse.md
 docs/GameResponseOffersInner.md
 docs/GameResponseOffersInnerPrice.md
@@ -29,6 +31,8 @@ lib/WWW/OpenAPIClient/ApiClient.pm
 lib/WWW/OpenAPIClient/ApiFactory.pm
 lib/WWW/OpenAPIClient/Configuration.pm
 lib/WWW/OpenAPIClient/DefaultApi.pm
+lib/WWW/OpenAPIClient/Object/GameNewsItem.pm
+lib/WWW/OpenAPIClient/Object/GameNewsResponse.pm
 lib/WWW/OpenAPIClient/Object/GameResponse.pm
 lib/WWW/OpenAPIClient/Object/GameResponseOffersInner.pm
 lib/WWW/OpenAPIClient/Object/GameResponseOffersInnerPrice.pm
@@ -51,6 +55,8 @@ lib/WWW/OpenAPIClient/Object/SimilarGamesResponse.pm
 lib/WWW/OpenAPIClient/Role.pm
 lib/WWW/OpenAPIClient/Role/AutoDoc.pm
 t/DefaultApiTest.t
+t/GameNewsItemTest.t
+t/GameNewsResponseTest.t
 t/GameResponseOffersInnerPriceTest.t
 t/GameResponseOffersInnerTest.t
 t/GameResponseOfficialStoresInnerTest.t

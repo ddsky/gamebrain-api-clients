@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The GameResponsePlatformsInner model module.
  * @module model/GameResponsePlatformsInner
- * @version 1.0.1
+ * @version 1.0.2
  */
 class GameResponsePlatformsInner {
     /**

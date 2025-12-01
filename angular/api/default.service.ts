@@ -19,6 +19,8 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
+import { GameNewsResponse } from '../model/gameNewsResponse';
+// @ts-ignore
 import { GameResponse } from '../model/gameResponse';
 // @ts-ignore
 import { SearchResponse } from '../model/searchResponse';
@@ -188,13 +190,118 @@ export class DefaultService {
     }
 
     /**
+     * Get Game News
+     * Get news related to the given game.
+     * @param id 
+     * @param offset 
+     * @param limit 
+     * @param apiKey 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public news(id: number, offset: number, limit: number, apiKey: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<GameNewsResponse>;
+    public news(id: number, offset: number, limit: number, apiKey: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GameNewsResponse>>;
+    public news(id: number, offset: number, limit: number, apiKey: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GameNewsResponse>>;
+    public news(id: number, offset: number, limit: number, apiKey: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling news.');
+        }
+        if (offset === null || offset === undefined) {
+            throw new Error('Required parameter offset was null or undefined when calling news.');
+        }
+        if (limit === null || limit === undefined) {
+            throw new Error('Required parameter limit was null or undefined when calling news.');
+        }
+        if (apiKey === null || apiKey === undefined) {
+            throw new Error('Required parameter apiKey was null or undefined when calling news.');
+        }
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (offset !== undefined && offset !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>offset, 'offset');
+        }
+        if (limit !== undefined && limit !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>limit, 'limit');
+        }
+        if (apiKey !== undefined && apiKey !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>apiKey, 'api-key');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarCredential: string | undefined;
+        // authentication (apiKey) required
+        localVarCredential = this.configuration.lookupCredential('apiKey');
+        if (localVarCredential) {
+            localVarQueryParameters = localVarQueryParameters.set('api-key', localVarCredential);
+        }
+
+        // authentication (headerApiKey) required
+        localVarCredential = this.configuration.lookupCredential('headerApiKey');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('x-api-key', localVarCredential);
+        }
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+        let localVarTransferCache: boolean | undefined = options && options.transferCache;
+        if (localVarTransferCache === undefined) {
+            localVarTransferCache = true;
+        }
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/games/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int32"})}/news`;
+        return this.httpClient.request<GameNewsResponse>('get', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                params: localVarQueryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                transferCache: localVarTransferCache,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Search Games
      * Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
      * @param query The search query, e.g., game name, platform, genre, or any combination.
-     * @param offset The number of results to skip before starting to collect the result set.
-     * @param limit The maximum number of results to return.
+     * @param offset The number of results to skip before starting to collect the result set. Between 0 and 1000.
+     * @param limit The maximum number of results to return between 1 and 10.
      * @param filters JSON array of filter objects to apply to the search.
-     * @param sort The field by which to sort the results.
+     * @param sort The field by which to sort the results, either computed_rating, price, or release_date
      * @param sortOrder The sort order: \&#39;asc\&#39; for ascending or \&#39;desc\&#39; for descending.
      * @param generateFilterOptions Whether to generate filter options in the response.
      * @param apiKey Your API key for authentication.

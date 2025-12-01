@@ -237,6 +237,8 @@ use WWW::OpenAPIClient::DefaultApi;
 
 To load the models:
 ```perl
+use WWW::OpenAPIClient::Object::GameNewsItem;
+use WWW::OpenAPIClient::Object::GameNewsResponse;
 use WWW::OpenAPIClient::Object::GameResponse;
 use WWW::OpenAPIClient::Object::GameResponseOffersInner;
 use WWW::OpenAPIClient::Object::GameResponseOffersInnerPrice;
@@ -270,6 +272,8 @@ use warnings;
 use WWW::OpenAPIClient::DefaultApi;
 
 # load the models
+use WWW::OpenAPIClient::Object::GameNewsItem;
+use WWW::OpenAPIClient::Object::GameNewsResponse;
 use WWW::OpenAPIClient::Object::GameResponse;
 use WWW::OpenAPIClient::Object::GameResponseOffersInner;
 use WWW::OpenAPIClient::Object::GameResponseOffersInnerPrice;
@@ -325,12 +329,15 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**detail**](docs/DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details
+*DefaultApi* | [**news**](docs/DefaultApi.md#news) | **GET** /games/{id}/news | Get Game News
 *DefaultApi* | [**search**](docs/DefaultApi.md#search) | **GET** /games | Search Games
 *DefaultApi* | [**similar**](docs/DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games
 *DefaultApi* | [**suggest**](docs/DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions
 
 
 # DOCUMENTATION FOR MODELS
+ - [WWW::OpenAPIClient::Object::GameNewsItem](docs/GameNewsItem.md)
+ - [WWW::OpenAPIClient::Object::GameNewsResponse](docs/GameNewsResponse.md)
  - [WWW::OpenAPIClient::Object::GameResponse](docs/GameResponse.md)
  - [WWW::OpenAPIClient::Object::GameResponseOffersInner](docs/GameResponseOffersInner.md)
  - [WWW::OpenAPIClient::Object::GameResponseOffersInnerPrice](docs/GameResponseOffersInnerPrice.md)

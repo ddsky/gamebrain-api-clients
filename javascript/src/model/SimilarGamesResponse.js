@@ -17,7 +17,7 @@ import SearchResponseResultsInner from './SearchResponseResultsInner';
 /**
  * The SimilarGamesResponse model module.
  * @module model/SimilarGamesResponse
- * @version 1.0.1
+ * @version 1.0.2
  */
 class SimilarGamesResponse {
     /**

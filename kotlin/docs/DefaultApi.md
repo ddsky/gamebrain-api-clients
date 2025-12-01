@@ -5,6 +5,7 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**detail**](DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details |
+| [**news**](DefaultApi.md#news) | **GET** /games/{id}/news | Get Game News |
 | [**search**](DefaultApi.md#search) | **GET** /games | Search Games |
 | [**similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games |
 | [**suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions |
@@ -64,6 +65,64 @@ Configure headerApiKey:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a id="news"></a>
+# **news**
+> GameNewsResponse news(id, offset, limit, apiKey)
+
+Get Game News
+
+Get news related to the given game.
+
+### Example
+```kotlin
+// Import classes:
+//import gamebrain.infrastructure.*
+//import co.gamebrain.client.model.*
+
+val apiInstance = DefaultApi()
+val id : kotlin.Int = 56 // kotlin.Int | 
+val offset : kotlin.Int = 56 // kotlin.Int | 
+val limit : kotlin.Int = 56 // kotlin.Int | 
+val apiKey : kotlin.String = abc123 // kotlin.String | 
+try {
+    val result : GameNewsResponse = apiInstance.news(id, offset, limit, apiKey)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling DefaultApi#news")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling DefaultApi#news")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **id** | **kotlin.Int**|  | |
+| **offset** | **kotlin.Int**|  | [default to 0] |
+| **limit** | **kotlin.Int**|  | [default to 10] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **apiKey** | **kotlin.String**|  | |
+
+### Return type
+
+[**GameNewsResponse**](GameNewsResponse.md)
+
+### Authorization
+
+
+Configure apiKey:
+    ApiClient.apiKey["api-key"] = ""
+    ApiClient.apiKeyPrefix["api-key"] = ""
+Configure headerApiKey:
+    ApiClient.apiKey["x-api-key"] = ""
+    ApiClient.apiKeyPrefix["x-api-key"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a id="search"></a>
 # **search**
 > SearchResponse search(query, offset, limit, filters, sort, sortOrder, generateFilterOptions, apiKey)
@@ -80,10 +139,10 @@ Search hundreds of thousands of video games from over 70 platforms. The query ca
 
 val apiInstance = DefaultApi()
 val query : kotlin.String = rpg for PC // kotlin.String | The search query, e.g., game name, platform, genre, or any combination.
-val offset : kotlin.Int = 56 // kotlin.Int | The number of results to skip before starting to collect the result set.
-val limit : kotlin.Int = 56 // kotlin.Int | The maximum number of results to return.
-val filters : kotlin.String = filters_example // kotlin.String | JSON array of filter objects to apply to the search.
-val sort : kotlin.String = computed_rating // kotlin.String | The field by which to sort the results.
+val offset : kotlin.Int = 56 // kotlin.Int | The number of results to skip before starting to collect the result set. Between 0 and 1000.
+val limit : kotlin.Int = 56 // kotlin.Int | The maximum number of results to return between 1 and 10.
+val filters : kotlin.String = [{"key":"platform","values":[{"value":"pc"}],"connection":"OR"},{"key":"genre","values":[{"value":"action"}]}] // kotlin.String | JSON array of filter objects to apply to the search.
+val sort : kotlin.String = computed_rating // kotlin.String | The field by which to sort the results, either computed_rating, price, or release_date
 val sortOrder : kotlin.String = asc // kotlin.String | The sort order: 'asc' for ascending or 'desc' for descending.
 val generateFilterOptions : kotlin.Boolean = true // kotlin.Boolean | Whether to generate filter options in the response.
 val apiKey : kotlin.String = abc123 // kotlin.String | Your API key for authentication.
@@ -101,10 +160,10 @@ try {
 
 ### Parameters
 | **query** | **kotlin.String**| The search query, e.g., game name, platform, genre, or any combination. | |
-| **offset** | **kotlin.Int**| The number of results to skip before starting to collect the result set. | [default to 0] |
-| **limit** | **kotlin.Int**| The maximum number of results to return. | [default to 48] |
+| **offset** | **kotlin.Int**| The number of results to skip before starting to collect the result set. Between 0 and 1000. | [default to 0] |
+| **limit** | **kotlin.Int**| The maximum number of results to return between 1 and 10. | [default to 10] |
 | **filters** | **kotlin.String**| JSON array of filter objects to apply to the search. | [default to &quot;[]&quot;] |
-| **sort** | **kotlin.String**| The field by which to sort the results. | |
+| **sort** | **kotlin.String**| The field by which to sort the results, either computed_rating, price, or release_date | |
 | **sortOrder** | **kotlin.String**| The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. | [default to &quot;asc&quot;] |
 | **generateFilterOptions** | **kotlin.Boolean**| Whether to generate filter options in the response. | [default to true] |
 | Name | Type | Description  | Notes |

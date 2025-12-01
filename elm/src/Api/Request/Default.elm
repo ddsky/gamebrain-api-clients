@@ -16,6 +16,7 @@
 
 module Api.Request.Default exposing
     ( detail
+    , news
     , search
     , similar
     , suggest
@@ -40,6 +41,20 @@ detail id_path apiKey_query =
         []
         Nothing
         Api.Data.gameResponseDecoder
+
+
+{-| Get news related to the given game.
+-}
+news : Int -> Int -> Int -> String -> Api.Request Api.Data.GameNewsResponse
+news id_path offset_query limit_query apiKey_query =
+    Api.request
+        "GET"
+        "/games/{id}/news"
+        [ ( "id", String.fromInt id_path ) ]
+        [ ( "offset", Just <| String.fromInt offset_query ), ( "limit", Just <| String.fromInt limit_query ), ( "api-key", Just <| identity apiKey_query ) ]
+        []
+        Nothing
+        Api.Data.gameNewsResponseDecoder
 
 
 {-| Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination

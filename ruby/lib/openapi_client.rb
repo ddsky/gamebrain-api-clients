@@ -17,6 +17,8 @@ require 'openapi_client/version'
 require 'openapi_client/configuration'
 
 # Models
+require 'openapi_client/models/game_news_item'
+require 'openapi_client/models/game_news_response'
 require 'openapi_client/models/game_response'
 require 'openapi_client/models/game_response_offers_inner'
 require 'openapi_client/models/game_response_offers_inner_price'

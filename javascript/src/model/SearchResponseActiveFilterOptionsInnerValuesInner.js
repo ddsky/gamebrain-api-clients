@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The SearchResponseActiveFilterOptionsInnerValuesInner model module.
  * @module model/SearchResponseActiveFilterOptionsInnerValuesInner
- * @version 1.0.1
+ * @version 1.0.2
  */
 class SearchResponseActiveFilterOptionsInnerValuesInner {
     /**

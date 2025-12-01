@@ -4,6 +4,8 @@
 Cargo.toml
 README.md
 docs/DefaultApi.md
+docs/GameNewsItem.md
+docs/GameNewsResponse.md
 docs/GameResponse.md
 docs/GameResponseOffersInner.md
 docs/GameResponseOffersInnerPrice.md
@@ -28,6 +30,8 @@ src/apis/configuration.rs
 src/apis/default_api.rs
 src/apis/mod.rs
 src/lib.rs
+src/models/game_news_item.rs
+src/models/game_news_response.rs
 src/models/game_response.rs
 src/models/game_response_offers_inner.rs
 src/models/game_response_offers_inner_price.rs

@@ -169,6 +169,170 @@ func (a *DefaultAPIService) DetailExecute(r ApiDetailRequest) (*GameResponse, *h
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiNewsRequest struct {
+	ctx context.Context
+	ApiService *DefaultAPIService
+	id int32
+	offset *int32
+	limit *int32
+	apiKey *string
+}
+
+func (r ApiNewsRequest) Offset(offset int32) ApiNewsRequest {
+	r.offset = &offset
+	return r
+}
+
+func (r ApiNewsRequest) Limit(limit int32) ApiNewsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r ApiNewsRequest) ApiKey(apiKey string) ApiNewsRequest {
+	r.apiKey = &apiKey
+	return r
+}
+
+func (r ApiNewsRequest) Execute() (*GameNewsResponse, *http.Response, error) {
+	return r.ApiService.NewsExecute(r)
+}
+
+/*
+News Get Game News
+
+Get news related to the given game.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id
+ @return ApiNewsRequest
+*/
+func (a *DefaultAPIService) News(ctx context.Context, id int32) ApiNewsRequest {
+	return ApiNewsRequest{
+		ApiService: a,
+		ctx: ctx,
+		id: id,
+	}
+}
+
+// Execute executes the request
+//  @return GameNewsResponse
+func (a *DefaultAPIService) NewsExecute(r ApiNewsRequest) (*GameNewsResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GameNewsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.News")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/games/{id}/news"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.offset == nil {
+		return localVarReturnValue, nil, reportError("offset is required and must be specified")
+	}
+	if r.limit == nil {
+		return localVarReturnValue, nil, reportError("limit is required and must be specified")
+	}
+	if r.apiKey == nil {
+		return localVarReturnValue, nil, reportError("apiKey is required and must be specified")
+	}
+	if strlen(*r.apiKey) > 300 {
+		return localVarReturnValue, nil, reportError("apiKey must have less than 300 elements")
+	}
+
+	parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "api-key", r.apiKey, "")
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarQueryParams.Add("api-key", key)
+			}
+		}
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["headerApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiSearchRequest struct {
 	ctx context.Context
 	ApiService *DefaultAPIService
@@ -188,13 +352,13 @@ func (r ApiSearchRequest) Query(query string) ApiSearchRequest {
 	return r
 }
 
-// The number of results to skip before starting to collect the result set.
+// The number of results to skip before starting to collect the result set. Between 0 and 1000.
 func (r ApiSearchRequest) Offset(offset int32) ApiSearchRequest {
 	r.offset = &offset
 	return r
 }
 
-// The maximum number of results to return.
+// The maximum number of results to return between 1 and 10.
 func (r ApiSearchRequest) Limit(limit int32) ApiSearchRequest {
 	r.limit = &limit
 	return r
@@ -206,7 +370,7 @@ func (r ApiSearchRequest) Filters(filters string) ApiSearchRequest {
 	return r
 }
 
-// The field by which to sort the results.
+// The field by which to sort the results, either computed_rating, price, or release_date
 func (r ApiSearchRequest) Sort(sort string) ApiSearchRequest {
 	r.sort = &sort
 	return r

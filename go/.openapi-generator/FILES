@@ -7,6 +7,8 @@ api_default.go
 client.go
 configuration.go
 docs/DefaultAPI.md
+docs/GameNewsItem.md
+docs/GameNewsResponse.md
 docs/GameResponse.md
 docs/GameResponseOffersInner.md
 docs/GameResponseOffersInnerPrice.md
@@ -29,6 +31,8 @@ docs/SimilarGamesResponse.md
 git_push.sh
 go.mod
 go.sum
+model_game_news_item.go
+model_game_news_response.go
 model_game_response.go
 model_game_response_offers_inner.go
 model_game_response_offers_inner_price.go

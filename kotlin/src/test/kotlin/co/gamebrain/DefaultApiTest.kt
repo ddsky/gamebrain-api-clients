@@ -19,6 +19,7 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
 import co.gamebrain.DefaultApi
+import co.gamebrain.client.model.GameNewsResponse
 import co.gamebrain.client.model.GameResponse
 import co.gamebrain.client.model.SearchResponse
 import co.gamebrain.client.model.SearchSuggestionResponse
@@ -38,14 +39,25 @@ class DefaultApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test news
+        should("test news") {
+            // uncomment below to test news
+            //val id : kotlin.Int = 56 // kotlin.Int | 
+            //val offset : kotlin.Int = 56 // kotlin.Int | 
+            //val limit : kotlin.Int = 56 // kotlin.Int | 
+            //val apiKey : kotlin.String = abc123 // kotlin.String | 
+            //val result : GameNewsResponse = apiInstance.news(id, offset, limit, apiKey)
+            //result shouldBe ("TODO")
+        }
+
         // to test search
         should("test search") {
             // uncomment below to test search
             //val query : kotlin.String = rpg for PC // kotlin.String | The search query, e.g., game name, platform, genre, or any combination.
-            //val offset : kotlin.Int = 56 // kotlin.Int | The number of results to skip before starting to collect the result set.
-            //val limit : kotlin.Int = 56 // kotlin.Int | The maximum number of results to return.
-            //val filters : kotlin.String = filters_example // kotlin.String | JSON array of filter objects to apply to the search.
-            //val sort : kotlin.String = computed_rating // kotlin.String | The field by which to sort the results.
+            //val offset : kotlin.Int = 56 // kotlin.Int | The number of results to skip before starting to collect the result set. Between 0 and 1000.
+            //val limit : kotlin.Int = 56 // kotlin.Int | The maximum number of results to return between 1 and 10.
+            //val filters : kotlin.String = [{"key":"platform","values":[{"value":"pc"}],"connection":"OR"},{"key":"genre","values":[{"value":"action"}]}] // kotlin.String | JSON array of filter objects to apply to the search.
+            //val sort : kotlin.String = computed_rating // kotlin.String | The field by which to sort the results, either computed_rating, price, or release_date
             //val sortOrder : kotlin.String = asc // kotlin.String | The sort order: 'asc' for ascending or 'desc' for descending.
             //val generateFilterOptions : kotlin.Boolean = true // kotlin.Boolean | Whether to generate filter options in the response.
             //val apiKey : kotlin.String = abc123 // kotlin.String | Your API key for authentication.

@@ -34,6 +34,13 @@ class TestDefaultApi(unittest.TestCase):
         """
         pass
 
+    def test_news(self) -> None:
+        """Test case for news
+
+        Get Game News
+        """
+        pass
+
     def test_search(self) -> None:
         """Test case for search
 

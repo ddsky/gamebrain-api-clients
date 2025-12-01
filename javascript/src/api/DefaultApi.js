@@ -13,6 +13,7 @@
 
 
 import ApiClient from "../ApiClient";
+import GameNewsResponse from '../model/GameNewsResponse';
 import GameResponse from '../model/GameResponse';
 import SearchResponse from '../model/SearchResponse';
 import SearchSuggestionResponse from '../model/SearchSuggestionResponse';
@@ -21,7 +22,7 @@ import SimilarGamesResponse from '../model/SimilarGamesResponse';
 /**
 * Default service.
 * @module api/DefaultApi
-* @version 1.0.1
+* @version 1.0.2
 */
 export default class DefaultApi {
 
@@ -87,6 +88,67 @@ export default class DefaultApi {
     }
 
     /**
+     * Callback function to receive the result of the news operation.
+     * @callback module:api/DefaultApi~newsCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/GameNewsResponse} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Get Game News
+     * Get news related to the given game.
+     * @param {Number} id 
+     * @param {Number} offset 
+     * @param {Number} limit 
+     * @param {String} apiKey 
+     * @param {module:api/DefaultApi~newsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/GameNewsResponse}
+     */
+    news(id, offset, limit, apiKey, callback) {
+      let postBody = null;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling news");
+      }
+      // verify the required parameter 'offset' is set
+      if (offset === undefined || offset === null) {
+        throw new Error("Missing the required parameter 'offset' when calling news");
+      }
+      // verify the required parameter 'limit' is set
+      if (limit === undefined || limit === null) {
+        throw new Error("Missing the required parameter 'limit' when calling news");
+      }
+      // verify the required parameter 'apiKey' is set
+      if (apiKey === undefined || apiKey === null) {
+        throw new Error("Missing the required parameter 'apiKey' when calling news");
+      }
+
+      let pathParams = {
+        'id': id
+      };
+      let queryParams = {
+        'offset': offset,
+        'limit': limit,
+        'api-key': apiKey
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['apiKey', 'headerApiKey'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = GameNewsResponse;
+      return this.apiClient.callApi(
+        '/games/{id}/news', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the search operation.
      * @callback module:api/DefaultApi~searchCallback
      * @param {String} error Error message, if any.
@@ -98,10 +160,10 @@ export default class DefaultApi {
      * Search Games
      * Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
      * @param {String} query The search query, e.g., game name, platform, genre, or any combination.
-     * @param {Number} offset The number of results to skip before starting to collect the result set.
-     * @param {Number} limit The maximum number of results to return.
+     * @param {Number} offset The number of results to skip before starting to collect the result set. Between 0 and 1000.
+     * @param {Number} limit The maximum number of results to return between 1 and 10.
      * @param {String} filters JSON array of filter objects to apply to the search.
-     * @param {String} sort The field by which to sort the results.
+     * @param {String} sort The field by which to sort the results, either computed_rating, price, or release_date
      * @param {String} sortOrder The sort order: 'asc' for ascending or 'desc' for descending.
      * @param {Boolean} generateFilterOptions Whether to generate filter options in the response.
      * @param {String} apiKey Your API key for authentication.

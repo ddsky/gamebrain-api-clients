@@ -30,6 +30,8 @@ part 'auth/http_bearer_auth.dart';
 
 part 'api/default_api.dart';
 
+part 'model/game_news_item.dart';
+part 'model/game_news_response.dart';
 part 'model/game_response.dart';
 part 'model/game_response_offers_inner.dart';
 part 'model/game_response_offers_inner_price.dart';

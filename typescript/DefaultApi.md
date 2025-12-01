@@ -5,6 +5,7 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**detail**](DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details
+[**news**](DefaultApi.md#news) | **GET** /games/{id}/news | Get Game News
 [**search**](DefaultApi.md#search) | **GET** /games | Search Games
 [**similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games
 [**suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions
@@ -67,6 +68,69 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
+# **news**
+> GameNewsResponse news()
+
+Get news related to the given game.
+
+### Example
+
+
+```typescript
+import {  } from '';
+import * as fs from 'fs';
+
+const configuration = .createConfiguration();
+const apiInstance = new .DefaultApi(configuration);
+
+let body:.DefaultApiNewsRequest = {
+  // number
+  id: 1,
+  // number
+  offset: 0,
+  // number
+  limit: 10,
+  // string
+  apiKey: "abc123",
+};
+
+apiInstance.news(body).then((data:any) => {
+  console.log('API called successfully. Returned data: ' + data);
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**number**] |  | defaults to undefined
+ **offset** | [**number**] |  | defaults to 0
+ **limit** | [**number**] |  | defaults to 10
+ **apiKey** | [**string**] |  | defaults to undefined
+
+
+### Return type
+
+**GameNewsResponse**
+
+### Authorization
+
+[apiKey](README.md#apiKey), [headerApiKey](README.md#headerApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
 # **search**
 > SearchResponse search()
 
@@ -85,13 +149,13 @@ const apiInstance = new .DefaultApi(configuration);
 let body:.DefaultApiSearchRequest = {
   // string | The search query, e.g., game name, platform, genre, or any combination.
   query: "rpg for PC",
-  // number | The number of results to skip before starting to collect the result set.
+  // number | The number of results to skip before starting to collect the result set. Between 0 and 1000.
   offset: 0,
-  // number | The maximum number of results to return.
-  limit: 48,
+  // number | The maximum number of results to return between 1 and 10.
+  limit: 10,
   // string | JSON array of filter objects to apply to the search.
-  filters: "[]",
-  // string | The field by which to sort the results.
+  filters: "[{"key":"platform","values":[{"value":"pc"}],"connection":"OR"},{"key":"genre","values":[{"value":"action"}]}]",
+  // string | The field by which to sort the results, either computed_rating, price, or release_date
   sort: "computed_rating",
   // string | The sort order: \'asc\' for ascending or \'desc\' for descending.
   sortOrder: "asc",
@@ -112,10 +176,10 @@ apiInstance.search(body).then((data:any) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query** | [**string**] | The search query, e.g., game name, platform, genre, or any combination. | defaults to undefined
- **offset** | [**number**] | The number of results to skip before starting to collect the result set. | defaults to 0
- **limit** | [**number**] | The maximum number of results to return. | defaults to 48
+ **offset** | [**number**] | The number of results to skip before starting to collect the result set. Between 0 and 1000. | defaults to 0
+ **limit** | [**number**] | The maximum number of results to return between 1 and 10. | defaults to 10
  **filters** | [**string**] | JSON array of filter objects to apply to the search. | defaults to '[]'
- **sort** | [**string**] | The field by which to sort the results. | defaults to undefined
+ **sort** | [**string**] | The field by which to sort the results, either computed_rating, price, or release_date | defaults to undefined
  **sortOrder** | [**string**] | The sort order: \&#39;asc\&#39; for ascending or \&#39;desc\&#39; for descending. | defaults to 'asc'
  **generateFilterOptions** | [**boolean**] | Whether to generate filter options in the response. | defaults to true
  **apiKey** | [**string**] | Your API key for authentication. | defaults to undefined

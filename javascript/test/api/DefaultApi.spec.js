@@ -58,6 +58,16 @@
         done();
       });
     });
+    describe('news', function() {
+      it('should call news successfully', function(done) {
+        //uncomment below and update the code to test news
+        //instance.news(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('search', function() {
       it('should call search successfully', function(done) {
         //uncomment below and update the code to test search

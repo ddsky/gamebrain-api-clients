@@ -96,7 +96,7 @@ defmodule GameBrainAPI.Connection do
         Keyword.get(
           tesla_options,
           :user_agent,
-          "openapi-generator - GameBrainAPI 1.0.1 - elixir"
+          "openapi-generator - GameBrainAPI 1.0.2 - elixir"
         )
       )
 

@@ -5,6 +5,8 @@
 .travis.yml
 README.md
 docs/DefaultApi.md
+docs/GameNewsItem.md
+docs/GameNewsResponse.md
 docs/GameResponse.md
 docs/GameResponseOffersInner.md
 docs/GameResponseOffersInnerPrice.md
@@ -32,6 +34,8 @@ gamebrain/api_response.py
 gamebrain/configuration.py
 gamebrain/exceptions.py
 gamebrain/models/__init__.py
+gamebrain/models/game_news_item.py
+gamebrain/models/game_news_response.py
 gamebrain/models/game_response.py
 gamebrain/models/game_response_offers_inner.py
 gamebrain/models/game_response_offers_inner_price.py
@@ -61,6 +65,8 @@ setup.py
 test-requirements.txt
 test/__init__.py
 test/test_default_api.py
+test/test_game_news_item.py
+test/test_game_news_response.py
 test/test_game_response.py
 test/test_game_response_offers_inner.py
 test/test_game_response_offers_inner_price.py

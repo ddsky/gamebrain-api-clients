@@ -4,6 +4,8 @@
 README.md
 analysis_options.yaml
 doc/DefaultApi.md
+doc/GameNewsItem.md
+doc/GameNewsResponse.md
 doc/GameResponse.md
 doc/GameResponseOffersInner.md
 doc/GameResponseOffersInnerPrice.md
@@ -34,6 +36,8 @@ lib/auth/authentication.dart
 lib/auth/http_basic_auth.dart
 lib/auth/http_bearer_auth.dart
 lib/auth/oauth.dart
+lib/model/game_news_item.dart
+lib/model/game_news_response.dart
 lib/model/game_response.dart
 lib/model/game_response_offers_inner.dart
 lib/model/game_response_offers_inner_price.dart
@@ -55,6 +59,8 @@ lib/model/search_suggestion_response_results_inner.dart
 lib/model/similar_games_response.dart
 pubspec.yaml
 test/default_api_test.dart
+test/game_news_item_test.dart
+test/game_news_response_test.dart
 test/game_response_offers_inner_price_test.dart
 test/game_response_offers_inner_test.dart
 test/game_response_official_stores_inner_test.dart

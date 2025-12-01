@@ -1,3 +1,7 @@
+pub mod game_news_item;
+pub use self::game_news_item::GameNewsItem;
+pub mod game_news_response;
+pub use self::game_news_response::GameNewsResponse;
 pub mod game_response;
 pub use self::game_response::GameResponse;
 pub mod game_response_offers_inner;

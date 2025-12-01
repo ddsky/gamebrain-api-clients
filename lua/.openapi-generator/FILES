@@ -1,7 +1,9 @@
 .gitignore
 .openapi-generator-ignore
-gamebrain-1.0.1.rockspec
+gamebrain-1.0.2.rockspec
 gamebrain/api/default_api.lua
+gamebrain/model/game_news_item.lua
+gamebrain/model/game_news_response.lua
 gamebrain/model/game_response.lua
 gamebrain/model/game_response_offers_inner.lua
 gamebrain/model/game_response_offers_inner_price.lua
@@ -23,6 +25,8 @@ gamebrain/model/search_suggestion_response_results_inner.lua
 gamebrain/model/similar_games_response.lua
 git_push.sh
 spec/default_api_spec.lua
+spec/game_news_item_spec.lua
+spec/game_news_response_spec.lua
 spec/game_response_offers_inner_price_spec.lua
 spec/game_response_offers_inner_spec.lua
 spec/game_response_official_stores_inner_spec.lua

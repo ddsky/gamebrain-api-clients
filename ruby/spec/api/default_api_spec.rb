@@ -45,14 +45,29 @@ describe 'DefaultApi' do
     end
   end
 
+  # unit tests for news
+  # Get Game News
+  # Get news related to the given game.
+  # @param id 
+  # @param offset 
+  # @param limit 
+  # @param api_key 
+  # @param [Hash] opts the optional parameters
+  # @return [GameNewsResponse]
+  describe 'news test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
   # unit tests for search
   # Search Games
   # Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
   # @param query The search query, e.g., game name, platform, genre, or any combination.
-  # @param offset The number of results to skip before starting to collect the result set.
-  # @param limit The maximum number of results to return.
+  # @param offset The number of results to skip before starting to collect the result set. Between 0 and 1000.
+  # @param limit The maximum number of results to return between 1 and 10.
   # @param filters JSON array of filter objects to apply to the search.
-  # @param sort The field by which to sort the results.
+  # @param sort The field by which to sort the results, either computed_rating, price, or release_date
   # @param sort_order The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending.
   # @param generate_filter_options Whether to generate filter options in the response.
   # @param api_key Your API key for authentication.

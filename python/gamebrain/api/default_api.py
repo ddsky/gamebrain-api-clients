@@ -19,6 +19,7 @@ from typing_extensions import Annotated
 
 from pydantic import Field, StrictBool, StrictInt, field_validator
 from typing_extensions import Annotated
+from gamebrain.models.game_news_response import GameNewsResponse
 from gamebrain.models.game_response import GameResponse
 from gamebrain.models.search_response import SearchResponse
 from gamebrain.models.search_suggestion_response import SearchSuggestionResponse
@@ -320,13 +321,324 @@ class DefaultApi:
 
 
     @validate_call
+    def news(
+        self,
+        id: StrictInt,
+        offset: StrictInt,
+        limit: StrictInt,
+        api_key: Annotated[str, Field(strict=True, max_length=300)],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> GameNewsResponse:
+        """Get Game News
+
+        Get news related to the given game.
+
+        :param id: (required)
+        :type id: int
+        :param offset: (required)
+        :type offset: int
+        :param limit: (required)
+        :type limit: int
+        :param api_key: (required)
+        :type api_key: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._news_serialize(
+            id=id,
+            offset=offset,
+            limit=limit,
+            api_key=api_key,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GameNewsResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def news_with_http_info(
+        self,
+        id: StrictInt,
+        offset: StrictInt,
+        limit: StrictInt,
+        api_key: Annotated[str, Field(strict=True, max_length=300)],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[GameNewsResponse]:
+        """Get Game News
+
+        Get news related to the given game.
+
+        :param id: (required)
+        :type id: int
+        :param offset: (required)
+        :type offset: int
+        :param limit: (required)
+        :type limit: int
+        :param api_key: (required)
+        :type api_key: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._news_serialize(
+            id=id,
+            offset=offset,
+            limit=limit,
+            api_key=api_key,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GameNewsResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def news_without_preload_content(
+        self,
+        id: StrictInt,
+        offset: StrictInt,
+        limit: StrictInt,
+        api_key: Annotated[str, Field(strict=True, max_length=300)],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get Game News
+
+        Get news related to the given game.
+
+        :param id: (required)
+        :type id: int
+        :param offset: (required)
+        :type offset: int
+        :param limit: (required)
+        :type limit: int
+        :param api_key: (required)
+        :type api_key: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._news_serialize(
+            id=id,
+            offset=offset,
+            limit=limit,
+            api_key=api_key,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GameNewsResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _news_serialize(
+        self,
+        id,
+        offset,
+        limit,
+        api_key,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, Union[str, bytes]] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if id is not None:
+            _path_params['id'] = id
+        # process the query parameters
+        if offset is not None:
+            
+            _query_params.append(('offset', offset))
+            
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if api_key is not None:
+            
+            _query_params.append(('api-key', api_key))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'apiKey', 
+            'headerApiKey'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/games/{id}/news',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def search(
         self,
         query: Annotated[str, Field(strict=True, max_length=300, description="The search query, e.g., game name, platform, genre, or any combination.")],
-        offset: Annotated[StrictInt, Field(description="The number of results to skip before starting to collect the result set.")],
-        limit: Annotated[StrictInt, Field(description="The maximum number of results to return.")],
+        offset: Annotated[StrictInt, Field(description="The number of results to skip before starting to collect the result set. Between 0 and 1000.")],
+        limit: Annotated[StrictInt, Field(description="The maximum number of results to return between 1 and 10.")],
         filters: Annotated[str, Field(strict=True, max_length=3000, description="JSON array of filter objects to apply to the search.")],
-        sort: Annotated[str, Field(strict=True, max_length=300, description="The field by which to sort the results.")],
+        sort: Annotated[str, Field(strict=True, max_length=300, description="The field by which to sort the results, either computed_rating, price, or release_date")],
         sort_order: Annotated[str, Field(strict=True, max_length=4, description="The sort order: 'asc' for ascending or 'desc' for descending.")],
         generate_filter_options: Annotated[StrictBool, Field(description="Whether to generate filter options in the response.")],
         api_key: Annotated[str, Field(strict=True, max_length=300, description="Your API key for authentication.")],
@@ -349,13 +661,13 @@ class DefaultApi:
 
         :param query: The search query, e.g., game name, platform, genre, or any combination. (required)
         :type query: str
-        :param offset: The number of results to skip before starting to collect the result set. (required)
+        :param offset: The number of results to skip before starting to collect the result set. Between 0 and 1000. (required)
         :type offset: int
-        :param limit: The maximum number of results to return. (required)
+        :param limit: The maximum number of results to return between 1 and 10. (required)
         :type limit: int
         :param filters: JSON array of filter objects to apply to the search. (required)
         :type filters: str
-        :param sort: The field by which to sort the results. (required)
+        :param sort: The field by which to sort the results, either computed_rating, price, or release_date (required)
         :type sort: str
         :param sort_order: The sort order: 'asc' for ascending or 'desc' for descending. (required)
         :type sort_order: str
@@ -418,10 +730,10 @@ class DefaultApi:
     def search_with_http_info(
         self,
         query: Annotated[str, Field(strict=True, max_length=300, description="The search query, e.g., game name, platform, genre, or any combination.")],
-        offset: Annotated[StrictInt, Field(description="The number of results to skip before starting to collect the result set.")],
-        limit: Annotated[StrictInt, Field(description="The maximum number of results to return.")],
+        offset: Annotated[StrictInt, Field(description="The number of results to skip before starting to collect the result set. Between 0 and 1000.")],
+        limit: Annotated[StrictInt, Field(description="The maximum number of results to return between 1 and 10.")],
         filters: Annotated[str, Field(strict=True, max_length=3000, description="JSON array of filter objects to apply to the search.")],
-        sort: Annotated[str, Field(strict=True, max_length=300, description="The field by which to sort the results.")],
+        sort: Annotated[str, Field(strict=True, max_length=300, description="The field by which to sort the results, either computed_rating, price, or release_date")],
         sort_order: Annotated[str, Field(strict=True, max_length=4, description="The sort order: 'asc' for ascending or 'desc' for descending.")],
         generate_filter_options: Annotated[StrictBool, Field(description="Whether to generate filter options in the response.")],
         api_key: Annotated[str, Field(strict=True, max_length=300, description="Your API key for authentication.")],
@@ -444,13 +756,13 @@ class DefaultApi:
 
         :param query: The search query, e.g., game name, platform, genre, or any combination. (required)
         :type query: str
-        :param offset: The number of results to skip before starting to collect the result set. (required)
+        :param offset: The number of results to skip before starting to collect the result set. Between 0 and 1000. (required)
         :type offset: int
-        :param limit: The maximum number of results to return. (required)
+        :param limit: The maximum number of results to return between 1 and 10. (required)
         :type limit: int
         :param filters: JSON array of filter objects to apply to the search. (required)
         :type filters: str
-        :param sort: The field by which to sort the results. (required)
+        :param sort: The field by which to sort the results, either computed_rating, price, or release_date (required)
         :type sort: str
         :param sort_order: The sort order: 'asc' for ascending or 'desc' for descending. (required)
         :type sort_order: str
@@ -513,10 +825,10 @@ class DefaultApi:
     def search_without_preload_content(
         self,
         query: Annotated[str, Field(strict=True, max_length=300, description="The search query, e.g., game name, platform, genre, or any combination.")],
-        offset: Annotated[StrictInt, Field(description="The number of results to skip before starting to collect the result set.")],
-        limit: Annotated[StrictInt, Field(description="The maximum number of results to return.")],
+        offset: Annotated[StrictInt, Field(description="The number of results to skip before starting to collect the result set. Between 0 and 1000.")],
+        limit: Annotated[StrictInt, Field(description="The maximum number of results to return between 1 and 10.")],
         filters: Annotated[str, Field(strict=True, max_length=3000, description="JSON array of filter objects to apply to the search.")],
-        sort: Annotated[str, Field(strict=True, max_length=300, description="The field by which to sort the results.")],
+        sort: Annotated[str, Field(strict=True, max_length=300, description="The field by which to sort the results, either computed_rating, price, or release_date")],
         sort_order: Annotated[str, Field(strict=True, max_length=4, description="The sort order: 'asc' for ascending or 'desc' for descending.")],
         generate_filter_options: Annotated[StrictBool, Field(description="Whether to generate filter options in the response.")],
         api_key: Annotated[str, Field(strict=True, max_length=300, description="Your API key for authentication.")],
@@ -539,13 +851,13 @@ class DefaultApi:
 
         :param query: The search query, e.g., game name, platform, genre, or any combination. (required)
         :type query: str
-        :param offset: The number of results to skip before starting to collect the result set. (required)
+        :param offset: The number of results to skip before starting to collect the result set. Between 0 and 1000. (required)
         :type offset: int
-        :param limit: The maximum number of results to return. (required)
+        :param limit: The maximum number of results to return between 1 and 10. (required)
         :type limit: int
         :param filters: JSON array of filter objects to apply to the search. (required)
         :type filters: str
-        :param sort: The field by which to sort the results. (required)
+        :param sort: The field by which to sort the results, either computed_rating, price, or release_date (required)
         :type sort: str
         :param sort_order: The sort order: 'asc' for ascending or 'desc' for descending. (required)
         :type sort_order: str

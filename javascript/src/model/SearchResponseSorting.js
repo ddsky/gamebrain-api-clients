@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The SearchResponseSorting model module.
  * @module model/SearchResponseSorting
- * @version 1.0.1
+ * @version 1.0.2
  */
 class SearchResponseSorting {
     /**

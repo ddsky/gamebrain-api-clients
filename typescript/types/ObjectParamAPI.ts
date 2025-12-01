@@ -1,6 +1,8 @@
 import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/http';
 import { Configuration} from '../configuration'
 
+import { GameNewsItem } from '../models/GameNewsItem';
+import { GameNewsResponse } from '../models/GameNewsResponse';
 import { GameResponse } from '../models/GameResponse';
 import { GameResponseOffersInner } from '../models/GameResponseOffersInner';
 import { GameResponseOffersInnerPrice } from '../models/GameResponseOffersInnerPrice';
@@ -39,6 +41,33 @@ export interface DefaultApiDetailRequest {
     apiKey: string
 }
 
+export interface DefaultApiNewsRequest {
+    /**
+     * 
+     * @type number
+     * @memberof DefaultApinews
+     */
+    id: number
+    /**
+     * 
+     * @type number
+     * @memberof DefaultApinews
+     */
+    offset: number
+    /**
+     * 
+     * @type number
+     * @memberof DefaultApinews
+     */
+    limit: number
+    /**
+     * 
+     * @type string
+     * @memberof DefaultApinews
+     */
+    apiKey: string
+}
+
 export interface DefaultApiSearchRequest {
     /**
      * The search query, e.g., game name, platform, genre, or any combination.
@@ -47,13 +76,13 @@ export interface DefaultApiSearchRequest {
      */
     query: string
     /**
-     * The number of results to skip before starting to collect the result set.
+     * The number of results to skip before starting to collect the result set. Between 0 and 1000.
      * @type number
      * @memberof DefaultApisearch
      */
     offset: number
     /**
-     * The maximum number of results to return.
+     * The maximum number of results to return between 1 and 10.
      * @type number
      * @memberof DefaultApisearch
      */
@@ -65,7 +94,7 @@ export interface DefaultApiSearchRequest {
      */
     filters: string
     /**
-     * The field by which to sort the results.
+     * The field by which to sort the results, either computed_rating, price, or release_date
      * @type string
      * @memberof DefaultApisearch
      */
@@ -155,6 +184,24 @@ export class ObjectDefaultApi {
      */
     public detail(param: DefaultApiDetailRequest, options?: Configuration): Promise<GameResponse> {
         return this.api.detail(param.id, param.apiKey,  options).toPromise();
+    }
+
+    /**
+     * Get news related to the given game.
+     * Get Game News
+     * @param param the request object
+     */
+    public newsWithHttpInfo(param: DefaultApiNewsRequest, options?: Configuration): Promise<HttpInfo<GameNewsResponse>> {
+        return this.api.newsWithHttpInfo(param.id, param.offset, param.limit, param.apiKey,  options).toPromise();
+    }
+
+    /**
+     * Get news related to the given game.
+     * Get Game News
+     * @param param the request object
+     */
+    public news(param: DefaultApiNewsRequest, options?: Configuration): Promise<GameNewsResponse> {
+        return this.api.news(param.id, param.offset, param.limit, param.apiKey,  options).toPromise();
     }
 
     /**

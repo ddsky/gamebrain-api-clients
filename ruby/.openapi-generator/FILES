@@ -8,6 +8,8 @@ Gemfile
 README.md
 Rakefile
 docs/DefaultApi.md
+docs/GameNewsItem.md
+docs/GameNewsResponse.md
 docs/GameResponse.md
 docs/GameResponseOffersInner.md
 docs/GameResponseOffersInnerPrice.md
@@ -33,6 +35,8 @@ lib/openapi_client/api/default_api.rb
 lib/openapi_client/api_client.rb
 lib/openapi_client/api_error.rb
 lib/openapi_client/configuration.rb
+lib/openapi_client/models/game_news_item.rb
+lib/openapi_client/models/game_news_response.rb
 lib/openapi_client/models/game_response.rb
 lib/openapi_client/models/game_response_offers_inner.rb
 lib/openapi_client/models/game_response_offers_inner_price.rb
@@ -55,6 +59,8 @@ lib/openapi_client/models/similar_games_response.rb
 lib/openapi_client/version.rb
 openapi_client.gemspec
 spec/api/default_api_spec.rb
+spec/models/game_news_item_spec.rb
+spec/models/game_news_response_spec.rb
 spec/models/game_response_offers_inner_price_spec.rb
 spec/models/game_response_offers_inner_spec.rb
 spec/models/game_response_official_stores_inner_spec.rb

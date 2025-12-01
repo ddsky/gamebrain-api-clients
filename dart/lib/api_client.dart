@@ -182,6 +182,10 @@ class ApiClient {
           return valueString == 'true' || valueString == '1';
         case 'DateTime':
           return value is DateTime ? value : DateTime.tryParse(value);
+        case 'GameNewsItem':
+          return GameNewsItem.fromJson(value);
+        case 'GameNewsResponse':
+          return GameNewsResponse.fromJson(value);
         case 'GameResponse':
           return GameResponse.fromJson(value);
         case 'GameResponseOffersInner':

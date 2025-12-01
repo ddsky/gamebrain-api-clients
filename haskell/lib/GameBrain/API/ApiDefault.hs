@@ -83,6 +83,35 @@ data Detail
 instance Produces Detail MimeJSON
 
 
+-- *** news
+
+-- | @GET \/games\/{id}\/news@
+-- 
+-- Get Game News
+-- 
+-- Get news related to the given game.
+-- 
+-- AuthMethod: 'AuthApiKeyApiKey', 'AuthApiKeyHeaderApiKey'
+-- 
+news
+  :: Id -- ^ "id"
+  -> Offset -- ^ "offset"
+  -> Limit -- ^ "limit"
+  -> ApiKey -- ^ "apiKey"
+  -> GameBrainRequest News MimeNoContent GameNewsResponse MimeJSON
+news (Id id) (Offset offset) (Limit limit) (ApiKey apiKey) =
+  _mkRequest "GET" ["/games/",toPath id,"/news"]
+    `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyApiKey)
+    `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyHeaderApiKey)
+    `addQuery` toQuery ("offset", Just offset)
+    `addQuery` toQuery ("limit", Just limit)
+    `addQuery` toQuery ("api-key", Just apiKey)
+
+data News  
+-- | @application/json@
+instance Produces News MimeJSON
+
+
 -- *** search
 
 -- | @GET \/games@
@@ -95,10 +124,10 @@ instance Produces Detail MimeJSON
 -- 
 search
   :: Query -- ^ "query" -  The search query, e.g., game name, platform, genre, or any combination.
-  -> Offset -- ^ "offset" -  The number of results to skip before starting to collect the result set.
-  -> Limit -- ^ "limit" -  The maximum number of results to return.
+  -> Offset -- ^ "offset" -  The number of results to skip before starting to collect the result set. Between 0 and 1000.
+  -> Limit -- ^ "limit" -  The maximum number of results to return between 1 and 10.
   -> Filters -- ^ "filters" -  JSON array of filter objects to apply to the search.
-  -> Sort -- ^ "sort" -  The field by which to sort the results.
+  -> Sort -- ^ "sort" -  The field by which to sort the results, either computed_rating, price, or release_date
   -> SortOrder -- ^ "sortOrder" -  The sort order: 'asc' for ascending or 'desc' for descending.
   -> GenerateFilterOptions -- ^ "generateFilterOptions" -  Whether to generate filter options in the response.
   -> ApiKey -- ^ "apiKey" -  Your API key for authentication.

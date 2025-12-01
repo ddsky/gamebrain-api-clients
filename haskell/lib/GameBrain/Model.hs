@@ -98,6 +98,83 @@ newtype SortOrder = SortOrder { unSortOrder :: Text } deriving (P.Eq, P.Show)
 -- * Models
 
 
+-- ** GameNewsItem
+-- | GameNewsItem
+data GameNewsItem = GameNewsItem
+  { gameNewsItemTitle :: !(Text) -- ^ /Required/ "title"
+  , gameNewsItemUrl :: !(Text) -- ^ /Required/ "url"
+  , gameNewsItemSource :: !(Text) -- ^ /Required/ "source"
+  , gameNewsItemImage :: !(Maybe Text) -- ^ "image"
+  , gameNewsItemPublished :: !(Date) -- ^ /Required/ "published"
+  } deriving (P.Show, P.Eq, P.Typeable)
+
+-- | FromJSON GameNewsItem
+instance A.FromJSON GameNewsItem where
+  parseJSON = A.withObject "GameNewsItem" $ \o ->
+    GameNewsItem
+      <$> (o .:  "title")
+      <*> (o .:  "url")
+      <*> (o .:  "source")
+      <*> (o .:? "image")
+      <*> (o .:  "published")
+
+-- | ToJSON GameNewsItem
+instance A.ToJSON GameNewsItem where
+  toJSON GameNewsItem {..} =
+   _omitNulls
+      [ "title" .= gameNewsItemTitle
+      , "url" .= gameNewsItemUrl
+      , "source" .= gameNewsItemSource
+      , "image" .= gameNewsItemImage
+      , "published" .= gameNewsItemPublished
+      ]
+
+
+-- | Construct a value of type 'GameNewsItem' (by applying it's required fields, if any)
+mkGameNewsItem
+  :: Text -- ^ 'gameNewsItemTitle' 
+  -> Text -- ^ 'gameNewsItemUrl' 
+  -> Text -- ^ 'gameNewsItemSource' 
+  -> Date -- ^ 'gameNewsItemPublished' 
+  -> GameNewsItem
+mkGameNewsItem gameNewsItemTitle gameNewsItemUrl gameNewsItemSource gameNewsItemPublished =
+  GameNewsItem
+  { gameNewsItemTitle
+  , gameNewsItemUrl
+  , gameNewsItemSource
+  , gameNewsItemImage = Nothing
+  , gameNewsItemPublished
+  }
+
+-- ** GameNewsResponse
+-- | GameNewsResponse
+data GameNewsResponse = GameNewsResponse
+  { gameNewsResponseNews :: !([GameNewsItem]) -- ^ /Required/ "news"
+  } deriving (P.Show, P.Eq, P.Typeable)
+
+-- | FromJSON GameNewsResponse
+instance A.FromJSON GameNewsResponse where
+  parseJSON = A.withObject "GameNewsResponse" $ \o ->
+    GameNewsResponse
+      <$> (o .:  "news")
+
+-- | ToJSON GameNewsResponse
+instance A.ToJSON GameNewsResponse where
+  toJSON GameNewsResponse {..} =
+   _omitNulls
+      [ "news" .= gameNewsResponseNews
+      ]
+
+
+-- | Construct a value of type 'GameNewsResponse' (by applying it's required fields, if any)
+mkGameNewsResponse
+  :: [GameNewsItem] -- ^ 'gameNewsResponseNews' 
+  -> GameNewsResponse
+mkGameNewsResponse gameNewsResponseNews =
+  GameNewsResponse
+  { gameNewsResponseNews
+  }
+
 -- ** GameResponse
 -- | GameResponse
 data GameResponse = GameResponse

@@ -26,6 +26,15 @@ void main() {
       // TODO
     });
 
+    // Get Game News
+    //
+    // Get news related to the given game.
+    //
+    //Future<GameNewsResponse> news(int id, int offset, int limit, String apiKey) async
+    test('test news', () async {
+      // TODO
+    });
+
     // Search Games
     //
     // Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination

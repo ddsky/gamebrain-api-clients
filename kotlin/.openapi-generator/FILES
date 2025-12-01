@@ -2,6 +2,8 @@
 README.md
 build.gradle
 docs/DefaultApi.md
+docs/GameNewsItem.md
+docs/GameNewsResponse.md
 docs/GameResponse.md
 docs/GameResponseOffersInner.md
 docs/GameResponseOffersInnerPrice.md
@@ -27,6 +29,8 @@ gradlew
 gradlew.bat
 settings.gradle
 src/main/kotlin/co/gamebrain/DefaultApi.kt
+src/main/kotlin/co/gamebrain/client/model/GameNewsItem.kt
+src/main/kotlin/co/gamebrain/client/model/GameNewsResponse.kt
 src/main/kotlin/co/gamebrain/client/model/GameResponse.kt
 src/main/kotlin/co/gamebrain/client/model/GameResponseOffersInner.kt
 src/main/kotlin/co/gamebrain/client/model/GameResponseOffersInnerPrice.kt
@@ -64,6 +68,8 @@ src/main/kotlin/gamebrain/infrastructure/Serializer.kt
 src/main/kotlin/gamebrain/infrastructure/URIAdapter.kt
 src/main/kotlin/gamebrain/infrastructure/UUIDAdapter.kt
 src/test/kotlin/co/gamebrain/DefaultApiTest.kt
+src/test/kotlin/co/gamebrain/client/model/GameNewsItemTest.kt
+src/test/kotlin/co/gamebrain/client/model/GameNewsResponseTest.kt
 src/test/kotlin/co/gamebrain/client/model/GameResponseOffersInnerPriceTest.kt
 src/test/kotlin/co/gamebrain/client/model/GameResponseOffersInnerTest.kt
 src/test/kotlin/co/gamebrain/client/model/GameResponseOfficialStoresInnerTest.kt

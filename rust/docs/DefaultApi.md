@@ -5,6 +5,7 @@ All URIs are relative to *https://api.gamebrain.co/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**detail**](DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details
+[**news**](DefaultApi.md#news) | **GET** /games/{id}/news | Get Game News
 [**search**](DefaultApi.md#search) | **GET** /games | Search Games
 [**similar**](DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games
 [**suggest**](DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions
@@ -42,6 +43,39 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## news
+
+> models::GameNewsResponse news(id, offset, limit, api_key)
+Get Game News
+
+Get news related to the given game.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **i32** |  | [required] |
+**offset** | **i32** |  | [required] |[default to 0]
+**limit** | **i32** |  | [required] |[default to 10]
+**api_key** | **String** |  | [required] |
+
+### Return type
+
+[**models::GameNewsResponse**](GameNewsResponse.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [headerApiKey](../README.md#headerApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## search
 
 > models::SearchResponse search(query, offset, limit, filters, sort, sort_order, generate_filter_options, api_key)
@@ -55,10 +89,10 @@ Search hundreds of thousands of video games from over 70 platforms. The query ca
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **query** | **String** | The search query, e.g., game name, platform, genre, or any combination. | [required] |
-**offset** | **i32** | The number of results to skip before starting to collect the result set. | [required] |[default to 0]
-**limit** | **i32** | The maximum number of results to return. | [required] |[default to 48]
+**offset** | **i32** | The number of results to skip before starting to collect the result set. Between 0 and 1000. | [required] |[default to 0]
+**limit** | **i32** | The maximum number of results to return between 1 and 10. | [required] |[default to 10]
 **filters** | **String** | JSON array of filter objects to apply to the search. | [required] |[default to []]
-**sort** | **String** | The field by which to sort the results. | [required] |
+**sort** | **String** | The field by which to sort the results, either computed_rating, price, or release_date | [required] |
 **sort_order** | **String** | The sort order: 'asc' for ascending or 'desc' for descending. | [required] |[default to asc]
 **generate_filter_options** | **bool** | Whether to generate filter options in the response. | [required] |[default to true]
 **api_key** | **String** | Your API key for authentication. | [required] |

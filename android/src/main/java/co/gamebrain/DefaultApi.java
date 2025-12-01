@@ -23,6 +23,7 @@ import java.util.*;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import co.gamebrain.client.model.GameNewsResponse;
 import co.gamebrain.client.model.GameResponse;
 import co.gamebrain.client.model.SearchResponse;
 import co.gamebrain.client.model.SearchSuggestionResponse;
@@ -199,13 +200,179 @@ public class DefaultApi {
     }
   }
   /**
+  * Get Game News
+  * Get news related to the given game.
+   * @param id 
+   * @param offset 
+   * @param limit 
+   * @param apiKey 
+   * @return GameNewsResponse
+  */
+  public GameNewsResponse news (Integer id, Integer offset, Integer limit, String apiKey) throws TimeoutException, ExecutionException, InterruptedException, ApiException {
+    Object postBody = null;
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      VolleyError error = new VolleyError("Missing the required parameter 'id' when calling news",
+        new ApiException(400, "Missing the required parameter 'id' when calling news"));
+    }
+    // verify the required parameter 'offset' is set
+    if (offset == null) {
+      VolleyError error = new VolleyError("Missing the required parameter 'offset' when calling news",
+        new ApiException(400, "Missing the required parameter 'offset' when calling news"));
+    }
+    // verify the required parameter 'limit' is set
+    if (limit == null) {
+      VolleyError error = new VolleyError("Missing the required parameter 'limit' when calling news",
+        new ApiException(400, "Missing the required parameter 'limit' when calling news"));
+    }
+    // verify the required parameter 'apiKey' is set
+    if (apiKey == null) {
+      VolleyError error = new VolleyError("Missing the required parameter 'apiKey' when calling news",
+        new ApiException(400, "Missing the required parameter 'apiKey' when calling news"));
+    }
+
+    // create path and map variables
+    String path = "/games/{id}/news".replaceAll("\\{" + "id" + "\\}", apiInvoker.escapeString(id.toString()));
+
+    // query params
+    List<Pair> queryParams = new ArrayList<Pair>();
+    // header params
+    Map<String, String> headerParams = new HashMap<String, String>();
+    // form params
+    Map<String, String> formParams = new HashMap<String, String>();
+    queryParams.addAll(ApiInvoker.parameterToPairs("", "offset", offset));
+    queryParams.addAll(ApiInvoker.parameterToPairs("", "limit", limit));
+    queryParams.addAll(ApiInvoker.parameterToPairs("", "api-key", apiKey));
+    String[] contentTypes = {
+    };
+    String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+
+    if (contentType.startsWith("multipart/form-data")) {
+      // file uploading
+      MultipartEntityBuilder localVarBuilder = MultipartEntityBuilder.create();
+      HttpEntity httpEntity = localVarBuilder.build();
+      postBody = httpEntity;
+    } else {
+      // normal form params
+    }
+
+    String[] authNames = new String[] { "apiKey", "headerApiKey" };
+
+    try {
+      String localVarResponse = apiInvoker.invokeAPI (basePath, path, "GET", queryParams, postBody, headerParams, formParams, contentType, authNames);
+      if (localVarResponse != null) {
+         return (GameNewsResponse) ApiInvoker.deserialize(localVarResponse, "", GameNewsResponse.class);
+      } else {
+         return null;
+      }
+    } catch (ApiException ex) {
+       throw ex;
+    } catch (InterruptedException ex) {
+       throw ex;
+    } catch (ExecutionException ex) {
+      if (ex.getCause() instanceof VolleyError) {
+        VolleyError volleyError = (VolleyError)ex.getCause();
+        if (volleyError.networkResponse != null) {
+          throw new ApiException(volleyError.networkResponse.statusCode, volleyError.getMessage());
+        }
+      }
+      throw ex;
+    } catch (TimeoutException ex) {
+      throw ex;
+    }
+  }
+
+      /**
+   * Get Game News
+   * Get news related to the given game.
+   * @param id    * @param offset    * @param limit    * @param apiKey 
+  */
+  public void news (Integer id, Integer offset, Integer limit, String apiKey, final Response.Listener<GameNewsResponse> responseListener, final Response.ErrorListener errorListener) {
+    Object postBody = null;
+
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      VolleyError error = new VolleyError("Missing the required parameter 'id' when calling news",
+        new ApiException(400, "Missing the required parameter 'id' when calling news"));
+    }
+    // verify the required parameter 'offset' is set
+    if (offset == null) {
+      VolleyError error = new VolleyError("Missing the required parameter 'offset' when calling news",
+        new ApiException(400, "Missing the required parameter 'offset' when calling news"));
+    }
+    // verify the required parameter 'limit' is set
+    if (limit == null) {
+      VolleyError error = new VolleyError("Missing the required parameter 'limit' when calling news",
+        new ApiException(400, "Missing the required parameter 'limit' when calling news"));
+    }
+    // verify the required parameter 'apiKey' is set
+    if (apiKey == null) {
+      VolleyError error = new VolleyError("Missing the required parameter 'apiKey' when calling news",
+        new ApiException(400, "Missing the required parameter 'apiKey' when calling news"));
+    }
+
+    // create path and map variables
+    String path = "/games/{id}/news".replaceAll("\\{format\\}","json").replaceAll("\\{" + "id" + "\\}", apiInvoker.escapeString(id.toString()));
+
+    // query params
+    List<Pair> queryParams = new ArrayList<Pair>();
+    // header params
+    Map<String, String> headerParams = new HashMap<String, String>();
+    // form params
+    Map<String, String> formParams = new HashMap<String, String>();
+
+    queryParams.addAll(ApiInvoker.parameterToPairs("", "offset", offset));
+    queryParams.addAll(ApiInvoker.parameterToPairs("", "limit", limit));
+    queryParams.addAll(ApiInvoker.parameterToPairs("", "api-key", apiKey));
+
+
+    String[] contentTypes = {
+      
+    };
+    String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+
+    if (contentType.startsWith("multipart/form-data")) {
+      // file uploading
+      MultipartEntityBuilder localVarBuilder = MultipartEntityBuilder.create();
+      
+
+      HttpEntity httpEntity = localVarBuilder.build();
+      postBody = httpEntity;
+    } else {
+      // normal form params
+          }
+
+    String[] authNames = new String[] { "apiKey", "headerApiKey" };
+
+    try {
+      apiInvoker.invokeAPI(basePath, path, "GET", queryParams, postBody, headerParams, formParams, contentType, authNames,
+        new Response.Listener<String>() {
+          @Override
+          public void onResponse(String localVarResponse) {
+            try {
+              responseListener.onResponse((GameNewsResponse) ApiInvoker.deserialize(localVarResponse,  "", GameNewsResponse.class));
+            } catch (ApiException exception) {
+               errorListener.onErrorResponse(new VolleyError(exception));
+            }
+          }
+      }, new Response.ErrorListener() {
+          @Override
+          public void onErrorResponse(VolleyError error) {
+            errorListener.onErrorResponse(error);
+          }
+      });
+    } catch (ApiException ex) {
+      errorListener.onErrorResponse(new VolleyError(ex));
+    }
+  }
+  /**
   * Search Games
   * Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
    * @param query The search query, e.g., game name, platform, genre, or any combination.
-   * @param offset The number of results to skip before starting to collect the result set.
-   * @param limit The maximum number of results to return.
+   * @param offset The number of results to skip before starting to collect the result set. Between 0 and 1000.
+   * @param limit The maximum number of results to return between 1 and 10.
    * @param filters JSON array of filter objects to apply to the search.
-   * @param sort The field by which to sort the results.
+   * @param sort The field by which to sort the results, either computed_rating, price, or release_date
    * @param sortOrder The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending.
    * @param generateFilterOptions Whether to generate filter options in the response.
    * @param apiKey Your API key for authentication.
@@ -313,7 +480,7 @@ public class DefaultApi {
       /**
    * Search Games
    * Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
-   * @param query The search query, e.g., game name, platform, genre, or any combination.   * @param offset The number of results to skip before starting to collect the result set.   * @param limit The maximum number of results to return.   * @param filters JSON array of filter objects to apply to the search.   * @param sort The field by which to sort the results.   * @param sortOrder The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending.   * @param generateFilterOptions Whether to generate filter options in the response.   * @param apiKey Your API key for authentication.
+   * @param query The search query, e.g., game name, platform, genre, or any combination.   * @param offset The number of results to skip before starting to collect the result set. Between 0 and 1000.   * @param limit The maximum number of results to return between 1 and 10.   * @param filters JSON array of filter objects to apply to the search.   * @param sort The field by which to sort the results, either computed_rating, price, or release_date   * @param sortOrder The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending.   * @param generateFilterOptions Whether to generate filter options in the response.   * @param apiKey Your API key for authentication.
   */
   public void search (String query, Integer offset, Integer limit, String filters, String sort, String sortOrder, Boolean generateFilterOptions, String apiKey, final Response.Listener<SearchResponse> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = null;

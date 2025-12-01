@@ -1,3 +1,5 @@
+export * from './gameNewsItem';
+export * from './gameNewsResponse';
 export * from './gameResponse';
 export * from './gameResponseOffersInner';
 export * from './gameResponseOffersInnerPrice';

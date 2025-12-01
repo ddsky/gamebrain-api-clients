@@ -7,6 +7,8 @@ config/runtime.exs
 lib/game_brain_api/api/default.ex
 lib/game_brain_api/connection.ex
 lib/game_brain_api/deserializer.ex
+lib/game_brain_api/model/game_news_item.ex
+lib/game_brain_api/model/game_news_response.ex
 lib/game_brain_api/model/game_response.ex
 lib/game_brain_api/model/game_response_offers_inner.ex
 lib/game_brain_api/model/game_response_offers_inner_price.ex

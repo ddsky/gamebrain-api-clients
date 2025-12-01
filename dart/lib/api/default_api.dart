@@ -83,6 +83,79 @@ class DefaultApi {
     return null;
   }
 
+  /// Get Game News
+  ///
+  /// Get news related to the given game.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [int] id (required):
+  ///
+  /// * [int] offset (required):
+  ///
+  /// * [int] limit (required):
+  ///
+  /// * [String] apiKey (required):
+  Future<Response> newsWithHttpInfo(int id, int offset, int limit, String apiKey,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/games/{id}/news'
+      .replaceAll('{id}', id.toString());
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+      queryParams.addAll(_queryParams('', 'offset', offset));
+      queryParams.addAll(_queryParams('', 'limit', limit));
+      queryParams.addAll(_queryParams('', 'api-key', apiKey));
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Get Game News
+  ///
+  /// Get news related to the given game.
+  ///
+  /// Parameters:
+  ///
+  /// * [int] id (required):
+  ///
+  /// * [int] offset (required):
+  ///
+  /// * [int] limit (required):
+  ///
+  /// * [String] apiKey (required):
+  Future<GameNewsResponse?> news(int id, int offset, int limit, String apiKey,) async {
+    final response = await newsWithHttpInfo(id, offset, limit, apiKey,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GameNewsResponse',) as GameNewsResponse;
+    
+    }
+    return null;
+  }
+
   /// Search Games
   ///
   /// Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
@@ -95,16 +168,16 @@ class DefaultApi {
   ///   The search query, e.g., game name, platform, genre, or any combination.
   ///
   /// * [int] offset (required):
-  ///   The number of results to skip before starting to collect the result set.
+  ///   The number of results to skip before starting to collect the result set. Between 0 and 1000.
   ///
   /// * [int] limit (required):
-  ///   The maximum number of results to return.
+  ///   The maximum number of results to return between 1 and 10.
   ///
   /// * [String] filters (required):
   ///   JSON array of filter objects to apply to the search.
   ///
   /// * [String] sort (required):
-  ///   The field by which to sort the results.
+  ///   The field by which to sort the results, either computed_rating, price, or release_date
   ///
   /// * [String] sortOrder (required):
   ///   The sort order: 'asc' for ascending or 'desc' for descending.
@@ -158,16 +231,16 @@ class DefaultApi {
   ///   The search query, e.g., game name, platform, genre, or any combination.
   ///
   /// * [int] offset (required):
-  ///   The number of results to skip before starting to collect the result set.
+  ///   The number of results to skip before starting to collect the result set. Between 0 and 1000.
   ///
   /// * [int] limit (required):
-  ///   The maximum number of results to return.
+  ///   The maximum number of results to return between 1 and 10.
   ///
   /// * [String] filters (required):
   ///   JSON array of filter objects to apply to the search.
   ///
   /// * [String] sort (required):
-  ///   The field by which to sort the results.
+  ///   The field by which to sort the results, either computed_rating, price, or release_date
   ///
   /// * [String] sortOrder (required):
   ///   The sort order: 'asc' for ascending or 'desc' for descending.

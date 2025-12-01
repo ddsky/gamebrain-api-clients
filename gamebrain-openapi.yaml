@@ -31,7 +31,7 @@ paths:
         - name: "offset"
           in: "query"
           required: true
-          description: "The number of results to skip before starting to collect the result set."
+          description: "The number of results to skip before starting to collect the result set. Between 0 and 1000."
           schema:
             type: "integer"
             format: "int32"
@@ -39,11 +39,11 @@ paths:
         - name: "limit"
           in: "query"
           required: true
-          description: "The maximum number of results to return."
+          description: "The maximum number of results to return between 1 and 10."
           schema:
             type: "integer"
             format: "int32"
-            default: 48
+            default: 10
         - name: "filters"
           in: "query"
           required: true
@@ -53,10 +53,11 @@ paths:
             maxLength: 3000
             pattern: ".*"
             default: "[]"
+            example: '[{"key":"platform","values":[{"value":"pc"}],"connection":"OR"},{"key":"genre","values":[{"value":"action"}]}]'
         - name: "sort"
           in: "query"
           required: true
-          description: "The field by which to sort the results."
+          description: "The field by which to sort the results, either computed_rating, price, or release_date"
           schema:
             type: "string"
             maxLength: 300
@@ -197,6 +198,47 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SimilarGamesResponse"
+  /games/{id}/news:
+    get:
+      summary: "Get Game News"
+      description: "Get news related to the given game."
+      operationId: "news"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+        - name: "offset"
+          in: "query"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+            default: 0
+        - name: "limit"
+          in: "query"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+            default: 10
+        - name: "api-key"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+            maxLength: 300
+            pattern: ".*"
+            example: "abc123"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameNewsResponse"
 components:
   securitySchemes:
     apiKey:
@@ -572,3 +614,33 @@ components:
                 format: uri
               short_description:
                 type: string
+    GameNewsResponse:
+      type: object
+      properties:
+        news:
+          type: array
+          items:
+            $ref: '#/components/schemas/GameNewsItem'
+      required:
+        - news
+    GameNewsItem:
+      type: object
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+          format: uri
+        source:
+          type: string
+        image:
+          type: string
+          format: uri
+        published:
+          type: string
+          format: date
+      required:
+        - title
+        - url
+        - source
+        - published

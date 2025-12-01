@@ -15,7 +15,9 @@
 
 
 module Api.Data exposing
-    ( GameResponse
+    ( GameNewsItem
+    , GameNewsResponse
+    , GameResponse
     , GameResponseOffersInner
     , GameResponseOffersInnerPrice
     , GameResponseOfficialStoresInner
@@ -34,6 +36,8 @@ module Api.Data exposing
     , SearchSuggestionResponse
     , SearchSuggestionResponseResultsInner
     , SimilarGamesResponse
+    , encodeGameNewsItem
+    , encodeGameNewsResponse
     , encodeGameResponse
     , encodeGameResponseOffersInner
     , encodeGameResponseOffersInnerPrice
@@ -53,6 +57,8 @@ module Api.Data exposing
     , encodeSearchSuggestionResponse
     , encodeSearchSuggestionResponseResultsInner
     , encodeSimilarGamesResponse
+    , gameNewsItemDecoder
+    , gameNewsResponseDecoder
     , gameResponseDecoder
     , gameResponseOffersInnerDecoder
     , gameResponseOffersInnerPriceDecoder
@@ -82,6 +88,20 @@ import Json.Encode
 
 
 -- MODEL
+
+
+type alias GameNewsItem =
+    { title : String
+    , url : String
+    , source : String
+    , image : Maybe String
+    , published : Posix
+    }
+
+
+type alias GameNewsResponse =
+    { news : List GameNewsItem
+    }
 
 
 type alias GameResponse =
@@ -259,6 +279,50 @@ type alias SimilarGamesResponse =
 
 
 -- ENCODER
+
+
+encodeGameNewsItem : GameNewsItem -> Json.Encode.Value
+encodeGameNewsItem =
+    encodeObject << encodeGameNewsItemPairs
+
+
+encodeGameNewsItemWithTag : ( String, String ) -> GameNewsItem -> Json.Encode.Value
+encodeGameNewsItemWithTag (tagField, tag) model =
+    encodeObject (encodeGameNewsItemPairs model ++ [ encode tagField Json.Encode.string tag ])
+
+
+encodeGameNewsItemPairs : GameNewsItem -> List EncodedField
+encodeGameNewsItemPairs model =
+    let
+        pairs =
+            [ encode "title" Json.Encode.string model.title
+            , encode "url" Json.Encode.string model.url
+            , encode "source" Json.Encode.string model.source
+            , maybeEncode "image" Json.Encode.string model.image
+            , encode "published" Api.Time.encodeDate model.published
+            ]
+    in
+    pairs
+
+
+encodeGameNewsResponse : GameNewsResponse -> Json.Encode.Value
+encodeGameNewsResponse =
+    encodeObject << encodeGameNewsResponsePairs
+
+
+encodeGameNewsResponseWithTag : ( String, String ) -> GameNewsResponse -> Json.Encode.Value
+encodeGameNewsResponseWithTag (tagField, tag) model =
+    encodeObject (encodeGameNewsResponsePairs model ++ [ encode tagField Json.Encode.string tag ])
+
+
+encodeGameNewsResponsePairs : GameNewsResponse -> List EncodedField
+encodeGameNewsResponsePairs model =
+    let
+        pairs =
+            [ encode "news" (Json.Encode.list encodeGameNewsItem) model.news
+            ]
+    in
+    pairs
 
 
 encodeGameResponse : GameResponse -> Json.Encode.Value
@@ -721,6 +785,22 @@ encodeSimilarGamesResponsePairs model =
 
 
 -- DECODER
+
+
+gameNewsItemDecoder : Json.Decode.Decoder GameNewsItem
+gameNewsItemDecoder =
+    Json.Decode.succeed GameNewsItem
+        |> decode "title" Json.Decode.string 
+        |> decode "url" Json.Decode.string 
+        |> decode "source" Json.Decode.string 
+        |> maybeDecode "image" Json.Decode.string Nothing
+        |> decode "published" Api.Time.dateDecoder 
+
+
+gameNewsResponseDecoder : Json.Decode.Decoder GameNewsResponse
+gameNewsResponseDecoder =
+    Json.Decode.succeed GameNewsResponse
+        |> decode "news" (Json.Decode.list gameNewsItemDecoder) 
 
 
 gameResponseDecoder : Json.Decode.Decoder GameResponse

@@ -17,7 +17,7 @@ import SearchSuggestionResponseResultsInner from './SearchSuggestionResponseResu
 /**
  * The SearchSuggestionResponse model module.
  * @module model/SearchSuggestionResponse
- * @version 1.0.1
+ * @version 1.0.2
  */
 class SearchSuggestionResponse {
     /**

@@ -13,6 +13,8 @@
 
 
 import ApiClient from './ApiClient';
+import GameNewsItem from './model/GameNewsItem';
+import GameNewsResponse from './model/GameNewsResponse';
 import GameResponse from './model/GameResponse';
 import GameResponseOffersInner from './model/GameResponseOffersInner';
 import GameResponseOffersInnerPrice from './model/GameResponseOffersInnerPrice';
@@ -64,7 +66,7 @@ import DefaultApi from './api/DefaultApi';
 * </pre>
 * </p>
 * @module index
-* @version 1.0.1
+* @version 1.0.2
 */
 export {
     /**
@@ -72,6 +74,18 @@ export {
      * @property {module:ApiClient}
      */
     ApiClient,
+
+    /**
+     * The GameNewsItem model constructor.
+     * @property {module:model/GameNewsItem}
+     */
+    GameNewsItem,
+
+    /**
+     * The GameNewsResponse model constructor.
+     * @property {module:model/GameNewsResponse}
+     */
+    GameNewsResponse,
 
     /**
      * The GameResponse model constructor.

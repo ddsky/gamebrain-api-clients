@@ -1,5 +1,5 @@
 package = "gamebrain"
-version = "1.0.1"
+version = "1.0.2"
 source = {
 	url = "https://github.com/ddsky/gamebrain-clients/tree/master/lua/.git"
 }
@@ -24,6 +24,8 @@ build = {
 	type = "builtin",
 	modules = {
 		["gamebrain.api.default_api"] = "gamebrain/api/default_api.lua";
+		["gamebrain.model.game_news_item"] = "gamebrain/model/game_news_item.lua";
+		["gamebrain.model.game_news_response"] = "gamebrain/model/game_news_response.lua";
 		["gamebrain.model.game_response"] = "gamebrain/model/game_response.lua";
 		["gamebrain.model.game_response_offers_inner"] = "gamebrain/model/game_response_offers_inner.lua";
 		["gamebrain.model.game_response_offers_inner_price"] = "gamebrain/model/game_response_offers_inner_price.lua";

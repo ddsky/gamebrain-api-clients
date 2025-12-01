@@ -75,6 +75,9 @@ class DefaultApi
         'detail' => [
             'application/json',
         ],
+        'news' => [
+            'application/json',
+        ],
         'search' => [
             'application/json',
         ],
@@ -477,15 +480,401 @@ class DefaultApi
     }
 
     /**
+     * Operation news
+     *
+     * Get Game News
+     *
+     * @param  int $id id (required)
+     * @param  int $offset offset (required)
+     * @param  int $limit limit (required)
+     * @param  string $api_key api_key (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['news'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\GameNewsResponse
+     */
+    public function news($id, $offset, $limit, $api_key, string $contentType = self::contentTypes['news'][0])
+    {
+        list($response) = $this->newsWithHttpInfo($id, $offset, $limit, $api_key, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation newsWithHttpInfo
+     *
+     * Get Game News
+     *
+     * @param  int $id (required)
+     * @param  int $offset (required)
+     * @param  int $limit (required)
+     * @param  string $api_key (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['news'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\GameNewsResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function newsWithHttpInfo($id, $offset, $limit, $api_key, string $contentType = self::contentTypes['news'][0])
+    {
+        $request = $this->newsRequest($id, $offset, $limit, $api_key, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\OpenAPI\Client\Model\GameNewsResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\OpenAPI\Client\Model\GameNewsResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\GameNewsResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\OpenAPI\Client\Model\GameNewsResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\GameNewsResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation newsAsync
+     *
+     * Get Game News
+     *
+     * @param  int $id (required)
+     * @param  int $offset (required)
+     * @param  int $limit (required)
+     * @param  string $api_key (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['news'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function newsAsync($id, $offset, $limit, $api_key, string $contentType = self::contentTypes['news'][0])
+    {
+        return $this->newsAsyncWithHttpInfo($id, $offset, $limit, $api_key, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation newsAsyncWithHttpInfo
+     *
+     * Get Game News
+     *
+     * @param  int $id (required)
+     * @param  int $offset (required)
+     * @param  int $limit (required)
+     * @param  string $api_key (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['news'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function newsAsyncWithHttpInfo($id, $offset, $limit, $api_key, string $contentType = self::contentTypes['news'][0])
+    {
+        $returnType = '\OpenAPI\Client\Model\GameNewsResponse';
+        $request = $this->newsRequest($id, $offset, $limit, $api_key, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'news'
+     *
+     * @param  int $id (required)
+     * @param  int $offset (required)
+     * @param  int $limit (required)
+     * @param  string $api_key (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['news'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function newsRequest($id, $offset, $limit, $api_key, string $contentType = self::contentTypes['news'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling news'
+            );
+        }
+
+        // verify the required parameter 'offset' is set
+        if ($offset === null || (is_array($offset) && count($offset) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $offset when calling news'
+            );
+        }
+
+        // verify the required parameter 'limit' is set
+        if ($limit === null || (is_array($limit) && count($limit) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $limit when calling news'
+            );
+        }
+
+        // verify the required parameter 'api_key' is set
+        if ($api_key === null || (is_array($api_key) && count($api_key) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $api_key when calling news'
+            );
+        }
+        if (strlen($api_key) > 300) {
+            throw new \InvalidArgumentException('invalid length for "$api_key" when calling DefaultApi.news, must be smaller than or equal to 300.');
+        }
+        if (!preg_match("/.*/", $api_key)) {
+            throw new \InvalidArgumentException("invalid value for \"api_key\" when calling DefaultApi.news, must conform to the pattern /.*/.");
+        }
+        
+
+        $resourcePath = '/games/{id}/news';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $offset,
+            'offset', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            true // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            true // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $api_key,
+            'api-key', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            true // required
+        ) ?? []);
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('api-key');
+        if ($apiKey !== null) {
+            $queryParams['api-key'] = $apiKey;
+        }
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('x-api-key');
+        if ($apiKey !== null) {
+            $headers['x-api-key'] = $apiKey;
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation search
      *
      * Search Games
      *
      * @param  string $query The search query, e.g., game name, platform, genre, or any combination. (required)
-     * @param  int $offset The number of results to skip before starting to collect the result set. (required)
-     * @param  int $limit The maximum number of results to return. (required)
+     * @param  int $offset The number of results to skip before starting to collect the result set. Between 0 and 1000. (required)
+     * @param  int $limit The maximum number of results to return between 1 and 10. (required)
      * @param  string $filters JSON array of filter objects to apply to the search. (required)
-     * @param  string $sort The field by which to sort the results. (required)
+     * @param  string $sort The field by which to sort the results, either computed_rating, price, or release_date (required)
      * @param  string $sort_order The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. (required)
      * @param  bool $generate_filter_options Whether to generate filter options in the response. (required)
      * @param  string $api_key Your API key for authentication. (required)
@@ -507,10 +896,10 @@ class DefaultApi
      * Search Games
      *
      * @param  string $query The search query, e.g., game name, platform, genre, or any combination. (required)
-     * @param  int $offset The number of results to skip before starting to collect the result set. (required)
-     * @param  int $limit The maximum number of results to return. (required)
+     * @param  int $offset The number of results to skip before starting to collect the result set. Between 0 and 1000. (required)
+     * @param  int $limit The maximum number of results to return between 1 and 10. (required)
      * @param  string $filters JSON array of filter objects to apply to the search. (required)
-     * @param  string $sort The field by which to sort the results. (required)
+     * @param  string $sort The field by which to sort the results, either computed_rating, price, or release_date (required)
      * @param  string $sort_order The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. (required)
      * @param  bool $generate_filter_options Whether to generate filter options in the response. (required)
      * @param  string $api_key Your API key for authentication. (required)
@@ -638,10 +1027,10 @@ class DefaultApi
      * Search Games
      *
      * @param  string $query The search query, e.g., game name, platform, genre, or any combination. (required)
-     * @param  int $offset The number of results to skip before starting to collect the result set. (required)
-     * @param  int $limit The maximum number of results to return. (required)
+     * @param  int $offset The number of results to skip before starting to collect the result set. Between 0 and 1000. (required)
+     * @param  int $limit The maximum number of results to return between 1 and 10. (required)
      * @param  string $filters JSON array of filter objects to apply to the search. (required)
-     * @param  string $sort The field by which to sort the results. (required)
+     * @param  string $sort The field by which to sort the results, either computed_rating, price, or release_date (required)
      * @param  string $sort_order The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. (required)
      * @param  bool $generate_filter_options Whether to generate filter options in the response. (required)
      * @param  string $api_key Your API key for authentication. (required)
@@ -666,10 +1055,10 @@ class DefaultApi
      * Search Games
      *
      * @param  string $query The search query, e.g., game name, platform, genre, or any combination. (required)
-     * @param  int $offset The number of results to skip before starting to collect the result set. (required)
-     * @param  int $limit The maximum number of results to return. (required)
+     * @param  int $offset The number of results to skip before starting to collect the result set. Between 0 and 1000. (required)
+     * @param  int $limit The maximum number of results to return between 1 and 10. (required)
      * @param  string $filters JSON array of filter objects to apply to the search. (required)
-     * @param  string $sort The field by which to sort the results. (required)
+     * @param  string $sort The field by which to sort the results, either computed_rating, price, or release_date (required)
      * @param  string $sort_order The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. (required)
      * @param  bool $generate_filter_options Whether to generate filter options in the response. (required)
      * @param  string $api_key Your API key for authentication. (required)
@@ -723,10 +1112,10 @@ class DefaultApi
      * Create request for operation 'search'
      *
      * @param  string $query The search query, e.g., game name, platform, genre, or any combination. (required)
-     * @param  int $offset The number of results to skip before starting to collect the result set. (required)
-     * @param  int $limit The maximum number of results to return. (required)
+     * @param  int $offset The number of results to skip before starting to collect the result set. Between 0 and 1000. (required)
+     * @param  int $limit The maximum number of results to return between 1 and 10. (required)
      * @param  string $filters JSON array of filter objects to apply to the search. (required)
-     * @param  string $sort The field by which to sort the results. (required)
+     * @param  string $sort The field by which to sort the results, either computed_rating, price, or release_date (required)
      * @param  string $sort_order The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. (required)
      * @param  bool $generate_filter_options Whether to generate filter options in the response. (required)
      * @param  string $api_key Your API key for authentication. (required)

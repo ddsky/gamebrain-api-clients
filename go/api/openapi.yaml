@@ -31,7 +31,7 @@ paths:
           type: string
         style: form
       - description: The number of results to skip before starting to collect the
-          result set.
+          result set. Between 0 and 1000.
         explode: true
         in: query
         name: offset
@@ -41,13 +41,13 @@ paths:
           format: int32
           type: integer
         style: form
-      - description: The maximum number of results to return.
+      - description: The maximum number of results to return between 1 and 10.
         explode: true
         in: query
         name: limit
         required: true
         schema:
-          default: 48
+          default: 10
           format: int32
           type: integer
         style: form
@@ -58,11 +58,14 @@ paths:
         required: true
         schema:
           default: "[]"
+          example: "[{\"key\":\"platform\",\"values\":[{\"value\":\"pc\"}],\"connection\"\
+            :\"OR\"},{\"key\":\"genre\",\"values\":[{\"value\":\"action\"}]}]"
           maxLength: 3000
           pattern: .*
           type: string
         style: form
-      - description: The field by which to sort the results.
+      - description: "The field by which to sort the results, either computed_rating,\
+          \ price, or release_date"
         explode: true
         in: query
         name: sort
@@ -234,6 +237,55 @@ paths:
                 $ref: '#/components/schemas/SimilarGamesResponse'
           description: OK
       summary: Get Similar Games
+  /games/{id}/news:
+    get:
+      description: Get news related to the given game.
+      operationId: news
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - explode: true
+        in: query
+        name: offset
+        required: true
+        schema:
+          default: 0
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: limit
+        required: true
+        schema:
+          default: 10
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: api-key
+        required: true
+        schema:
+          example: abc123
+          maxLength: 300
+          pattern: .*
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameNewsResponse'
+          description: OK
+      summary: Get Game News
 components:
   schemas:
     SearchResponse:
@@ -948,6 +1000,54 @@ components:
             $ref: '#/components/schemas/SearchResponse_results_inner'
           maxItems: 100
           type: array
+      type: object
+    GameNewsResponse:
+      example:
+        news:
+        - image: https://openapi-generator.tech
+          source: source
+          published: 2000-01-23
+          title: title
+          url: https://openapi-generator.tech
+        - image: https://openapi-generator.tech
+          source: source
+          published: 2000-01-23
+          title: title
+          url: https://openapi-generator.tech
+      properties:
+        news:
+          items:
+            $ref: '#/components/schemas/GameNewsItem'
+          type: array
+      required:
+      - news
+      type: object
+    GameNewsItem:
+      example:
+        image: https://openapi-generator.tech
+        source: source
+        published: 2000-01-23
+        title: title
+        url: https://openapi-generator.tech
+      properties:
+        title:
+          type: string
+        url:
+          format: uri
+          type: string
+        source:
+          type: string
+        image:
+          format: uri
+          type: string
+        published:
+          format: date
+          type: string
+      required:
+      - published
+      - source
+      - title
+      - url
       type: object
     SearchResponse_sorting:
       example:

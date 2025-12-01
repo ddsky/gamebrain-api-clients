@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The GameResponseRating model module.
  * @module model/GameResponseRating
- * @version 1.0.1
+ * @version 1.0.2
  */
 class GameResponseRating {
     /**

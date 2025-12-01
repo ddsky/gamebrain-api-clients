@@ -3,6 +3,8 @@ README.md
 rebar.config
 src/gamebrain.app.src
 src/gamebrain_default_api.erl
+src/gamebrain_game_news_item.erl
+src/gamebrain_game_news_response.erl
 src/gamebrain_game_response.erl
 src/gamebrain_game_response_offers_inner.erl
 src/gamebrain_game_response_offers_inner_price.erl

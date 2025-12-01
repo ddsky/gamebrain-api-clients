@@ -57,6 +57,14 @@ public class JsonUtil {
   public static Type getListTypeForDeserialization(Class cls) {
     String className = cls.getSimpleName();
     
+    if ("GameNewsItem".equalsIgnoreCase(className)) {
+      return new TypeToken<List<GameNewsItem>>(){}.getType();
+    }
+    
+    if ("GameNewsResponse".equalsIgnoreCase(className)) {
+      return new TypeToken<List<GameNewsResponse>>(){}.getType();
+    }
+    
     if ("GameResponse".equalsIgnoreCase(className)) {
       return new TypeToken<List<GameResponse>>(){}.getType();
     }
@@ -138,6 +146,14 @@ public class JsonUtil {
 
   public static Type getTypeForDeserialization(Class cls) {
     String className = cls.getSimpleName();
+    
+    if ("GameNewsItem".equalsIgnoreCase(className)) {
+      return new TypeToken<GameNewsItem>(){}.getType();
+    }
+    
+    if ("GameNewsResponse".equalsIgnoreCase(className)) {
+      return new TypeToken<GameNewsResponse>(){}.getType();
+    }
     
     if ("GameResponse".equalsIgnoreCase(className)) {
       return new TypeToken<GameResponse>(){}.getType();

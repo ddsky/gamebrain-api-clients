@@ -8,6 +8,7 @@ import {canConsumeForm, isCodeInRange} from '../util';
 import {SecurityAuthentication} from '../auth/auth';
 
 
+import { GameNewsResponse } from '../models/GameNewsResponse';
 import { GameResponse } from '../models/GameResponse';
 import { SearchResponse } from '../models/SearchResponse';
 import { SearchSuggestionResponse } from '../models/SearchSuggestionResponse';
@@ -74,13 +75,92 @@ export class DefaultApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * Get news related to the given game.
+     * Get Game News
+     * @param id 
+     * @param offset 
+     * @param limit 
+     * @param apiKey 
+     */
+    public async news(id: number, offset: number, limit: number, apiKey: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'id' is not null or undefined
+        if (id === null || id === undefined) {
+            throw new RequiredError("DefaultApi", "news", "id");
+        }
+
+
+        // verify required parameter 'offset' is not null or undefined
+        if (offset === null || offset === undefined) {
+            throw new RequiredError("DefaultApi", "news", "offset");
+        }
+
+
+        // verify required parameter 'limit' is not null or undefined
+        if (limit === null || limit === undefined) {
+            throw new RequiredError("DefaultApi", "news", "limit");
+        }
+
+
+        // verify required parameter 'apiKey' is not null or undefined
+        if (apiKey === null || apiKey === undefined) {
+            throw new RequiredError("DefaultApi", "news", "apiKey");
+        }
+
+
+        // Path Params
+        const localVarPath = '/games/{id}/news'
+            .replace('{' + 'id' + '}', encodeURIComponent(String(id)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Query Params
+        if (offset !== undefined) {
+            requestContext.setQueryParam("offset", ObjectSerializer.serialize(offset, "number", "int32"));
+        }
+
+        // Query Params
+        if (limit !== undefined) {
+            requestContext.setQueryParam("limit", ObjectSerializer.serialize(limit, "number", "int32"));
+        }
+
+        // Query Params
+        if (apiKey !== undefined) {
+            requestContext.setQueryParam("api-key", ObjectSerializer.serialize(apiKey, "string", ""));
+        }
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["apiKey"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["headerApiKey"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
      * Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
      * Search Games
      * @param query The search query, e.g., game name, platform, genre, or any combination.
-     * @param offset The number of results to skip before starting to collect the result set.
-     * @param limit The maximum number of results to return.
+     * @param offset The number of results to skip before starting to collect the result set. Between 0 and 1000.
+     * @param limit The maximum number of results to return between 1 and 10.
      * @param filters JSON array of filter objects to apply to the search.
-     * @param sort The field by which to sort the results.
+     * @param sort The field by which to sort the results, either computed_rating, price, or release_date
      * @param sortOrder The sort order: \&#39;asc\&#39; for ascending or \&#39;desc\&#39; for descending.
      * @param generateFilterOptions Whether to generate filter options in the response.
      * @param apiKey Your API key for authentication.
@@ -369,6 +449,35 @@ export class DefaultApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "GameResponse", ""
             ) as GameResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to news
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async newsWithHttpInfo(response: ResponseContext): Promise<HttpInfo<GameNewsResponse >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: GameNewsResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "GameNewsResponse", ""
+            ) as GameNewsResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: GameNewsResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "GameNewsResponse", ""
+            ) as GameNewsResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

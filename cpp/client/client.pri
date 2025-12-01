@@ -2,6 +2,8 @@ QT += network
 
 HEADERS += \
 # Models
+    $${PWD}/OAIGameNewsItem.h \
+    $${PWD}/OAIGameNewsResponse.h \
     $${PWD}/OAIGameResponse.h \
     $${PWD}/OAIGameResponse_offers_inner.h \
     $${PWD}/OAIGameResponse_offers_inner_price.h \
@@ -35,6 +37,8 @@ HEADERS += \
 
 SOURCES += \
 # Models
+    $${PWD}/OAIGameNewsItem.cpp \
+    $${PWD}/OAIGameNewsResponse.cpp \
     $${PWD}/OAIGameResponse.cpp \
     $${PWD}/OAIGameResponse_offers_inner.cpp \
     $${PWD}/OAIGameResponse_offers_inner_price.cpp \

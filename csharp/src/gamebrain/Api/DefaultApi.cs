@@ -53,6 +53,35 @@ namespace gamebrain.Api
         /// <returns>ApiResponse of GameResponse</returns>
         ApiResponse<GameResponse> DetailWithHttpInfo(int id, string apiKey, int operationIndex = 0);
         /// <summary>
+        /// Get Game News
+        /// </summary>
+        /// <remarks>
+        /// Get news related to the given game.
+        /// </remarks>
+        /// <exception cref="gamebrain.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="offset"></param>
+        /// <param name="limit"></param>
+        /// <param name="apiKey"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>GameNewsResponse</returns>
+        GameNewsResponse News(int id, int offset, int limit, string apiKey, int operationIndex = 0);
+
+        /// <summary>
+        /// Get Game News
+        /// </summary>
+        /// <remarks>
+        /// Get news related to the given game.
+        /// </remarks>
+        /// <exception cref="gamebrain.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="offset"></param>
+        /// <param name="limit"></param>
+        /// <param name="apiKey"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of GameNewsResponse</returns>
+        ApiResponse<GameNewsResponse> NewsWithHttpInfo(int id, int offset, int limit, string apiKey, int operationIndex = 0);
+        /// <summary>
         /// Search Games
         /// </summary>
         /// <remarks>
@@ -60,10 +89,10 @@ namespace gamebrain.Api
         /// </remarks>
         /// <exception cref="gamebrain.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="query">The search query, e.g., game name, platform, genre, or any combination.</param>
-        /// <param name="offset">The number of results to skip before starting to collect the result set.</param>
-        /// <param name="limit">The maximum number of results to return.</param>
+        /// <param name="offset">The number of results to skip before starting to collect the result set. Between 0 and 1000.</param>
+        /// <param name="limit">The maximum number of results to return between 1 and 10.</param>
         /// <param name="filters">JSON array of filter objects to apply to the search.</param>
-        /// <param name="sort">The field by which to sort the results.</param>
+        /// <param name="sort">The field by which to sort the results, either computed_rating, price, or release_date</param>
         /// <param name="sortOrder">The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending.</param>
         /// <param name="generateFilterOptions">Whether to generate filter options in the response.</param>
         /// <param name="apiKey">Your API key for authentication.</param>
@@ -79,10 +108,10 @@ namespace gamebrain.Api
         /// </remarks>
         /// <exception cref="gamebrain.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="query">The search query, e.g., game name, platform, genre, or any combination.</param>
-        /// <param name="offset">The number of results to skip before starting to collect the result set.</param>
-        /// <param name="limit">The maximum number of results to return.</param>
+        /// <param name="offset">The number of results to skip before starting to collect the result set. Between 0 and 1000.</param>
+        /// <param name="limit">The maximum number of results to return between 1 and 10.</param>
         /// <param name="filters">JSON array of filter objects to apply to the search.</param>
-        /// <param name="sort">The field by which to sort the results.</param>
+        /// <param name="sort">The field by which to sort the results, either computed_rating, price, or release_date</param>
         /// <param name="sortOrder">The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending.</param>
         /// <param name="generateFilterOptions">Whether to generate filter options in the response.</param>
         /// <param name="apiKey">Your API key for authentication.</param>
@@ -180,6 +209,37 @@ namespace gamebrain.Api
         /// <returns>Task of ApiResponse (GameResponse)</returns>
         System.Threading.Tasks.Task<ApiResponse<GameResponse>> DetailWithHttpInfoAsync(int id, string apiKey, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
+        /// Get Game News
+        /// </summary>
+        /// <remarks>
+        /// Get news related to the given game.
+        /// </remarks>
+        /// <exception cref="gamebrain.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="offset"></param>
+        /// <param name="limit"></param>
+        /// <param name="apiKey"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of GameNewsResponse</returns>
+        System.Threading.Tasks.Task<GameNewsResponse> NewsAsync(int id, int offset, int limit, string apiKey, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Get Game News
+        /// </summary>
+        /// <remarks>
+        /// Get news related to the given game.
+        /// </remarks>
+        /// <exception cref="gamebrain.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="offset"></param>
+        /// <param name="limit"></param>
+        /// <param name="apiKey"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (GameNewsResponse)</returns>
+        System.Threading.Tasks.Task<ApiResponse<GameNewsResponse>> NewsWithHttpInfoAsync(int id, int offset, int limit, string apiKey, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
         /// Search Games
         /// </summary>
         /// <remarks>
@@ -187,10 +247,10 @@ namespace gamebrain.Api
         /// </remarks>
         /// <exception cref="gamebrain.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="query">The search query, e.g., game name, platform, genre, or any combination.</param>
-        /// <param name="offset">The number of results to skip before starting to collect the result set.</param>
-        /// <param name="limit">The maximum number of results to return.</param>
+        /// <param name="offset">The number of results to skip before starting to collect the result set. Between 0 and 1000.</param>
+        /// <param name="limit">The maximum number of results to return between 1 and 10.</param>
         /// <param name="filters">JSON array of filter objects to apply to the search.</param>
-        /// <param name="sort">The field by which to sort the results.</param>
+        /// <param name="sort">The field by which to sort the results, either computed_rating, price, or release_date</param>
         /// <param name="sortOrder">The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending.</param>
         /// <param name="generateFilterOptions">Whether to generate filter options in the response.</param>
         /// <param name="apiKey">Your API key for authentication.</param>
@@ -207,10 +267,10 @@ namespace gamebrain.Api
         /// </remarks>
         /// <exception cref="gamebrain.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="query">The search query, e.g., game name, platform, genre, or any combination.</param>
-        /// <param name="offset">The number of results to skip before starting to collect the result set.</param>
-        /// <param name="limit">The maximum number of results to return.</param>
+        /// <param name="offset">The number of results to skip before starting to collect the result set. Between 0 and 1000.</param>
+        /// <param name="limit">The maximum number of results to return between 1 and 10.</param>
         /// <param name="filters">JSON array of filter objects to apply to the search.</param>
-        /// <param name="sort">The field by which to sort the results.</param>
+        /// <param name="sort">The field by which to sort the results, either computed_rating, price, or release_date</param>
         /// <param name="sortOrder">The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending.</param>
         /// <param name="generateFilterOptions">Whether to generate filter options in the response.</param>
         /// <param name="apiKey">Your API key for authentication.</param>
@@ -567,14 +627,196 @@ namespace gamebrain.Api
         }
 
         /// <summary>
+        /// Get Game News Get news related to the given game.
+        /// </summary>
+        /// <exception cref="gamebrain.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="offset"></param>
+        /// <param name="limit"></param>
+        /// <param name="apiKey"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>GameNewsResponse</returns>
+        public GameNewsResponse News(int id, int offset, int limit, string apiKey, int operationIndex = 0)
+        {
+            gamebrain.Client.ApiResponse<GameNewsResponse> localVarResponse = NewsWithHttpInfo(id, offset, limit, apiKey);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get Game News Get news related to the given game.
+        /// </summary>
+        /// <exception cref="gamebrain.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="offset"></param>
+        /// <param name="limit"></param>
+        /// <param name="apiKey"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of GameNewsResponse</returns>
+        public gamebrain.Client.ApiResponse<GameNewsResponse> NewsWithHttpInfo(int id, int offset, int limit, string apiKey, int operationIndex = 0)
+        {
+            // verify the required parameter 'apiKey' is set
+            if (apiKey == null)
+            {
+                throw new gamebrain.Client.ApiException(400, "Missing required parameter 'apiKey' when calling DefaultApi->News");
+            }
+
+            gamebrain.Client.RequestOptions localVarRequestOptions = new gamebrain.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = gamebrain.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            var localVarAccept = gamebrain.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("id", gamebrain.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.QueryParameters.Add(gamebrain.Client.ClientUtils.ParameterToMultiMap("", "offset", offset));
+            localVarRequestOptions.QueryParameters.Add(gamebrain.Client.ClientUtils.ParameterToMultiMap("", "limit", limit));
+            localVarRequestOptions.QueryParameters.Add(gamebrain.Client.ClientUtils.ParameterToMultiMap("", "api-key", apiKey));
+
+            localVarRequestOptions.Operation = "DefaultApi.News";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+            // authentication (apiKey) required
+            if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("api-key")))
+            {
+                localVarRequestOptions.QueryParameters.Add(gamebrain.Client.ClientUtils.ParameterToMultiMap("", "api-key", this.Configuration.GetApiKeyWithPrefix("api-key")));
+            }
+            // authentication (headerApiKey) required
+            if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", this.Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<GameNewsResponse>("/games/{id}/news", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("News", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get Game News Get news related to the given game.
+        /// </summary>
+        /// <exception cref="gamebrain.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="offset"></param>
+        /// <param name="limit"></param>
+        /// <param name="apiKey"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of GameNewsResponse</returns>
+        public async System.Threading.Tasks.Task<GameNewsResponse> NewsAsync(int id, int offset, int limit, string apiKey, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            gamebrain.Client.ApiResponse<GameNewsResponse> localVarResponse = await NewsWithHttpInfoAsync(id, offset, limit, apiKey, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get Game News Get news related to the given game.
+        /// </summary>
+        /// <exception cref="gamebrain.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="offset"></param>
+        /// <param name="limit"></param>
+        /// <param name="apiKey"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (GameNewsResponse)</returns>
+        public async System.Threading.Tasks.Task<gamebrain.Client.ApiResponse<GameNewsResponse>> NewsWithHttpInfoAsync(int id, int offset, int limit, string apiKey, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'apiKey' is set
+            if (apiKey == null)
+            {
+                throw new gamebrain.Client.ApiException(400, "Missing required parameter 'apiKey' when calling DefaultApi->News");
+            }
+
+
+            gamebrain.Client.RequestOptions localVarRequestOptions = new gamebrain.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = gamebrain.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            var localVarAccept = gamebrain.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("id", gamebrain.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.QueryParameters.Add(gamebrain.Client.ClientUtils.ParameterToMultiMap("", "offset", offset));
+            localVarRequestOptions.QueryParameters.Add(gamebrain.Client.ClientUtils.ParameterToMultiMap("", "limit", limit));
+            localVarRequestOptions.QueryParameters.Add(gamebrain.Client.ClientUtils.ParameterToMultiMap("", "api-key", apiKey));
+
+            localVarRequestOptions.Operation = "DefaultApi.News";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+            // authentication (apiKey) required
+            if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("api-key")))
+            {
+                localVarRequestOptions.QueryParameters.Add(gamebrain.Client.ClientUtils.ParameterToMultiMap("", "api-key", this.Configuration.GetApiKeyWithPrefix("api-key")));
+            }
+            // authentication (headerApiKey) required
+            if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", this.Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.GetAsync<GameNewsResponse>("/games/{id}/news", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("News", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
         /// Search Games Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
         /// </summary>
         /// <exception cref="gamebrain.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="query">The search query, e.g., game name, platform, genre, or any combination.</param>
-        /// <param name="offset">The number of results to skip before starting to collect the result set.</param>
-        /// <param name="limit">The maximum number of results to return.</param>
+        /// <param name="offset">The number of results to skip before starting to collect the result set. Between 0 and 1000.</param>
+        /// <param name="limit">The maximum number of results to return between 1 and 10.</param>
         /// <param name="filters">JSON array of filter objects to apply to the search.</param>
-        /// <param name="sort">The field by which to sort the results.</param>
+        /// <param name="sort">The field by which to sort the results, either computed_rating, price, or release_date</param>
         /// <param name="sortOrder">The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending.</param>
         /// <param name="generateFilterOptions">Whether to generate filter options in the response.</param>
         /// <param name="apiKey">Your API key for authentication.</param>
@@ -591,10 +833,10 @@ namespace gamebrain.Api
         /// </summary>
         /// <exception cref="gamebrain.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="query">The search query, e.g., game name, platform, genre, or any combination.</param>
-        /// <param name="offset">The number of results to skip before starting to collect the result set.</param>
-        /// <param name="limit">The maximum number of results to return.</param>
+        /// <param name="offset">The number of results to skip before starting to collect the result set. Between 0 and 1000.</param>
+        /// <param name="limit">The maximum number of results to return between 1 and 10.</param>
         /// <param name="filters">JSON array of filter objects to apply to the search.</param>
-        /// <param name="sort">The field by which to sort the results.</param>
+        /// <param name="sort">The field by which to sort the results, either computed_rating, price, or release_date</param>
         /// <param name="sortOrder">The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending.</param>
         /// <param name="generateFilterOptions">Whether to generate filter options in the response.</param>
         /// <param name="apiKey">Your API key for authentication.</param>
@@ -696,10 +938,10 @@ namespace gamebrain.Api
         /// </summary>
         /// <exception cref="gamebrain.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="query">The search query, e.g., game name, platform, genre, or any combination.</param>
-        /// <param name="offset">The number of results to skip before starting to collect the result set.</param>
-        /// <param name="limit">The maximum number of results to return.</param>
+        /// <param name="offset">The number of results to skip before starting to collect the result set. Between 0 and 1000.</param>
+        /// <param name="limit">The maximum number of results to return between 1 and 10.</param>
         /// <param name="filters">JSON array of filter objects to apply to the search.</param>
-        /// <param name="sort">The field by which to sort the results.</param>
+        /// <param name="sort">The field by which to sort the results, either computed_rating, price, or release_date</param>
         /// <param name="sortOrder">The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending.</param>
         /// <param name="generateFilterOptions">Whether to generate filter options in the response.</param>
         /// <param name="apiKey">Your API key for authentication.</param>
@@ -717,10 +959,10 @@ namespace gamebrain.Api
         /// </summary>
         /// <exception cref="gamebrain.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="query">The search query, e.g., game name, platform, genre, or any combination.</param>
-        /// <param name="offset">The number of results to skip before starting to collect the result set.</param>
-        /// <param name="limit">The maximum number of results to return.</param>
+        /// <param name="offset">The number of results to skip before starting to collect the result set. Between 0 and 1000.</param>
+        /// <param name="limit">The maximum number of results to return between 1 and 10.</param>
         /// <param name="filters">JSON array of filter objects to apply to the search.</param>
-        /// <param name="sort">The field by which to sort the results.</param>
+        /// <param name="sort">The field by which to sort the results, either computed_rating, price, or release_date</param>
         /// <param name="sortOrder">The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending.</param>
         /// <param name="generateFilterOptions">Whether to generate filter options in the response.</param>
         /// <param name="apiKey">Your API key for authentication.</param>

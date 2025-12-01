@@ -1,6 +1,7 @@
 -module(gamebrain_default_api).
 
 -export([detail/3, detail/4,
+         news/5, news/6,
          search/9, search/10,
          similar/4, similar/5,
          suggest/4, suggest/5]).
@@ -21,6 +22,27 @@ detail(Ctx, Id, ApiKey, Optional) ->
     Method = get,
     Path = [?BASE_URL, "/games/", Id, ""],
     QS = lists:flatten([{<<"api-key">>, ApiKey}])++gamebrain_utils:optional_params([], _OptionalParams),
+    Headers = [],
+    Body1 = [],
+    ContentTypeHeader = gamebrain_utils:select_header_content_type([]),
+    Opts = maps:get(hackney_opts, Optional, []),
+
+    gamebrain_utils:request(Ctx, Method, Path, QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
+
+%% @doc Get Game News
+%% Get news related to the given game.
+-spec news(ctx:ctx(), integer(), integer(), integer(), binary()) -> {ok, gamebrain_game_news_response:gamebrain_game_news_response(), gamebrain_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), gamebrain_utils:response_info()}.
+news(Ctx, Id, Offset, Limit, ApiKey) ->
+    news(Ctx, Id, Offset, Limit, ApiKey, #{}).
+
+-spec news(ctx:ctx(), integer(), integer(), integer(), binary(), maps:map()) -> {ok, gamebrain_game_news_response:gamebrain_game_news_response(), gamebrain_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), gamebrain_utils:response_info()}.
+news(Ctx, Id, Offset, Limit, ApiKey, Optional) ->
+    _OptionalParams = maps:get(params, Optional, #{}),
+    Cfg = maps:get(cfg, Optional, application:get_env(gamebrain_api, config, #{})),
+
+    Method = get,
+    Path = [?BASE_URL, "/games/", Id, "/news"],
+    QS = lists:flatten([{<<"offset">>, Offset}, {<<"limit">>, Limit}, {<<"api-key">>, ApiKey}])++gamebrain_utils:optional_params([], _OptionalParams),
     Headers = [],
     Body1 = [],
     ContentTypeHeader = gamebrain_utils:select_header_content_type([]),

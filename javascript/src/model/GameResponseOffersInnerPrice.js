@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The GameResponseOffersInnerPrice model module.
  * @module model/GameResponseOffersInnerPrice
- * @version 1.0.1
+ * @version 1.0.2
  */
 class GameResponseOffersInnerPrice {
     /**

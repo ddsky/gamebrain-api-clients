@@ -3,6 +3,8 @@
 README.md
 build.gradle
 docs/DefaultApi.md
+docs/GameNewsItem.md
+docs/GameNewsResponse.md
 docs/GameResponse.md
 docs/GameResponseOffersInner.md
 docs/GameResponseOffersInnerPrice.md
@@ -38,6 +40,8 @@ src/main/java/co/gamebrain/client/Pair.java
 src/main/java/co/gamebrain/client/auth/ApiKeyAuth.java
 src/main/java/co/gamebrain/client/auth/Authentication.java
 src/main/java/co/gamebrain/client/auth/HttpBasicAuth.java
+src/main/java/co/gamebrain/client/model/GameNewsItem.java
+src/main/java/co/gamebrain/client/model/GameNewsResponse.java
 src/main/java/co/gamebrain/client/model/GameResponse.java
 src/main/java/co/gamebrain/client/model/GameResponseOffersInner.java
 src/main/java/co/gamebrain/client/model/GameResponseOffersInnerPrice.java

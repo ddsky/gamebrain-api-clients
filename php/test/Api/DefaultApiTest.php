@@ -85,6 +85,18 @@ class DefaultApiTest extends TestCase
     }
 
     /**
+     * Test case for news
+     *
+     * Get Game News.
+     *
+     */
+    public function testNews()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for search
      *
      * Search Games.

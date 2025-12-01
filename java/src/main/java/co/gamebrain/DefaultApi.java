@@ -27,6 +27,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
+import co.gamebrain.client.model.GameNewsResponse;
 import co.gamebrain.client.model.GameResponse;
 import co.gamebrain.client.model.SearchResponse;
 import co.gamebrain.client.model.SearchSuggestionResponse;
@@ -212,12 +213,174 @@ public class DefaultApi {
         return localVarCall;
     }
     /**
+     * Build call for news
+     * @param id  (required)
+     * @param offset  (required)
+     * @param limit  (required)
+     * @param apiKey  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call newsCall(Integer id, Integer offset, Integer limit, String apiKey, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/games/{id}/news"
+            .replace("{" + "id" + "}", localVarApiClient.escapeString(id.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (offset != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
+        }
+
+        if (limit != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
+        }
+
+        if (apiKey != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("api-key", apiKey));
+        }
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "apiKey", "headerApiKey" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call newsValidateBeforeCall(Integer id, Integer offset, Integer limit, String apiKey, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException("Missing the required parameter 'id' when calling news(Async)");
+        }
+
+        // verify the required parameter 'offset' is set
+        if (offset == null) {
+            throw new ApiException("Missing the required parameter 'offset' when calling news(Async)");
+        }
+
+        // verify the required parameter 'limit' is set
+        if (limit == null) {
+            throw new ApiException("Missing the required parameter 'limit' when calling news(Async)");
+        }
+
+        // verify the required parameter 'apiKey' is set
+        if (apiKey == null) {
+            throw new ApiException("Missing the required parameter 'apiKey' when calling news(Async)");
+        }
+
+        return newsCall(id, offset, limit, apiKey, _callback);
+
+    }
+
+    /**
+     * Get Game News
+     * Get news related to the given game.
+     * @param id  (required)
+     * @param offset  (required)
+     * @param limit  (required)
+     * @param apiKey  (required)
+     * @return GameNewsResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public GameNewsResponse news(Integer id, Integer offset, Integer limit, String apiKey) throws ApiException {
+        ApiResponse<GameNewsResponse> localVarResp = newsWithHttpInfo(id, offset, limit, apiKey);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Get Game News
+     * Get news related to the given game.
+     * @param id  (required)
+     * @param offset  (required)
+     * @param limit  (required)
+     * @param apiKey  (required)
+     * @return ApiResponse&lt;GameNewsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<GameNewsResponse> newsWithHttpInfo(Integer id, Integer offset, Integer limit, String apiKey) throws ApiException {
+        okhttp3.Call localVarCall = newsValidateBeforeCall(id, offset, limit, apiKey, null);
+        Type localVarReturnType = new TypeToken<GameNewsResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get Game News (asynchronously)
+     * Get news related to the given game.
+     * @param id  (required)
+     * @param offset  (required)
+     * @param limit  (required)
+     * @param apiKey  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call newsAsync(Integer id, Integer offset, Integer limit, String apiKey, final ApiCallback<GameNewsResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = newsValidateBeforeCall(id, offset, limit, apiKey, _callback);
+        Type localVarReturnType = new TypeToken<GameNewsResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
      * Build call for search
      * @param query The search query, e.g., game name, platform, genre, or any combination. (required)
-     * @param offset The number of results to skip before starting to collect the result set. (required)
-     * @param limit The maximum number of results to return. (required)
+     * @param offset The number of results to skip before starting to collect the result set. Between 0 and 1000. (required)
+     * @param limit The maximum number of results to return between 1 and 10. (required)
      * @param filters JSON array of filter objects to apply to the search. (required)
-     * @param sort The field by which to sort the results. (required)
+     * @param sort The field by which to sort the results, either computed_rating, price, or release_date (required)
      * @param sortOrder The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. (required)
      * @param generateFilterOptions Whether to generate filter options in the response. (required)
      * @param apiKey Your API key for authentication. (required)
@@ -356,10 +519,10 @@ public class DefaultApi {
      * Search Games
      * Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
      * @param query The search query, e.g., game name, platform, genre, or any combination. (required)
-     * @param offset The number of results to skip before starting to collect the result set. (required)
-     * @param limit The maximum number of results to return. (required)
+     * @param offset The number of results to skip before starting to collect the result set. Between 0 and 1000. (required)
+     * @param limit The maximum number of results to return between 1 and 10. (required)
      * @param filters JSON array of filter objects to apply to the search. (required)
-     * @param sort The field by which to sort the results. (required)
+     * @param sort The field by which to sort the results, either computed_rating, price, or release_date (required)
      * @param sortOrder The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. (required)
      * @param generateFilterOptions Whether to generate filter options in the response. (required)
      * @param apiKey Your API key for authentication. (required)
@@ -380,10 +543,10 @@ public class DefaultApi {
      * Search Games
      * Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
      * @param query The search query, e.g., game name, platform, genre, or any combination. (required)
-     * @param offset The number of results to skip before starting to collect the result set. (required)
-     * @param limit The maximum number of results to return. (required)
+     * @param offset The number of results to skip before starting to collect the result set. Between 0 and 1000. (required)
+     * @param limit The maximum number of results to return between 1 and 10. (required)
      * @param filters JSON array of filter objects to apply to the search. (required)
-     * @param sort The field by which to sort the results. (required)
+     * @param sort The field by which to sort the results, either computed_rating, price, or release_date (required)
      * @param sortOrder The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. (required)
      * @param generateFilterOptions Whether to generate filter options in the response. (required)
      * @param apiKey Your API key for authentication. (required)
@@ -405,10 +568,10 @@ public class DefaultApi {
      * Search Games (asynchronously)
      * Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
      * @param query The search query, e.g., game name, platform, genre, or any combination. (required)
-     * @param offset The number of results to skip before starting to collect the result set. (required)
-     * @param limit The maximum number of results to return. (required)
+     * @param offset The number of results to skip before starting to collect the result set. Between 0 and 1000. (required)
+     * @param limit The maximum number of results to return between 1 and 10. (required)
      * @param filters JSON array of filter objects to apply to the search. (required)
-     * @param sort The field by which to sort the results. (required)
+     * @param sort The field by which to sort the results, either computed_rating, price, or release_date (required)
      * @param sortOrder The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. (required)
      * @param generateFilterOptions Whether to generate filter options in the response. (required)
      * @param apiKey Your API key for authentication. (required)

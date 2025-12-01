@@ -98,13 +98,106 @@ module OpenapiClient
       return data, status_code, headers
     end
 
+    # Get Game News
+    # Get news related to the given game.
+    # @param id [Integer] 
+    # @param offset [Integer] 
+    # @param limit [Integer] 
+    # @param api_key [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GameNewsResponse]
+    def news(id, offset, limit, api_key, opts = {})
+      data, _status_code, _headers = news_with_http_info(id, offset, limit, api_key, opts)
+      data
+    end
+
+    # Get Game News
+    # Get news related to the given game.
+    # @param id [Integer] 
+    # @param offset [Integer] 
+    # @param limit [Integer] 
+    # @param api_key [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GameNewsResponse, Integer, Hash)>] GameNewsResponse data, response status code and response headers
+    def news_with_http_info(id, offset, limit, api_key, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: DefaultApi.news ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling DefaultApi.news"
+      end
+      # verify the required parameter 'offset' is set
+      if @api_client.config.client_side_validation && offset.nil?
+        fail ArgumentError, "Missing the required parameter 'offset' when calling DefaultApi.news"
+      end
+      # verify the required parameter 'limit' is set
+      if @api_client.config.client_side_validation && limit.nil?
+        fail ArgumentError, "Missing the required parameter 'limit' when calling DefaultApi.news"
+      end
+      # verify the required parameter 'api_key' is set
+      if @api_client.config.client_side_validation && api_key.nil?
+        fail ArgumentError, "Missing the required parameter 'api_key' when calling DefaultApi.news"
+      end
+      if @api_client.config.client_side_validation && api_key.to_s.length > 300
+        fail ArgumentError, 'invalid value for "api_key" when calling DefaultApi.news, the character length must be smaller than or equal to 300.'
+      end
+
+      pattern = Regexp.new(/.*/)
+      if @api_client.config.client_side_validation && api_key !~ pattern
+        fail ArgumentError, "invalid value for 'api_key' when calling DefaultApi.news, must conform to the pattern #{pattern}."
+      end
+
+      # resource path
+      local_var_path = '/games/{id}/news'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'offset'] = offset
+      query_params[:'limit'] = limit
+      query_params[:'api-key'] = api_key
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GameNewsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'headerApiKey']
+
+      new_options = opts.merge(
+        :operation => :"DefaultApi.news",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: DefaultApi#news\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Search Games
     # Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
     # @param query [String] The search query, e.g., game name, platform, genre, or any combination.
-    # @param offset [Integer] The number of results to skip before starting to collect the result set.
-    # @param limit [Integer] The maximum number of results to return.
+    # @param offset [Integer] The number of results to skip before starting to collect the result set. Between 0 and 1000.
+    # @param limit [Integer] The maximum number of results to return between 1 and 10.
     # @param filters [String] JSON array of filter objects to apply to the search.
-    # @param sort [String] The field by which to sort the results.
+    # @param sort [String] The field by which to sort the results, either computed_rating, price, or release_date
     # @param sort_order [String] The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending.
     # @param generate_filter_options [Boolean] Whether to generate filter options in the response.
     # @param api_key [String] Your API key for authentication.
@@ -118,10 +211,10 @@ module OpenapiClient
     # Search Games
     # Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
     # @param query [String] The search query, e.g., game name, platform, genre, or any combination.
-    # @param offset [Integer] The number of results to skip before starting to collect the result set.
-    # @param limit [Integer] The maximum number of results to return.
+    # @param offset [Integer] The number of results to skip before starting to collect the result set. Between 0 and 1000.
+    # @param limit [Integer] The maximum number of results to return between 1 and 10.
     # @param filters [String] JSON array of filter objects to apply to the search.
-    # @param sort [String] The field by which to sort the results.
+    # @param sort [String] The field by which to sort the results, either computed_rating, price, or release_date
     # @param sort_order [String] The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending.
     # @param generate_filter_options [Boolean] Whether to generate filter options in the response.
     # @param api_key [String] Your API key for authentication.

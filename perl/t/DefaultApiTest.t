@@ -38,6 +38,16 @@ isa_ok($api, 'WWW::OpenAPIClient::DefaultApi');
 #my $detail_result = $api->detail(id => $detail_id, api_key => $detail_api_key);
 
 #
+# news test
+#
+# uncomment below and update the test
+#my $news_id = undef; # replace NULL with a proper value
+#my $news_offset = undef; # replace NULL with a proper value
+#my $news_limit = undef; # replace NULL with a proper value
+#my $news_api_key = undef; # replace NULL with a proper value
+#my $news_result = $api->news(id => $news_id, offset => $news_offset, limit => $news_limit, api_key => $news_api_key);
+
+#
 # search test
 #
 # uncomment below and update the test

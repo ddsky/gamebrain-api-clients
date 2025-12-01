@@ -17,7 +17,7 @@ import GameResponseOffersInnerPrice from './GameResponseOffersInnerPrice';
 /**
  * The GameResponseOffersInner model module.
  * @module model/GameResponseOffersInner
- * @version 1.0.1
+ * @version 1.0.2
  */
 class GameResponseOffersInner {
     /**

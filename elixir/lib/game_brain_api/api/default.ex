@@ -42,6 +42,42 @@ defmodule GameBrainAPI.Api.Default do
   end
 
   @doc """
+  Get Game News
+  Get news related to the given game.
+
+  ### Parameters
+
+  - `connection` (GameBrainAPI.Connection): Connection to server
+  - `id` (integer()): 
+  - `offset` (integer()): 
+  - `limit` (integer()): 
+  - `api_key` (String.t): 
+  - `opts` (keyword): Optional parameters
+
+  ### Returns
+
+  - `{:ok, GameBrainAPI.Model.GameNewsResponse.t}` on success
+  - `{:error, Tesla.Env.t}` on failure
+  """
+  @spec news(Tesla.Env.client, integer(), integer(), integer(), String.t, keyword()) :: {:ok, GameBrainAPI.Model.GameNewsResponse.t} | {:error, Tesla.Env.t}
+  def news(connection, id, offset, limit, api_key, _opts \\ []) do
+    request =
+      %{}
+      |> method(:get)
+      |> url("/games/#{id}/news")
+      |> add_param(:query, :offset, offset)
+      |> add_param(:query, :limit, limit)
+      |> add_param(:query, :"api-key", api_key)
+      |> Enum.into([])
+
+    connection
+    |> Connection.request(request)
+    |> evaluate_response([
+      {200, GameBrainAPI.Model.GameNewsResponse}
+    ])
+  end
+
+  @doc """
   Search Games
   Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
 
@@ -49,10 +85,10 @@ defmodule GameBrainAPI.Api.Default do
 
   - `connection` (GameBrainAPI.Connection): Connection to server
   - `query` (String.t): The search query, e.g., game name, platform, genre, or any combination.
-  - `offset` (integer()): The number of results to skip before starting to collect the result set.
-  - `limit` (integer()): The maximum number of results to return.
+  - `offset` (integer()): The number of results to skip before starting to collect the result set. Between 0 and 1000.
+  - `limit` (integer()): The maximum number of results to return between 1 and 10.
   - `filters` (String.t): JSON array of filter objects to apply to the search.
-  - `sort` (String.t): The field by which to sort the results.
+  - `sort` (String.t): The field by which to sort the results, either computed_rating, price, or release_date
   - `sort_order` (String.t): The sort order: 'asc' for ascending or 'desc' for descending.
   - `generate_filter_options` (boolean()): Whether to generate filter options in the response.
   - `api_key` (String.t): Your API key for authentication.

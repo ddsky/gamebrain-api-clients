@@ -17,7 +17,7 @@ import SearchResponseResultsInnerRating from './SearchResponseResultsInnerRating
 /**
  * The SearchResponseResultsInner model module.
  * @module model/SearchResponseResultsInner
- * @version 1.0.1
+ * @version 1.0.2
  */
 class SearchResponseResultsInner {
     /**

@@ -19,6 +19,7 @@ import java.io.IOException
 import okhttp3.OkHttpClient
 import okhttp3.HttpUrl
 
+import co.gamebrain.client.model.GameNewsResponse
 import co.gamebrain.client.model.GameResponse
 import co.gamebrain.client.model.SearchResponse
 import co.gamebrain.client.model.SearchSuggestionResponse
@@ -126,13 +127,98 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
     }
 
     /**
+     * Get Game News
+     * Get news related to the given game.
+     * @param id 
+     * @param offset  (default to 0)
+     * @param limit  (default to 10)
+     * @param apiKey 
+     * @return GameNewsResponse
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun news(id: kotlin.Int, offset: kotlin.Int = 0, limit: kotlin.Int = 10, apiKey: kotlin.String) : GameNewsResponse {
+        val localVarResponse = newsWithHttpInfo(id = id, offset = offset, limit = limit, apiKey = apiKey)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GameNewsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * Get Game News
+     * Get news related to the given game.
+     * @param id 
+     * @param offset  (default to 0)
+     * @param limit  (default to 10)
+     * @param apiKey 
+     * @return ApiResponse<GameNewsResponse?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun newsWithHttpInfo(id: kotlin.Int, offset: kotlin.Int, limit: kotlin.Int, apiKey: kotlin.String) : ApiResponse<GameNewsResponse?> {
+        val localVariableConfig = newsRequestConfig(id = id, offset = offset, limit = limit, apiKey = apiKey)
+
+        return request<Unit, GameNewsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation news
+     *
+     * @param id 
+     * @param offset  (default to 0)
+     * @param limit  (default to 10)
+     * @param apiKey 
+     * @return RequestConfig
+     */
+    fun newsRequestConfig(id: kotlin.Int, offset: kotlin.Int, limit: kotlin.Int, apiKey: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                put("offset", listOf(offset.toString()))
+                put("limit", listOf(limit.toString()))
+                put("api-key", listOf(apiKey.toString()))
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/games/{id}/news".replace("{"+"id"+"}", encodeURIComponent(id.toString())),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
      * Search Games
      * Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
      * @param query The search query, e.g., game name, platform, genre, or any combination.
-     * @param offset The number of results to skip before starting to collect the result set. (default to 0)
-     * @param limit The maximum number of results to return. (default to 48)
+     * @param offset The number of results to skip before starting to collect the result set. Between 0 and 1000. (default to 0)
+     * @param limit The maximum number of results to return between 1 and 10. (default to 10)
      * @param filters JSON array of filter objects to apply to the search. (default to "[]")
-     * @param sort The field by which to sort the results.
+     * @param sort The field by which to sort the results, either computed_rating, price, or release_date
      * @param sortOrder The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. (default to "asc")
      * @param generateFilterOptions Whether to generate filter options in the response. (default to true)
      * @param apiKey Your API key for authentication.
@@ -145,7 +231,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun search(query: kotlin.String, offset: kotlin.Int = 0, limit: kotlin.Int = 48, filters: kotlin.String = "[]", sort: kotlin.String, sortOrder: kotlin.String = "asc", generateFilterOptions: kotlin.Boolean = true, apiKey: kotlin.String) : SearchResponse {
+    fun search(query: kotlin.String, offset: kotlin.Int = 0, limit: kotlin.Int = 10, filters: kotlin.String = "[]", sort: kotlin.String, sortOrder: kotlin.String = "asc", generateFilterOptions: kotlin.Boolean = true, apiKey: kotlin.String) : SearchResponse {
         val localVarResponse = searchWithHttpInfo(query = query, offset = offset, limit = limit, filters = filters, sort = sort, sortOrder = sortOrder, generateFilterOptions = generateFilterOptions, apiKey = apiKey)
 
         return when (localVarResponse.responseType) {
@@ -167,10 +253,10 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      * Search Games
      * Search hundreds of thousands of video games from over 70 platforms. The query can be a game name, a platform, a genre, or any combination
      * @param query The search query, e.g., game name, platform, genre, or any combination.
-     * @param offset The number of results to skip before starting to collect the result set. (default to 0)
-     * @param limit The maximum number of results to return. (default to 48)
+     * @param offset The number of results to skip before starting to collect the result set. Between 0 and 1000. (default to 0)
+     * @param limit The maximum number of results to return between 1 and 10. (default to 10)
      * @param filters JSON array of filter objects to apply to the search. (default to "[]")
-     * @param sort The field by which to sort the results.
+     * @param sort The field by which to sort the results, either computed_rating, price, or release_date
      * @param sortOrder The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. (default to "asc")
      * @param generateFilterOptions Whether to generate filter options in the response. (default to true)
      * @param apiKey Your API key for authentication.
@@ -192,10 +278,10 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      * To obtain the request config of the operation search
      *
      * @param query The search query, e.g., game name, platform, genre, or any combination.
-     * @param offset The number of results to skip before starting to collect the result set. (default to 0)
-     * @param limit The maximum number of results to return. (default to 48)
+     * @param offset The number of results to skip before starting to collect the result set. Between 0 and 1000. (default to 0)
+     * @param limit The maximum number of results to return between 1 and 10. (default to 10)
      * @param filters JSON array of filter objects to apply to the search. (default to "[]")
-     * @param sort The field by which to sort the results.
+     * @param sort The field by which to sort the results, either computed_rating, price, or release_date
      * @param sortOrder The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. (default to "asc")
      * @param generateFilterOptions Whether to generate filter options in the response. (default to true)
      * @param apiKey Your API key for authentication.

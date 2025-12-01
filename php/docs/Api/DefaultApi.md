@@ -5,6 +5,7 @@ All URIs are relative to https://api.gamebrain.co/v1, except if the operation de
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**detail()**](DefaultApi.md#detail) | **GET** /games/{id} | Get Game Details |
+| [**news()**](DefaultApi.md#news) | **GET** /games/{id}/news | Get Game News |
 | [**search()**](DefaultApi.md#search) | **GET** /games | Search Games |
 | [**similar()**](DefaultApi.md#similar) | **GET** /games/{id}/similar | Get Similar Games |
 | [**suggest()**](DefaultApi.md#suggest) | **GET** /games/suggestions | Get Game Suggestions |
@@ -79,6 +80,79 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `news()`
+
+```php
+news($id, $offset, $limit, $api_key): \OpenAPI\Client\Model\GameNewsResponse
+```
+
+Get Game News
+
+Get news related to the given game.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: apiKey
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: headerApiKey
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKey('x-api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('x-api-key', 'Bearer');
+
+
+$apiInstance = new OpenAPI\Client\Api\DefaultApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$id = 56; // int
+$offset = 0; // int
+$limit = 10; // int
+$api_key = abc123; // string
+
+try {
+    $result = $apiInstance->news($id, $offset, $limit, $api_key);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->news: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **id** | **int**|  | |
+| **offset** | **int**|  | [default to 0] |
+| **limit** | **int**|  | [default to 10] |
+| **api_key** | **string**|  | |
+
+### Return type
+
+[**\OpenAPI\Client\Model\GameNewsResponse**](../Model/GameNewsResponse.md)
+
+### Authorization
+
+[apiKey](../../README.md#apiKey), [headerApiKey](../../README.md#headerApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `search()`
 
 ```php
@@ -114,10 +188,10 @@ $apiInstance = new OpenAPI\Client\Api\DefaultApi(
     $config
 );
 $query = rpg for PC; // string | The search query, e.g., game name, platform, genre, or any combination.
-$offset = 0; // int | The number of results to skip before starting to collect the result set.
-$limit = 48; // int | The maximum number of results to return.
-$filters = '[]'; // string | JSON array of filter objects to apply to the search.
-$sort = computed_rating; // string | The field by which to sort the results.
+$offset = 0; // int | The number of results to skip before starting to collect the result set. Between 0 and 1000.
+$limit = 10; // int | The maximum number of results to return between 1 and 10.
+$filters = [{"key":"platform","values":[{"value":"pc"}],"connection":"OR"},{"key":"genre","values":[{"value":"action"}]}]; // string | JSON array of filter objects to apply to the search.
+$sort = computed_rating; // string | The field by which to sort the results, either computed_rating, price, or release_date
 $sort_order = asc; // string | The sort order: 'asc' for ascending or 'desc' for descending.
 $generate_filter_options = true; // bool | Whether to generate filter options in the response.
 $api_key = abc123; // string | Your API key for authentication.
@@ -135,10 +209,10 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **query** | **string**| The search query, e.g., game name, platform, genre, or any combination. | |
-| **offset** | **int**| The number of results to skip before starting to collect the result set. | [default to 0] |
-| **limit** | **int**| The maximum number of results to return. | [default to 48] |
+| **offset** | **int**| The number of results to skip before starting to collect the result set. Between 0 and 1000. | [default to 0] |
+| **limit** | **int**| The maximum number of results to return between 1 and 10. | [default to 10] |
 | **filters** | **string**| JSON array of filter objects to apply to the search. | [default to &#39;[]&#39;] |
-| **sort** | **string**| The field by which to sort the results. | |
+| **sort** | **string**| The field by which to sort the results, either computed_rating, price, or release_date | |
 | **sort_order** | **string**| The sort order: &#39;asc&#39; for ascending or &#39;desc&#39; for descending. | [default to &#39;asc&#39;] |
 | **generate_filter_options** | **bool**| Whether to generate filter options in the response. | [default to true] |
 | **api_key** | **string**| Your API key for authentication. | |

@@ -11,6 +11,8 @@ include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
 add_library(${PROJECT_NAME}
+  OAIGameNewsItem.h
+  OAIGameNewsResponse.h
   OAIGameResponse.h
   OAIGameResponse_offers_inner.h
   OAIGameResponse_offers_inner_price.h
@@ -39,6 +41,8 @@ add_library(${PROJECT_NAME}
   OAIServerConfiguration.h
   OAIServerVariable.h
   OAIOauth.h
+  OAIGameNewsItem.cpp
+  OAIGameNewsResponse.cpp
   OAIGameResponse.cpp
   OAIGameResponse_offers_inner.cpp
   OAIGameResponse_offers_inner_price.cpp

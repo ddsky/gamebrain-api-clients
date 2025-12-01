@@ -1,3 +1,5 @@
+export * from '../models/GameNewsItem';
+export * from '../models/GameNewsResponse';
 export * from '../models/GameResponse';
 export * from '../models/GameResponseOffersInner';
 export * from '../models/GameResponseOffersInnerPrice';
@@ -18,6 +20,8 @@ export * from '../models/SearchSuggestionResponse';
 export * from '../models/SearchSuggestionResponseResultsInner';
 export * from '../models/SimilarGamesResponse';
 
+import { GameNewsItem } from '../models/GameNewsItem';
+import { GameNewsResponse } from '../models/GameNewsResponse';
 import { GameResponse } from '../models/GameResponse';
 import { GameResponseOffersInner } from '../models/GameResponseOffersInner';
 import { GameResponseOffersInnerPrice } from '../models/GameResponseOffersInnerPrice';
@@ -54,6 +58,8 @@ let enumsMap: Set<string> = new Set<string>([
 ]);
 
 let typeMap: {[index: string]: any} = {
+    "GameNewsItem": GameNewsItem,
+    "GameNewsResponse": GameNewsResponse,
     "GameResponse": GameResponse,
     "GameResponseOffersInner": GameResponseOffersInner,
     "GameResponseOffersInnerPrice": GameResponseOffersInnerPrice,

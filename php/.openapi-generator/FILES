@@ -5,6 +5,8 @@
 README.md
 composer.json
 docs/Api/DefaultApi.md
+docs/Model/GameNewsItem.md
+docs/Model/GameNewsResponse.md
 docs/Model/GameResponse.md
 docs/Model/GameResponseOffersInner.md
 docs/Model/GameResponseOffersInnerPrice.md
@@ -29,6 +31,8 @@ lib/ApiException.php
 lib/Api/DefaultApi.php
 lib/Configuration.php
 lib/HeaderSelector.php
+lib/Model/GameNewsItem.php
+lib/Model/GameNewsResponse.php
 lib/Model/GameResponse.php
 lib/Model/GameResponseOffersInner.php
 lib/Model/GameResponseOffersInnerPrice.php
@@ -52,6 +56,8 @@ lib/Model/SimilarGamesResponse.php
 lib/ObjectSerializer.php
 phpunit.xml.dist
 test/Api/DefaultApiTest.php
+test/Model/GameNewsItemTest.php
+test/Model/GameNewsResponseTest.php
 test/Model/GameResponseOffersInnerPriceTest.php
 test/Model/GameResponseOffersInnerTest.php
 test/Model/GameResponseOfficialStoresInnerTest.php

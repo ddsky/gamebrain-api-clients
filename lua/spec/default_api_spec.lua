@@ -22,6 +22,13 @@ describe("default_api", function()
     end)
   end)
 
+  -- unit tests for news
+  describe("news test", function()
+    it("should work", function()
+      -- TODO assertion here: http://olivinelabs.com/busted/#asserts
+    end)
+  end)
+
   -- unit tests for search
   describe("search test", function()
     it("should work", function()

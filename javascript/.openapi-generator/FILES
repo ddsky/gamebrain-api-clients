@@ -4,6 +4,8 @@
 .travis.yml
 README.md
 docs/DefaultApi.md
+docs/GameNewsItem.md
+docs/GameNewsResponse.md
 docs/GameResponse.md
 docs/GameResponseOffersInner.md
 docs/GameResponseOffersInnerPrice.md
@@ -29,6 +31,8 @@ package.json
 src/ApiClient.js
 src/api/DefaultApi.js
 src/index.js
+src/model/GameNewsItem.js
+src/model/GameNewsResponse.js
 src/model/GameResponse.js
 src/model/GameResponseOffersInner.js
 src/model/GameResponseOffersInnerPrice.js
@@ -49,6 +53,8 @@ src/model/SearchSuggestionResponse.js
 src/model/SearchSuggestionResponseResultsInner.js
 src/model/SimilarGamesResponse.js
 test/api/DefaultApi.spec.js
+test/model/GameNewsItem.spec.js
+test/model/GameNewsResponse.spec.js
 test/model/GameResponse.spec.js
 test/model/GameResponseOffersInner.spec.js
 test/model/GameResponseOffersInnerPrice.spec.js
