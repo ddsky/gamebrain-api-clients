@@ -19,13 +19,13 @@ jobs:
 
       - name: Transform OpenAPI to Postman collection
         id: transform
-        uses: stcalica/postman-publish-action/actions/transform-openapi-from-file@v1.0.0
+        uses: stcalica/postman-publish-action/actions/transform-openapi-from-file@v1
         with:
           postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
           openapi_schema_path: './gamebrain-openapi.yaml'
 
       - name: Update Postman collection
-        uses: stcalica/postman-publish-action/actions/update-collection@v1.0.0
+        uses: stcalica/postman-publish-action/actions/update-collection@v1
         with:
           postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
           collection_id: ${{ env.POSTMAN_COLLECTION_ID }}
